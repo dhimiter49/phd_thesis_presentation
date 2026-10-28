@@ -1,0 +1,83 @@
+\begin{tikzpicture}[every node/.append style={align=center, ultra thick, inner sep=0.3cm, outer sep=0},
+    l/.style = {draw, black, line width=2, -{stealth[scale=2]}},
+    d/.style = {draw, black, line width=0.5, -{stealth[scale=0.6]}},
+    g/.style = {draw, black, line width=2},
+    k/.style = {draw, black, line width=0.5},
+    n/.style = {draw, black, line width=0.5, -{stealth[scale=2]}, to path={-| (\tikztotarget)}},
+    m/.style = {draw, black, line width=0.5, to path={|- (\tikztotarget)}},
+    r/.style = {draw, black, line width=2, -{stealth[scale=2]}, to path={-| (\tikztotarget)}},
+    rr/.style = {draw, black, line width=2, -{stealth[scale=2]}, to path={|- (\tikztotarget)}},
+    p/.style = {draw, dashed, black, line width=2, -{stealth[scale=2]}, to path={-| (\tikztotarget)}}]
+    \node[rectangle, rounded corners=4pt, draw=orange, minimum width=2cm, fill=black!7, minimum height=1.4cm, minimum width=2cm,  minimum height=1.3cm] (prodmp) at (0, 0) {ProDMP \\ $\rho(w_t, p_t)$};
+
+    % policy
+    \node[left = 4.65 of prodmp.center, rectangle, rounded corners=4pt, draw=myblue, minimum width=2cm, fill=black!7,  minimum height=2.8cm] (policy) {Policy \\ $\pi_{\pmb\theta}(w_t\vert s_t)$\\ \\ \\};
+
+    % policy net
+    \node[inner sep=0, below = 0.45 of policy.center, circle, minimum size =0.3cm, thin, fill=lightblue, draw] (c2_2) {};
+    \node[inner sep=0, above left = 0.1 and 0.5 of c2_2, circle, minimum size =0.3cm, thin, fill=lightblue, draw] (c1_1){};
+    \node[inner sep=0, below left = 0.1 and 0.5 of c2_2, circle, minimum size =0.3cm, thin, fill=lightblue, draw] (c1_2){};
+    \node[inner sep=0, above = 0.2 of c2_2.north, circle, minimum size =0.3cm, thin, fill=lightblue, draw] (c2_1) {};
+    \node[inner sep=0, below= 0.2 of c2_2.south, circle, minimum size =0.3cm, thin, fill=lightblue, draw] (c2_3) {};
+    \node[inner sep=0, above right = 0.1 and 0.5 of c2_2, circle, minimum size =0.3cm, thin, fill=lightblue, draw] (c3_1) {};
+    \node[inner sep=0, below right = 0.1 and 0.5 of c2_2, circle, minimum size =0.3cm, thin, fill=lightblue, draw] (c3_2) {};
+
+    \node[below = 2 of prodmp.south, rectangle, rounded corners=3pt, draw=orange, minimum width=2.6cm, fill=black!7, minimum height=2cm] (control) {MPC Controller \\ $\min \vert\vert P_t - P^{ref}_t\vert\vert$, \\ $p_{t+1} = f(p_{t}, \dot{p}_{t})$, \\ s.t. $P<C_p, \dot{P}<C_{\dot{p}}$};
+    \node[left = 3.8 of control.center, rectangle, rounded corners=3pt, draw=mygreen, minimum width=4cm, fill=black!7, minimum height=2cm] (env) {Environment \\ \includegraphics[width=1.7\textwidth]{imgs/env_prodmp.png}};
+
+    % controler schema
+    % \node[below left = 0.12 and 0.15 of control.center, rectangle, fill=orange, thin, minimum width=0.4cm, minimum height=0.2cm] (comp) {};
+    % \node[right = 0.4 of comp.center, rectangle, fill=orange, thin, minimum width=0.4cm, minimum height=0.2cm] (comp_) {};
+    % \node[left = 0.4 of comp.center, circle, draw, thin, minimum width=0.1cm,  minimum height=0.1cm] (circ) {};
+
+    % mpc safety
+    % \node[above right = 2 and 1 of control.north, rectangle, rounded corners=4pt, draw=lightgreen, minimum width=2cm, fill=black!7, minimum height=1.4cm, minimum width=2cm,  minimum height=1.3cm] (mpc) {mpc \\ $f(\lambda_t)$};
+
+    % auxiliary coords
+    % \coordinate[left = 0.3 of circ.center] (in) {};
+    % \coordinate[right = 0.8 of comp_.center] (out) {};
+    % \coordinate[right = 0.5 of comp_.center] (rev) {};
+    % \coordinate[below = 0.3 of rev.center] (rev_) {};
+    % \coordinate[below = 0.3 of circ.center] (rev__) {};
+    \coordinate[above = 0.3 of env.east] (q_in) {};
+    \coordinate[below = 0.3 of env.east] (a_out) {};
+    \coordinate[above = 0.3 of control.west] (q_out) {};
+    \coordinate[below = 0.3 of control.west] (a_in) {};
+    \node[below left = 0.0 and 0.4 of prodmp.south] () {$P^{ref}=\lambda_t^{ref}=$};
+    \node[below left = 0.5 and 0.0 of prodmp.south] () {\Fontvii$(p_{t+1},...,p_{t+k}$};
+    \node[below left = 1 and -0.1 of prodmp.south] () {\Fontvii$\dot{p}_{t+1},..., \dot{p}_{t+k})$};
+    % \coordinate[above = 2 of mpc.north] (context_mid) {};
+    \coordinate[left= 1 of env.west] (loop_back_mid) {};
+    % \draw[help lines] (-1, 1) grid (6, -4);
+    % \draw[->, -{stealth[scale=2]}, black, line width=2, ] (mpc) -- (context_mid) -| (policy) node[above, yshift=4pt, pos=0.25] {$c_t$} node[pos=0.75] {};
+    \draw[->, -{stealth[scale=2]}, black, line width=2, ] (env) -- (loop_back_mid) |- (policy) node[right, pos=0.25] {$s_t$} node[pos=0.75] {};
+    \draw
+        % policy net
+        (c1_1) edge[k] (c2_1)
+        (c1_1) edge[k] (c2_2)
+        (c1_1) edge[k] (c2_3)
+        (c1_2) edge[k] (c2_1)
+        (c1_2) edge[k] (c2_2)
+        (c1_2) edge[k] (c2_3)
+        (c2_2) edge[k] (c3_1)
+        (c2_2) edge[k] (c3_2)
+        (c2_1) edge[k] (c3_1)
+        (c2_1) edge[k] (c3_2)
+        (c2_3) edge[k] (c3_1)
+        (c2_3) edge[k] (c3_2)
+
+        % controler
+        % (in) edge[d] (circ)
+        % (circ) edge[d] (comp)
+        % (comp) edge[d] (comp_)
+        % (comp_) edge[d] (out)
+        % (rev) edge[m] (rev__)
+        % (rev_) edge[n] (circ)
+
+        (policy) edge[l] node[above, yshift=-2pt]{$w_t$} (prodmp)
+        % (prodmp.east) edge[l] node[above, yshift=2.2pt]{$\lambda_t=$} node[below, yshift=-2.2pt]{\Fontvii$(p_{t+1},...,p_{t+k})$} (mpc)
+        (prodmp.south) edge[l] (control.north)
+        (a_out) edge[l] node[above, yshift=-5pt]{$p_{t+i+1}$} (a_in)
+        (q_out) edge[l] node[above, yshift=-5pt]{$a_{t+i}$} (q_in)
+        ;
+\end{tikzpicture}

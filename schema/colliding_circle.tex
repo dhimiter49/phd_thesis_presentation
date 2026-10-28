@@ -1,0 +1,21 @@
+﻿\begin{tikzpicture}
+    % Define the centers and radii of the circles
+    \coordinate (center1) at (0, 0);
+    \coordinate (center2) at (3.5, -4.36);
+    \filldraw[blue, thick] (center1) circle(2pt);
+    \filldraw[red, thick] (center2) circle(2pt);
+
+    % Draw the first circle
+    \draw[name path=circle1, blue!20, thick] ([yshift=-1cm]center1) circle (3cm);
+    \draw[name path=circle1, blue!20, thick] ([yshift=-2cm]center1) circle (3cm);
+    \draw[name path=circle1, blue!20, thick] ([yshift=-3cm]center1) circle (3cm);
+    \draw[blue, ->, thick] (center1) -- ([yshift=-1cm]center1) node[midway, right] () {$\dot{\vec{p}}$} ;
+
+    % Draw the second circle
+    \draw[name path=circle2, red!20, thick] ([yshift=2cm]center2) circle (2.6cm);
+    \draw[name path=circle2, red!20, thick] ([yshift=4cm]center2) circle (2.6cm);
+    \draw[name path=circle2, red!20, thick] ([yshift=6cm]center2) circle (2.6cm);
+    \draw[red, ->, thick] (center2) -- ([yshift=2cm]center2) node[midway, right] () {$\dot{\vec{p}}_{c_i}$} ;
+    \draw[name path=circle2, red, thick] (center2) circle (2.6cm);
+    \draw[name path=circle1, blue, thick] (center1) circle (3cm);
+\end{tikzpicture}

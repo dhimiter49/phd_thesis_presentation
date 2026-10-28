@@ -34,14 +34,14 @@
 
 \DeclareOption{de}{
   \kitslogan{INRIA - Grenoble}
-  \groupname{Optimization in Robotics}
+  \groupname{Learning and Control}
   % \kitlogo{kitlogo_de_rgb}
   \germantrue
   \PassOptionsToPackage{autostyle}{csquotes}
   }
 \DeclareOption{en}{
     \kitslogan{INRIA - Grenoble}
-  \groupname{Optimization in Robotics}
+  \groupname{Learning and Control}
   % \kitlogo{kitlogo_en_rgb}
   \germanfalse
   }

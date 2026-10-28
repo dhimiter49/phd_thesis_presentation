@@ -1,0 +1,18 @@
+\begin{tikzpicture}[every node/.append style={align=center, ultra thick},
+    L/.style = {draw, black, line width=1, -{stealth[scale=2]}},
+    G/.style = {draw, black, line width=1}]
+    \node[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (agent) at (0, 0) {Agent};
+    \node[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (env) at (0, -2) {Environment};
+    \node[] (a) at (2.4, -1) {action \\$a_t$};
+    \node[] (s) at (-2, 0.4) {state $s_t$};
+    \node[] (r) at (-2, -1) {reward \\$r_t$};
+    \node[] (r_) at (-1.45, -1.65) {$r_{t+1}$};
+    \node[] (s_) at (-1.45, -2.05) {$s_{t+1}$};
+    \draw[->, -{stealth[scale=2]}, black, line width=1] (agent) -| (3, -2) -- (env);
+    \draw[->, -{stealth[scale=2]}, black, line width=1] (-2.05, -2.2) -| (-3.0, 0.2) -- (-0.65, 0.2);
+    \draw[->, -{stealth[scale=2]}, black, line width=1] (-2.05, -1.8) -| (-2.6, -0.2) -- (-0.65, -0.2);
+    \draw
+        (-1.1, -2.2) edge[L] (-2, -2.2)
+        (-1.1, -1.8) edge[L] (-2, -1.8)
+        (-2, -2.4) edge[G, dotted] (-2, -1.6);
+\end{tikzpicture}

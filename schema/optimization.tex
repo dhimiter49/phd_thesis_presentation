@@ -1,0 +1,20 @@
+\begin{tikzpicture}
+    % Level curves of the 2D function (nested ellipsoids)
+    \draw[thick, blue!60] [rotate around={28:(0,0)}] (0,0) ellipse (4.3 and 2.7);
+    \draw[thick, blue!55] [rotate around={33:(0.1,-0.05)}] (0.1,-0.05) ellipse (3.4 and 2.2);
+    % \draw[thick, blue!50] [rotate around={25:(-0.08,0.06)}] (-0.08,0.06) ellipse (2.7 and 1.75);
+    \draw[thick, blue!45] [rotate around={28:(-0.02,0.08)}] (-0.02,0.08) ellipse (2.35 and 1.55);
+    \draw[thick, blue!40] [rotate around={26:(-0.04,-0.06)}] (-0.04,-0.06) ellipse (1.45 and 0.95);
+    \draw[thick, blue!35] [rotate around={34:(0.06,-0.04)}] (0.06,-0.04) ellipse (0.9 and 0.6);
+    \draw[thick, blue!30] [rotate around={28:(0,0)}] (0,0) ellipse (0.45 and 0.3);
+
+    % Zigzag optimization path converging to the optimum
+    \draw[line width=2.2mm, myred]
+          (3.6,3) -- (1.8,2.9) -- (2.4,1.4) -- (0.2,1.6) -- (0.9,0.6) -- (-0.7,0.45) -- (-0.25,-0.15) -- (0.02,-0.02);
+
+    % Optimum point
+    \fill[myred] (0,0) circle (0.12);
+
+    % Starting point
+    \fill[myred] (3.6,3) circle (0.12);
+\end{tikzpicture}

@@ -124,24 +124,24 @@
             \draw<7->[-{Stealth}, ultra thick, myblue] (12,0) -- (12,-1.5);
 
             % Environment
-            \node<3->[fill=gray!24, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
+            \node<3->[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
             \draw<3->[ultra thick] (4.47, -4) -- (6.97, -1.5);
             \draw<3->[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
-            \fill<3->[gray!15] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
+            \fill<3->[black!5] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
             \node<3->[anchor=west] at ([yshift=-0.5cm]env.center) {\includegraphics[height=1cm]{imgs/mirokai.png}};
             \node<3->[anchor=center] at ([xshift=-1.1cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
             \node<3->[anchor=east] at ([xshift=2cm]env.center) {\reflectbox{\includegraphics[height=1.2cm]{imgs/walking.png}}};
             \node<3->[anchor=east] at ([xshift=0.45cm, yshift=0.8cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
 
             % RL
-            \node<5->[draw, ultra thick, orange, fill=gray!15, minimum width=4cm, minimum height=3cm] (rl) at (2.0, -3) {};
+            \node<5->[draw, ultra thick, orange, fill=black!5, minimum width=4cm, minimum height=3cm] (rl) at (2.0, -3) {};
             \node<5->[xshift=-1.2cm] at (rl.center) {\resizebox{1.2cm}{!}{\input{schema/robot_head.tex}}};
             \node<5->[xshift=1.2cm, yshift=-0.05cm] at (rl.center) {\includegraphics[height=1.5cm]{imgs/world_.png}};
             \draw<5->[->, ultra thick] (1.4, -2.5) to[bend left=40] (2.6, -2.5);
             \draw<5->[->, ultra thick] (2.6, -3.7) to[bend left=40] (1.4, -3.7);
 
             % MPC
-            \node<7->[draw, ultra thick, myblue, fill=gray!15, minimum width=4cm, minimum height=3cm] (mpc) at (12.0, -3) {};
+            \node<7->[draw, ultra thick, myblue, fill=black!5, minimum width=4cm, minimum height=3cm] (mpc) at (12.0, -3) {};
             \node<7->[xshift=-1.2cm] at (mpc.center) {\resizebox{1.4cm}{!}{\input{schema/optimization.tex}}};
             \node<7->[xshift=1.2cm] at (mpc.center) {\includegraphics[height=1.2cm]{imgs/world_bw.png}};
             \node<7->[xshift=1.2cm, yshift=0.9cm] at (mpc.center){

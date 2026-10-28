@@ -1,0 +1,38 @@
+\begin{tikzpicture}
+  % Antenna stalk
+  \draw[very thick] (0,2) -- (0,2.7);
+  % Antenna ball
+  \fill[red!50] (0,3) circle (0.28);
+  \draw[thick] (0,3) circle (0.28);
+
+  % Ears
+  \draw[thick, rounded corners=2pt, fill=black!8]
+        (-2.35,-0.55) rectangle (-1.95,0.55);
+  \draw[thick, rounded corners=2pt, fill=black!8]
+        (1.95,-0.55) rectangle (2.35,0.55);
+
+  % Head
+  \draw[very thick, rounded corners=12pt, fill=blue!15]
+        (-2,-2) rectangle (2,2);
+
+  % Eyes (whites)
+  \fill[white] (-0.9,0.5) circle (0.45);
+  \draw[thick] (-0.9,0.5) circle (0.45);
+  \fill[white] (0.9,0.5) circle (0.45);
+  \draw[thick] (0.9,0.5) circle (0.45);
+
+  % Pupils
+  \fill (-0.88,0.5) circle (0.17);
+  \fill (0.88,0.5) circle (0.17);
+
+  % Cheeks
+  % \fill[red!35, opacity=0.7] (-1.45,-0.45) circle (0.22);
+  % \fill[red!35, opacity=0.7] (1.45,-0.45) circle (0.22);
+
+  % Mouth with teeth
+  \draw[very thick, rounded corners=3pt, fill=white]
+        (-0.85,-1.35) rectangle (0.85,-0.65);
+  \draw[thick] (-0.3,-1.35) -- (-0.3,-0.65);
+  \draw[thick] (0.3,-1.35) -- (0.3,-0.65);
+  \draw[thick] (-0.85,-1.0) -- (0.85,-1.0);
+\end{tikzpicture}

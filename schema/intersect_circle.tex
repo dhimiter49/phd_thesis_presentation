@@ -1,0 +1,32 @@
+﻿\begin{tikzpicture}
+    % Define the centers and radii of the circles
+    \coordinate (center1) at (0, 0);
+    \coordinate (center2) at (3.5, 0);
+    \filldraw[blue] (center1) circle(2pt);
+    \filldraw[red] (center2) circle(2pt);
+
+    % Draw the first circle
+    \draw[name path=circle1, blue, thick] (center1) circle (3cm);
+
+    % Draw the second circle
+    \draw[name path=circle2, red, thick] (center2) circle (2.6cm);
+
+
+    \path[name intersections={of=circle1 and circle2, name=intersection}];
+
+    \fill[blue!30] plot[smooth] coordinates {
+        (intersection-2)
+        (intersection-1)
+    } arc[radius=3cm, start angle=46.2,end angle=-46.2];
+    \fill[red!30] plot[smooth] coordinates {
+        (intersection-2)
+        (intersection-1)
+    } arc[radius=2.6cm, start angle=-236.5,end angle=-123.5] coordinate (3.5, 0);
+    % \draw[blue] (center1) -- (intersection-1) node[midway, above, sloped, blue] () {$r_0$};
+    % \draw[red] (center2) -- (intersection-1) node[midway, above, sloped, red] () {$r_1$};
+
+    \draw (center1) -- (center2) node[midway, below, xshift=-1cm] () {d};
+    \draw (intersection-1) -- (intersection-2);
+    \filldraw (intersection-1) circle(2pt);
+    \filldraw (intersection-2) circle(2pt);
+\end{tikzpicture}
