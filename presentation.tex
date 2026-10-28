@@ -246,14 +246,14 @@
     \end{textblock*}
     \begin{textblock*}{4.8cm}(11.2cm,1.8cm)
         \begin{tikzpicture}
-            \node[fill=gray!24, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
+            \node[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
             \draw[ultra thick] (4.47, -4) -- (6.97, -1.5);
             \draw[ultra thick, mygreen] (8.2, -1.8) -- (8.4, -2); % goal
             \draw[ultra thick, mygreen] (8.1, -2.05) -- (8.5, -1.75); % goal
             \draw<2->[->, ultra thick, mygreen] ([xshift=6mm, yshift=-7mm]env.center) to[bend right=30] (8.3, -2);
 
             \draw[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
-            \fill[gray!15] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
+            \fill[black!5] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
             \node[anchor=west] at ([yshift=-0.5cm]env.center) {\includegraphics[height=1cm]{imgs/mirokai.png}};
             \node[anchor=center] at ([xshift=-1.1cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
             \node[anchor=east] at ([xshift=2cm]env.center) {\reflectbox{\includegraphics[height=1.2cm]{imgs/walking.png}}};
