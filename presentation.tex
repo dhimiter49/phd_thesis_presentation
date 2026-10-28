@@ -59,7 +59,7 @@
 
 % the presentation starts here
 
-\title[Safe RL for Robot Navigation Among Humans with MPC]{Safe Reinforcement Learning for Robot Navigation \\ with Model Predictive Control}
+\title[Safe RL for Robot Navigation with MPC]{Safe Reinforcement Learning for Robot Navigation \\ with Model Predictive Control}
 \subtitle{PhD Defense, Jury: Alian Dutech, Nicolas Mansard, Laetitia Matignon, Olivier Aycard, Pierre-Brice Wieber, Thierry Fraichard}
 \author{ Dhimiter Pikuli}
 
@@ -71,6 +71,7 @@
 \usepackage{multirow}
 \usepackage{multicol}
 \usepackage{verbatim}
+\usepackage{Styles/mymath}
 
 % \addbibresource{presentation.bib}
 % \bibhang1em
@@ -145,15 +146,15 @@
             \node<7->[xshift=1.2cm] at (mpc.center) {\includegraphics[height=1.2cm]{imgs/world_bw.png}};
             \node<7->[xshift=1.2cm, yshift=0.9cm] at (mpc.center){
                 \begin{tikzpicture}[scale=0.1]
-                    \draw[->, gray!80] (-2.8,0) -- (2.8,0);
-                    \draw[->, gray!80] (0,-0.3) -- (0,5);
+                    \draw[->, black!30] (-2.8,0) -- (2.8,0);
+                    \draw[->, black!30] (0,-0.3) -- (0,5);
                     \draw[very thick, myred, domain=-3:3, smooth] plot (\x, {0.6*\x*\x});
                 \end{tikzpicture}
             };
             \node<7->[xshift=1.2cm, yshift=-1cm] at (mpc.center){
                 \begin{tikzpicture}[scale=0.1]
-                    \draw[->, gray!80] (-2.8,0) -- (2.8,0);
-                    \draw[->, gray!80] (0,-0.3) -- (0,5);
+                    \draw[->, black!30] (-2.8,0) -- (2.8,0);
+                    \draw[->, black!30] (0,-0.3) -- (0,5);
                     \draw[very thick, black, domain=-3:3, smooth] plot (\x, {0.6*\x*\x});
                     \draw[very thick, myred] (-3,1) -- (3,2.2);
                 \end{tikzpicture}
@@ -208,24 +209,64 @@
 \end{frame}
 
 \subsection{Subsection 1.3}
-\begin{frame}{Navigation}
+\begin{frame}{Robot Crowd Navigation}
     \begin{itemize}
-        \item Navigation as application\\
-            - robots regularly freeze\\
-            - clutter the shared environment\\
-            - human has to unlock the situation\\
-            - non-verbal cooperation
+        \item Goal\\
+            \pause
+            - reach the assigned goal\\
+            \pause
+            - avoid the crowd \\
+            \pause
+            - non-verbal cooperation\\
+            \pause
+            - our scope is local navigation
+            % without communicating, perception, self-localizing, planning, map building
         \pause
-    \item Markov Decision Process (MDP)\\
-        - state space\\
-        - action space\\
-        - reward function\\
-        - dynamics\\
+    \vspace{4mm}
+    \item Formalization \\
+        $\rightarrow$ Markov Decision Process (MDP)\\
+        \pause
+        - $(\mathcal{S,A,P,R})$\\
+        \pause
+        - $\mathcal{S}=\{\V{s}_1, \V{s}_2, \V{s}_3\}$\\
+        \pause
+        - $\mathcal{A}=\{\textcolor{myblue}{\V{a}_1}, \textcolor{myred}{\V{a}_2}\}$\\
+        \pause
+        - $\mathcal{R}:\mathcal{S}\times\mathcal{S}\times\mathcal{A}\rightarrow\mathbb{R}$\\
+            $\;\;\equiv\{(\V{s}_1,\V{s}_2,\V{a}_2)\rightarrow 1, (\V{s}_3,\V{s}_3,\V{a}_1)\rightarrow 5 \dots\}$\\
+        \pause
+        - $\mathcal{P}:\mathcal{S}\times\mathcal{S}\times\mathcal{A}\rightarrow \left[0, 1\right] $
     \end{itemize}
-    \begin{textblock*}{4.8cm}(11cm,2cm)
-        \visible<1->{\includegraphics[width=4.8cm]{imgs/miroki.jpg}
-        \vspace{-0.7cm}
-        \center \Fontviii Mirokai robots from Enchanted Tools
+    \begin{textblock*}{4.8cm}(6.2cm,1.8cm)
+        \visible<1->{
+            \includegraphics[width=4.8cm]{imgs/miroki.jpg}
+            \vspace{-0.7cm}
+            \center \Fontviii Mirokai robots from Enchanted Tools
+        }
+    \end{textblock*}
+    \begin{textblock*}{4.8cm}(11.2cm,1.8cm)
+        \begin{tikzpicture}
+            \node[fill=gray!24, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
+            \draw[ultra thick] (4.47, -4) -- (6.97, -1.5);
+            \draw[ultra thick, mygreen] (8.2, -1.8) -- (8.4, -2); % goal
+            \draw[ultra thick, mygreen] (8.1, -2.05) -- (8.5, -1.75); % goal
+            \draw<2->[->, ultra thick, mygreen] ([xshift=6mm, yshift=-7mm]env.center) to[bend right=30] (8.3, -2);
+
+            \draw[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
+            \fill[gray!15] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
+            \node[anchor=west] at ([yshift=-0.5cm]env.center) {\includegraphics[height=1cm]{imgs/mirokai.png}};
+            \node[anchor=center] at ([xshift=-1.1cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
+            \node[anchor=east] at ([xshift=2cm]env.center) {\reflectbox{\includegraphics[height=1.2cm]{imgs/walking.png}}};
+            \node[anchor=east] at ([xshift=0.45cm, yshift=0.8cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
+
+            \draw<3->[ultra thick, myred] ([xshift=1mm, yshift=-7mm]env.center) -- ([xshift=-8mm, yshift=-4.5mm]env.center);
+            \draw<3->[ultra thick, myred] ([xshift=6mm, yshift=-7.5mm]env.center) -- ([xshift=14mm, yshift=-4mm]env.center);
+            \draw<3->[ultra thick, myred] ([xshift=1mm, yshift=-7mm]env.center) -- ([yshift=1mm]env.center);
+        \end{tikzpicture}
+    \end{textblock*}
+    \begin{textblock*}{7.7cm}(8.4cm,5cm)
+        \visible<6->{
+            \resizebox{7.7cm}{!}{\input{schema/mdp.tex}}
         }
     \end{textblock*}
 \end{frame}
