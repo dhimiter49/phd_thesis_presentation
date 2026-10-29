@@ -1,0 +1,35 @@
+\begin{tikzpicture}
+    \coordinate (robot) at (3.8, 2.1);
+	\coordinate (goal) at (4.8, 0.9);
+
+    \draw[draw=mygreen, thick] ([xshift=-0.2cm, yshift=-0.2cm]goal) -- ([xshift=0.2cm, yshift=0.2cm]goal);
+    \draw[draw=mygreen, thick] ([xshift=0.2cm, yshift=-0.2cm]goal) -- ([xshift=-0.2cm, yshift=0.2cm]goal);
+
+    % Draw the walls
+    \draw[fill=black!30, draw=none] (0,1.2) rectangle (4,1.7) node[midway] {right wall I};
+    \draw[fill=black!30, draw=none] (5,1.2) rectangle (8,1.7) node[midway] {right wall II};
+    \draw[fill=black!30, draw=none] (0,3) rectangle (8,3.5) node[midway] {left wall};
+
+	 \draw[fill=mygreen, thick, draw=none] (robot) circle (0.2);  % robot
+    \draw[->, -{Straight Barb[open,length=2mm, width=2mm]}, draw=mygreen, ultra thick] (robot) -- ([xshift=1cm]robot);  % crowd
+
+	\draw[thick] (0, 0.55) -- (8, 0.55); % separator
+
+	\draw[fill=black!10] (0.25, -3.75) rectangle (7.75, -0.25);
+	\draw[fill=mygreen!25] (0.25, -3.75) rectangle (7.75, -2.25);
+    \draw[->, >={latex[length=20mm, width=20mm, open]}, draw=black, ultra thick] (4, -3.75) -- (0, -3.75) node[midway, yshift=-0.2cm, xshift=-1.4cm, font=\tiny] {$-90 deg/s$};
+    \draw[->, >={latex[length=20mm, width=20mm, open]}, draw=black, ultra thick] (4, -3.75) -- (8, -3.75) node[midway, yshift=-0.2cm, xshift=1.5cm, font=\tiny] {$90 deg/s$};
+    \draw[->, >={latex[length=20mm, width=20mm, open]}, draw=black, ultra thick] (4, -3.75) -- (4, 0) node[midway, yshift=1.75cm, xshift=0.55cm, font=\tiny] {$90 cm/s$};
+
+	\draw[fill=black!30] (1.5, -0.25) to[out=-80, in=-180] (2, -0.6) to[out=15, in=-175] (3, -0.25) -- cycle;
+
+	\draw[fill=black!30] (4.2, -0.25) to[out=-92, in=-180] (4.3, -1) to[out=-10, in=-135] (6, -0.5) to[out=-15, in=135] (6.35, -0.65) to[out=-120, in=90] (6, -1.8) to[out=-25, in=-180] (7.75, -2) -- (7.75, -0.25) -- cycle;
+
+	\node[font=\tiny] at (2, -0.8) {left wall};
+	\node[font=\tiny] at (5, -0.6) {right wall II};
+	\node[font=\tiny] at (7, -1.5) {right wall I};
+	\node[font=\tiny] at (5.8, -1.) {door};
+	\node[] at (4.2, -3.) {low speed $\rightarrow$ no collision};
+	\node[] at (4, 3.8) {Environment};
+	\node[] at (4, 0.25) {Velocity space};
+\end{tikzpicture}

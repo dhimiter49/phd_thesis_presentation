@@ -1,0 +1,18 @@
+\begin{tikzpicture}[every node/.append style={align=center, ultra thick},
+    L/.style = {draw, black, line width=1, -{Stealth[scale=2,length=3,width=3]}},
+    R/.style = {draw, black, line width=2, -{stealth[scale=2]}, to path={|- (\tikztotarget)}},
+    G/.style = {draw, black, line width=1}]
+    \node[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (mpc) at (0, 0) {MPC Controller\\ \\ \\};
+    \node[rectangle, rounded corners=4pt, minimum width=2cm, draw=black] (model) at (0, 0.2) {\textcolor{orange}{Model}};
+    \node[rectangle, rounded corners=4pt, minimum width=2cm, draw=black] (opt) at (0, -0.5)  {\textcolor{lightblue}{Optimizer}};
+    \node[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (sys) at (0, -2.5) {System};
+    \coordinate[right = 4 of sys.west] (context_mid) {};
+    \coordinate[left = 4 of sys.east] (context_mid_) {};
+    \coordinate[above left = 0.5 and 4.4 of mpc.west] (obj_constr) {};
+    \coordinate[above = 0.5 of mpc.west] (obj_constr_to) {};
+    \draw[->, -{stealth[scale=2]}, black, line width=2] (mpc) -| (context_mid) node {} node[right, yshift=-42pt, xshift=10pt, pos=0.4] {control\\ inputs \\ $\V{a}_t$} -- (sys) ;
+    \draw[->, -{stealth[scale=2]}, black, line width=2] (sys) -- (context_mid_) |- (mpc) node[left, yshift=4pt, pos=0.16] {measurements \\ $\V{s}_t$} node[pos=0.75] {};
+    \draw[->, -{stealth[scale=2]}, black, line width=1] (opt.east) to [out=45,in=-45] (model.east);
+    \draw[->, -{stealth[scale=2]}, black, line width=1] (model.west) to [out=-135,in=135] (opt.west);
+    \draw[->, -{stealth[scale=2]}, black, line width=2] (obj_constr) -- node[above] {\textcolor{lejla}{Objective} \& \textcolor{mygreen}{constraints}} (obj_constr_to);
+\end{tikzpicture}

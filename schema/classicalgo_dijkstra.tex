@@ -1,0 +1,31 @@
+\begin{tikzpicture}
+    % Draw the walls
+    \coordinate (corner_sw) at (0, 0);
+    \coordinate (corner_se) at (5, 0);
+    \coordinate (corner_nw) at (0, 5);
+    \coordinate (corner_ne) at (5, 5);
+    \coordinate (goal) at (4.5, 4.7);
+    \coordinate (robot) at (0.4, 0.8);
+
+    \draw[thick] (corner_se) -- (corner_ne) -- (corner_nw) -- (corner_sw) -- cycle;  % walls
+
+    % robot goal
+    \draw[draw=mygreen, thick] ([xshift=-0.2cm, yshift=-0.2cm]goal) -- ([xshift=0.2cm, yshift=0.2cm]goal);
+    \draw[draw=mygreen, thick] ([xshift=0.2cm, yshift=-0.2cm]goal) -- ([xshift=-0.2cm, yshift=0.2cm]goal);
+
+    \draw[fill=mygreen, thick, draw=none] (robot) circle (0.2);  % robot
+
+	\foreach \x in {0.25, 0.75,...,4.75} {
+			\foreach \y in {0.25, 0.75,...,4.75} {
+			    \filldraw (\x, \y) circle (1pt);
+		}
+	}
+
+    % obstacles
+    \draw[thick, fill=black!30, draw=white] (1.47, 1.47)  rectangle (2.53, 3.53);
+    \draw[thick, fill=black!30, draw=white] (2.97, 1.97) rectangle (4.03, 4.03);
+
+	% path
+	\draw[ultra thick,mygreen] (robot) -- (0.75, 0.75) -- (0.75, 3.25) -- (1.25, 3.75) -- (2.25, 3.75) -- (2.75, 4.25) -- (4.25, 4.25) -- (4.25, 4.75) -- (goal);
+
+\end{tikzpicture}
