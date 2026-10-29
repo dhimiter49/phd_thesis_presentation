@@ -127,21 +127,21 @@
             \node<3->[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
             \draw<3->[ultra thick] (4.47, -4) -- (6.97, -1.5);
             \draw<3->[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
-            \fill<3->[black!5] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
+            \fill<3->[black!8] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
             \node<3->[anchor=west] at ([yshift=-0.5cm]env.center) {\includegraphics[height=1cm]{imgs/mirokai.png}};
             \node<3->[anchor=center] at ([xshift=-1.1cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
             \node<3->[anchor=east] at ([xshift=2cm]env.center) {\reflectbox{\includegraphics[height=1.2cm]{imgs/walking.png}}};
             \node<3->[anchor=east] at ([xshift=0.45cm, yshift=0.8cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
 
             % RL
-            \node<5->[draw, ultra thick, orange, fill=black!5, minimum width=4cm, minimum height=3cm] (rl) at (2.0, -3) {};
+            \node<5->[draw, ultra thick, orange, fill=black!8, minimum width=4cm, minimum height=3cm] (rl) at (2.0, -3) {};
             \node<5->[xshift=-1.2cm] at (rl.center) {\resizebox{1.2cm}{!}{\input{schema/robot_head.tex}}};
             \node<5->[xshift=1.2cm, yshift=-0.05cm] at (rl.center) {\includegraphics[height=1.5cm]{imgs/world_.png}};
             \draw<5->[->, ultra thick] (1.4, -2.5) to[bend left=40] (2.6, -2.5);
             \draw<5->[->, ultra thick] (2.6, -3.7) to[bend left=40] (1.4, -3.7);
 
             % MPC
-            \node<7->[draw, ultra thick, myblue, fill=black!5, minimum width=4cm, minimum height=3cm] (mpc) at (12.0, -3) {};
+            \node<7->[draw, ultra thick, myblue, fill=black!8, minimum width=4cm, minimum height=3cm] (mpc) at (12.0, -3) {};
             \node<7->[xshift=-1.2cm] at (mpc.center) {\resizebox{1.4cm}{!}{\input{schema/optimization.tex}}};
             \node<7->[xshift=1.2cm] at (mpc.center) {\includegraphics[height=1.2cm]{imgs/world_bw.png}};
             \node<7->[xshift=1.2cm, yshift=0.9cm] at (mpc.center){
@@ -211,7 +211,7 @@
 \subsection{Subsection 1.3}
 \begin{frame}{Robot Crowd Navigation}
     \begin{itemize}
-        \item Goal\\
+        \item Objective\\
             \pause
             - reach the assigned goal\\
             \pause
@@ -237,14 +237,14 @@
         \pause
         - $\mathcal{P}:\mathcal{S}\times\mathcal{S}\times\mathcal{A}\rightarrow \left[0, 1\right] $
     \end{itemize}
-    \begin{textblock*}{4.8cm}(6.2cm,1.8cm)
+    \begin{textblock*}{4.8cm}(6.2cm,1.6cm)
         \visible<1->{
             \includegraphics[width=4.8cm]{imgs/miroki.jpg}
             \vspace{-0.7cm}
             \center \Fontviii Mirokai robots from Enchanted Tools
         }
     \end{textblock*}
-    \begin{textblock*}{4.8cm}(11.2cm,1.8cm)
+    \begin{textblock*}{4.8cm}(11.2cm,1.6cm)
         \begin{tikzpicture}
             \node[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
             \draw[ultra thick] (4.47, -4) -- (6.97, -1.5);
@@ -253,7 +253,7 @@
             \draw<2->[->, ultra thick, mygreen] ([xshift=6mm, yshift=-7mm]env.center) to[bend right=30] (8.3, -2);
 
             \draw[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
-            \fill[black!5] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
+            \fill[black!8] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
             \node[anchor=west] at ([yshift=-0.5cm]env.center) {\includegraphics[height=1cm]{imgs/mirokai.png}};
             \node[anchor=center] at ([xshift=-1.1cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
             \node[anchor=east] at ([xshift=2cm]env.center) {\reflectbox{\includegraphics[height=1.2cm]{imgs/walking.png}}};
@@ -273,35 +273,146 @@
 
 \begin{frame}{Model Predictive Control}
     \begin{itemize}
-        \item Problem
+        \item Problem $(\mathcal{S,A,P,R,\textcolor{mygreen}{C}})$\\
+        \vspace{34mm}
+        \visible<1->{
+            \begin{textblock*}{3cm}(1.4cm,2cm)
+                \begin{align*}
+                    \textcolor{lightblue}{\max_{\V{a}}} \quad &\textcolor{lejla}{\mathbb{E}\left[\sum\limits^{N}_{k=0}\mathcal{R}(\V{s}_{k}, \V{a}_{k})\right]} \\
+                    \text{s.t.} \quad & \V{s}_{k+1} = \textcolor{orange}{\V{f}}(\V{s}_{k}, \V{a}_{k}) \quad \forall k,\\
+                    & -\V{b}<\V{a}_{k}<\V{b} \quad \forall k,\\
+                    & \M{M}_{s_k}\V{s}_{k} \leq B_{s_k} \quad \forall k.
+                \end{align*}
+            \end{textblock*}
+            \begin{textblock*}{3cm}(2.45cm,4.8cm)
+                \begin{tikzpicture}
+                    \draw[ultra thick, mygreen] (1.5, 0.8) -- (4.6, 0.8);
+                    \draw[ultra thick, mygreen] (1.5, 1.45) -- (4.6, 1.45);
+                \end{tikzpicture}
+            \end{textblock*}
+        }
+        \pause
         \item Pros \& Cons\\
-            + safety
+            \pause
+            \textcolor{myred}{$\boldsymbol{+}$} safety (constraints)\\
+            \pause
+            \pause
+            \textcolor{myblue}{$\boldsymbol{-}$} limited horizon $N$\\
+            \pause
+            \pause
+            \textcolor{myblue}{$\boldsymbol{-}$} sub-optimal (quadratic problem)\\
+            $\quad\; \rightarrow$ $\V{f}\sim\mathcal{P}$\pause, $N\ll\infty$\pause, $deg(\mathcal{C}(\cdot))=1$, $deg(\mathcal{R}(\cdot))=2$
     \end{itemize}
+    \begin{textblock*}{8cm}(8.4cm,2cm)
+        \visible<1->{
+            \resizebox{8cm}{!}{\input{schema/mpc_schema.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{5cm}(10.34cm,5.4cm)
+        \begin{tikzpicture}
+            \node<2->[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
+            \fill<4>[mygreen!20] (5.47, -4.5) -- (7.97, -1.5) -- (9.47, -1.5) -- (9.47, -4.5) -- cycle;
+            \fill<4>[myred!20] (4.47, -4) -- (6.97, -1.5) -- (7.97, -1.5) -- (5.47, -4.5) -- (4.47, -4.5) -- cycle;
+            \draw<2->[ultra thick] (4.47, -4) -- (6.97, -1.5);
+            \draw<3,4>[ultra thick, myred] (5.47, -4.5) -- (7.97, -1.5);
+            \draw<10->[ultra thick, myred] (5.47, -4.5) -- (7.97, -1.5);
+            \draw<9>[ultra thick, myred, rotate=50] ([xshift=-11mm, yshift=6mm]env.center) ellipse (0.5 and 0.3);
+            \draw<5,6>[->, ultra thick] ([xshift=6mm, yshift=-7.5mm]env.center) to[bend right=10] (7.8, -2.6);
+            \draw<5,6>[->, ultra thick] ([xshift=-8.2mm, yshift=-4.5mm]env.center) to[bend left=10] (7.2, -2.6);
+            \draw<6>[->, dashed, ultra thick] (7.8, -2.6) to[bend right=5] (7.65, -1.9);
+            \draw<6>[->, dashed, ultra thick] (7.2, -2.6) -- (8.4, -1.8);
+
+            \draw<7->[->, black!40, ultra thick] ([xshift=6mm, yshift=-7.5mm]env.center) to[bend right=10] (7.8, -2.6);
+            \draw<7->[->, black!40, ultra thick] ([xshift=-8.2mm, yshift=-4.5mm]env.center) to[bend left=10] (7.2, -2.6);
+            \draw<8->[->, dashed, black!40, ultra thick] (7.8, -2.6) to[bend right=5] (7.65, -1.9);
+            \draw<8->[->, dashed, black!40, ultra thick] (7.2, -2.6) -- (8.4, -1.8);
+
+            \draw<2->[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
+            \fill<2->[black!8] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
+            \node<2->[anchor=west] at ([yshift=-0.5cm]env.center) {\includegraphics[height=1cm]{imgs/mirokai.png}};
+            \node<2->[anchor=center] at ([xshift=-1.1cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
+        \end{tikzpicture}
+    \end{textblock*}
 \end{frame}
 
 \begin{frame}{Reinforcement Learning}
     \begin{itemize}
-        \item Problem
-        \item Pros \& Cons\\
-            + learn cooperation\\
-            + efficient local path-finding\\
-            - safety
-    \end{itemize}
-    \only<2->{
-        \begin{textblock*}{4.8cm}(11cm,5.5cm)
-            \centering
-            \resizebox{4.8cm}{!}{\input{schema/rl_schema.tex}}
-            \vspace{-0.7cm}
-            \center \Fontviii RL scheme
+    \item Problem $(\mathcal{S,A,P,R}, \gamma)$\\
+        \vspace{20mm}
+        \visible<1->{
+        \begin{textblock*}{3cm}(1.4cm,3cm)
+            \begin{align*}
+                G=\sum_{k=0}^\infty\gamma^k\mathbb{E}_{(\V{s}_k,\V{a}_k)\sim \rho}\mathcal{R}(\V{s}_k,\V{a}_k)
+            \end{align*}
         \end{textblock*}
     }
+    \pause
+    \item Pros \& Cons\\
+        \pause
+        \textcolor{myred}{$\boldsymbol{+}$} learn from data\\
+        \pause
+        \pause
+        \textcolor{myred}{$\boldsymbol{+}$} infinite horizon\\
+        \pause
+        \pause
+        \textcolor{myblue}{$\boldsymbol{-}$} safety\\
+    \end{itemize}
+    \begin{textblock*}{7cm}(8.8cm,2.5cm)
+        \visible<1->{
+            \resizebox{7cm}{!}{\input{schema/rl_schema.tex}}
+        }
+    \end{textblock*}
 \end{frame}
 
 \begin{frame}{Literature}
     \begin{itemize}
-        \item Navigation
+        \item Classic
+            \pause
+        \item MPC
+            \pause
+        \item Learning
+            \pause
+        \item Reinforcement Learning
+            \pause
         \item Hybrid
     \end{itemize}
+    \begin{textblock*}{13cm}(3.4cm,1.6cm)
+       \visible<1>{
+            \begin{minipage}[t]{4.1cm}
+                \centering
+                \resizebox{4cm}{!}{\input{schema/classicalgo_dijkstra.tex}}
+                \par\vspace{1mm}
+                {\small Dijkstra's algorithm}
+            \end{minipage}\hfill
+            \begin{minipage}[t]{4.1cm}
+                \centering
+                \resizebox{4cm}{!}{\input{schema/classicalgo_voronoi.tex}}
+                \par\vspace{1mm}
+                {\small Voronoi diagram}
+            \end{minipage}\hfill
+            \begin{minipage}[t]{4.1cm}
+                \centering
+                \resizebox{4cm}{!}{\input{schema/classicalgo_dwa.tex}}
+                \par\vspace{1mm}
+                {\small Dynamic window approach}
+            \end{minipage}
+       }
+    \end{textblock*}
+    \begin{textblock*}{8cm}(5.8cm,1.4cm)
+       \visible<2>{
+           \centering
+           \resizebox{8cm}{!}{\input{schema/mpc_zmp.tex}}\vspace{3mm}
+           \includegraphics[height=3.5cm]{imgs/hrp2.png}\hspace{1cm}
+           \includegraphics[height=3.5cm]{imgs/mpc_navigation.png}
+       }
+    \end{textblock*}
+    \begin{textblock*}{12cm}(4.6cm,3cm)
+       \visible<3>{
+           \centering
+           \includegraphics[height=3.5cm]{imgs/dataset.png}\hspace{6mm}
+           \includegraphics[height=3.5cm]{imgs/social_lstm.png}
+       }
+    \end{textblock*}
 \end{frame}
 
 \begin{frame}{Contribution}
