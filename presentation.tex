@@ -60,12 +60,12 @@
 % the presentation starts here
 
 \title[Safe RL for Robot Navigation with MPC]{Safe Reinforcement Learning for Robot Navigation \\ with Model Predictive Control}
-\subtitle{PhD Defense, Jury: Alian Dutech, Nicolas Mansard, Laetitia Matignon, Olivier Aycard, Pierre-Brice Wieber, Thierry Fraichard}
+\subtitle{PhD Defense, Jury: Alain Dutech, Nicolas Mansard, Laetitia Matignon, Olivier Aycard, Pierre-Brice Wieber, Thierry Fraichard}
 \author{ Dhimiter Pikuli}
 
 % Bibliography
 
-% \usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
+\usepackage[backend=biber, style=numeric, sortcites, hyperref]{biblatex}
 \usepackage{color,colortbl}
 \usepackage{xcolor}
 \usepackage{multirow}
@@ -73,7 +73,7 @@
 \usepackage{verbatim}
 \usepackage{Styles/mymath}
 
-% \addbibresource{presentation.bib}
+\addbibresource{presentation.bib}
 % \bibhang1em
 
 \begin{document}
@@ -271,7 +271,7 @@
     \end{textblock*}
 \end{frame}
 
-\begin{frame}{Model Predictive Control}
+\begin{frame}{Model Predictive Control (MPC)}
     \begin{itemize}
         \item Problem $(\mathcal{S,A,P,R,\textcolor{mygreen}{C}})$\\
         \vspace{34mm}
@@ -335,7 +335,7 @@
     \end{textblock*}
 \end{frame}
 
-\begin{frame}{Reinforcement Learning}
+\begin{frame}{Reinforcement Learning (RL)}
     \begin{itemize}
     \item Problem $(\mathcal{S,A,P,R}, \gamma)$\\
         \vspace{20mm}
@@ -351,9 +351,7 @@
         \pause
         \textcolor{myred}{$\boldsymbol{+}$} learn from data\\
         \pause
-        \pause
         \textcolor{myred}{$\boldsymbol{+}$} infinite horizon\\
-        \pause
         \pause
         \textcolor{myblue}{$\boldsymbol{-}$} safety\\
     \end{itemize}
@@ -372,9 +370,11 @@
             \pause
         \item Learning
             \pause
-        \item Reinforcement Learning
+        \item RL\\
+            - Inverse RL\\
+            - RL for local navigation
             \pause
-        \item Hybrid
+        \item Hybrid (RL + MPC)
     \end{itemize}
     \begin{textblock*}{13cm}(3.4cm,1.6cm)
        \visible<1>{
@@ -382,48 +382,138 @@
                 \centering
                 \resizebox{4cm}{!}{\input{schema/classicalgo_dijkstra.tex}}
                 \par\vspace{1mm}
-                {\small Dijkstra's algorithm}
+                {\small Dijkstra's algorithm \cite{Dijkstra1959}}
             \end{minipage}\hfill
             \begin{minipage}[t]{4.1cm}
                 \centering
                 \resizebox{4cm}{!}{\input{schema/classicalgo_voronoi.tex}}
                 \par\vspace{1mm}
-                {\small Voronoi diagram}
+                {\small Voronoi diagram \cite{Shahabi2018}}
             \end{minipage}\hfill
-            \begin{minipage}[t]{4.1cm}
+            \begin{minipage}[t]{4.6cm}
                 \centering
                 \resizebox{4cm}{!}{\input{schema/classicalgo_dwa.tex}}
                 \par\vspace{1mm}
-                {\small Dynamic window approach}
+                {\small Dynamic window approach \cite{fox_dynamic_1997}}
             \end{minipage}
        }
     \end{textblock*}
-    \begin{textblock*}{8cm}(5.8cm,1.4cm)
+    \begin{textblock*}{8.6cm}(5.8cm,1.4cm)
        \visible<2>{
            \centering
            \resizebox{8cm}{!}{\input{schema/mpc_zmp.tex}}\vspace{3mm}
            \includegraphics[height=3.5cm]{imgs/hrp2.png}\hspace{1cm}
-           \includegraphics[height=3.5cm]{imgs/mpc_navigation.png}
+           \includegraphics[height=3.5cm]{imgs/mpc_navigation.png} \cite{bohorquez_safe_2016}
        }
     \end{textblock*}
-    \begin{textblock*}{12cm}(4.6cm,3cm)
+    \begin{textblock*}{6cm}(4.8cm,3cm)
        \visible<3>{
            \centering
-           \includegraphics[height=3.5cm]{imgs/dataset.png}\hspace{6mm}
-           \includegraphics[height=3.5cm]{imgs/social_lstm.png}
+           \includegraphics[height=3.5cm]{imgs/dataset.png}\\
+           \cite{pellegrini_you_2009}
        }
+    \end{textblock*}
+    \begin{textblock*}{5cm}(10.8cm,3cm)
+       \visible<3>{
+           \centering
+           \includegraphics[height=3.5cm]{imgs/social_lstm.png}\\
+           \cite{alahi_2016_CVPR}
+       }
+    \end{textblock*}
+    \begin{textblock*}{4.8cm}(4.6cm,2.6cm)
+        \visible<4>{
+        \centering
+        \resizebox{4.8cm}{!}{
+        \begin{tikzpicture}
+            \node[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
+            \draw[ultra thick] (4.47, -4) -- (6.97, -1.5);
+            \draw[ultra thick, mygreen] (8.2, -1.8) -- (8.4, -2); % goal
+            \draw[ultra thick, mygreen] (8.1, -2.05) -- (8.5, -1.75); % goal
+            \draw[->, ultra thick, mygreen] ([xshift=6mm, yshift=-7mm]env.center) to[bend right=30] (8.3, -2);
+            \draw[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
+            \fill[black!8] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
+            \node[anchor=west] at ([yshift=-0.5cm]env.center) {\includegraphics[height=1cm]{imgs/mirokai.png}};
+            \node[anchor=center] at ([xshift=-1.1cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
+            \node[anchor=east] at ([xshift=2cm]env.center) {\reflectbox{\includegraphics[height=1.2cm]{imgs/walking.png}}};
+            \node[anchor=east] at ([xshift=0.45cm, yshift=0.8cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
+
+            \draw[ultra thick, myred] ([xshift=1mm, yshift=-7mm]env.center) -- ([xshift=-8mm, yshift=-4.5mm]env.center);
+            \draw[ultra thick, myred] ([xshift=6mm, yshift=-7.5mm]env.center) -- ([xshift=14mm, yshift=-4mm]env.center);
+            \draw[ultra thick, myred] ([xshift=1mm, yshift=-7mm]env.center) -- ([yshift=1mm]env.center);
+        \end{tikzpicture}
+        }\\
+        \cite{vasquez_inverse_2014}
+        }
+    \end{textblock*}
+    \begin{textblock*}{8cm}(9cm,1.8cm)
+        \visible<4>{
+        \centering
+           \includegraphics[height=6cm]{imgs/rl_localnav.png}\\
+           \cite{everett_collision_2021}
+        }
+    \end{textblock*}
+    \begin{textblock*}{5cm}(5.4cm,1.8cm)
+        \visible<5>{
+        \centering
+           \includegraphics[height=3.4cm]{imgs/actor_critic_mpc.png}\\
+           \cite{romero_actor-critic_2023}
+        }
+    \end{textblock*}
+    \begin{textblock*}{6cm}(10.5cm,1.8cm)
+        \visible<5>{
+        \centering
+           \includegraphics[height=3.4cm]{imgs/hybrid_filter.png}\\
+           \cite{tearle_predictive_2021}
+        }
+    \end{textblock*}
+    \begin{textblock*}{11cm}(5.4cm,6cm)
+        \visible<5>{
+        \centering
+           \includegraphics[height=1.9cm]{imgs/hybrid_nav.png}\\
+           \cite{xiao_learning_2023}
+        }
     \end{textblock*}
 \end{frame}
 
 \begin{frame}{Contribution}
     \begin{itemize}
-        \item Analysis of freezing behavior for MPC\\
-            - MPC analysis\\
-            - Cascading
-        \item Safe and efficient navigation
-            - RL for navigation\\
-            - hybrid\\
+        \item MPC\\
+            - Development\\
+            - Analysis\\
+            - Freezing problem
+        \pause
+        \item Optimal global control\\
+            - Cascading approach
+        \pause
+        \item Hybrid method\\
+            - ProDMP for Navigation\\
+            - ProDMP and MPC
     \end{itemize}
+    \only<1>{
+        \begin{textblock*}{12cm}(4.8cm,1cm)
+            \Fontvii
+            \begin{align*}
+                \min\limits_{\dot{P}} \quad &\frac{1}{2} \T{\dot{P}} \T{\M{M}_{pv}} \M{M}_{pv}\dot{P} +  \T{\left(P_0-P^{ref}+ \frac{1}{2}T\dot{P}_0\right)}\M{M}_{pv}\dot{P}\\
+                \text{s.t.} \quad & \M{S}_{v_i}\M{M}_{v_i}\dot{P} < \M{S}_{v_i}B_{v_i},\\
+                &\M{S}_{a_i}\M{M}_{a_i} \begin{bmatrix} \M{D} & \M{0} \\ \M{0} & \M{D}\end{bmatrix} \dot{P} < \M{S}_{a_i} \left(B_{a_i} + \dfrac{\M{M}_{a_i}}{T}\T{\begin{bmatrix} \dot{x}_0, 0, \dots \dot{y}_0, 0, \dots\end{bmatrix}}\right),\\
+                &-\hat{\M{U}}_{c_j}\M{M}_{pv}\dot{P}\leq - d + \hat{\M{U}}_{c_j}\left(-(P_{c_j}-P_0)+\frac{1}{2}T\dot{P}_0\right).\\
+            \end{align*}
+        \end{textblock*}
+        \begin{textblock*}{12cm}(5cm,4.4cm)
+            \centering
+            \resizebox{9cm}{!}{\input{schema/mpc.tex}}
+        \end{textblock*}
+    }
+    \only<2>{
+        \begin{textblock*}{6cm}(6cm,1cm)
+            \centering
+            \movie[poster, height=3.8cm, width=6cm]{}{imgs/local_not_opt.mp4}
+        \end{textblock*}
+        \begin{textblock*}{6cm}(10cm,4.4cm)
+            \centering
+            \movie[poster, height=4cm, width=6cm]{}{imgs/global_opt.mp4}
+        \end{textblock*}
+    }
 \end{frame}
 
 \section{Section 2}
@@ -922,7 +1012,7 @@
 \beginbackup
 
 \begin{frame}[allowframebreaks]{References}
-% \printbibliography
+\printbibliography
 \end{frame}
 
 \begin{frame}{Images}
