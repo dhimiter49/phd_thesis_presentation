@@ -1,0 +1,50 @@
+\begin{tikzpicture}
+    \coordinate (A) at (0, 0);
+    \coordinate (mid) at (4, 4);
+    \coordinate (mid_) at (7, 3.6);
+    \coordinate (B) at (8, 4);
+    \coordinate (C1) at (7.2, 5);
+    \coordinate (C2) at (7.6, 3);
+    \draw[blue] (A) -- (B);
+    \node [fill=mygreen, circle, minimum size=0.8cm] at (A) {};
+    \node [fill=myred, circle, minimum size=0.8cm] at (C1) {};
+    \node [fill=myred, circle, minimum size=0.8cm] at (C2) {};
+    \node [cross out, ultra thick, draw=mygreen, minimum size=0.4cm, rotate=6] at (B) {};
+
+    \draw[ultra thick] (A) to[out=15,in=-180] (mid);
+    \draw[ultra thick] (mid) to[out=0,in=-170] (mid_);
+    \draw[ultra thick, -{Stealth[scale=1.4]}] (mid_) to[out=10,in=-170] (B);
+
+    \draw[thick, cyan] (A) to[out=40,in=-180] (4, 3.8);
+    \draw[thick, cyan] (4, 3.8) to[out=2,in=-178] (B);
+
+    \draw[thick, ->, mygreen] (A) -- ++(30:0.8);
+    \draw[thick, ->, myred] (C1) -- ++(-145:1.5);
+    \draw[thick, ->, myred] (C2) -- ++(-160:1.5);
+
+    \foreach \t in {0, 0.05, ..., 1.01} {
+        \fill[blue] ($ (A)!\t!(B) $) circle (2pt);
+    }
+
+    \draw (8.8, 5.5) -- (8.8, -0.5);
+
+    \node [fill=mygreen, circle, minimum size=0.8cm] at (10, 5) {};
+    \node (agent_str) at (11.8, 5) {Agent};
+
+    \node [cross out, ultra thick, draw=mygreen, minimum size=0.4cm] at (10, 4) {};
+    \node (goal_str) at (11.8, 4) {Goal};
+
+    \node [fill=myred, circle, minimum size=0.8cm] at (10, 3) {};
+    \node (crowd_str) at (11.8, 3) {Crowd};
+
+    \draw[blue] (9.75, 2) -- (10.25, 2);
+    \fill[blue] (9.75, 2) circle (2pt);
+    \fill[blue] (10.25, 2) circle (2pt);
+    \node (ref_str) at (11.8, 2) {$P^{ref}$};
+
+    \draw[ultra thick, -{Stealth[scale=1.0]}] (9.75, 1) -- (10.25, 1);
+    \node (traj_str) at (11.8, 1) {$P$ (from $\dot{P}$ or $\ddot{P}$)};
+
+    \draw[thick, cyan] (9.75, 0) -- (10.25, 0);
+    \node (traj_str) at (11.8, 0) {$P^{ref}$ (learned)};
+\end{tikzpicture}
