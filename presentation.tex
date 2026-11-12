@@ -338,14 +338,23 @@
 \begin{frame}{Reinforcement Learning (RL)}
     \begin{itemize}
     \item Problem $(\mathcal{S,A,P,R}, \gamma)$\\
-        \vspace{20mm}
-        \visible<1->{
-        \begin{textblock*}{3cm}(1.4cm,3cm)
+    \vspace{35mm}
+    \visible<1->{
+        \begin{textblock*}{3cm}(1.4cm,2cm)
             \begin{align*}
-                G=\sum_{k=0}^\infty\gamma^k\mathbb{E}_{(\V{s}_k,\V{a}_k)\sim \rho}\mathcal{R}(\V{s}_k,\V{a}_k)
+                G=\sum_{k=0}^\infty\gamma^k\mathbb{E}_{(\V{s}_k,\V{a}_k)\sim \rho}\mathcal{R}(\V{s}_k,\V{a}_k)\\
             \end{align*}
         \end{textblock*}
     }
+        \begin{textblock*}{3cm}(1.4cm,3.4cm)
+        \visible<2->{
+            \begin{align*}
+                \pi^\star &= \argmax_\pi J(\pi), \; \text{where}\\
+                &J(\pi)=\sum_{k=0}^\infty\gamma^k\mathbb{E}_{(\V{s}_k,\V{a}_k)\sim \rho_\pi}\mathcal{R}(\V{s}_k,\V{a}_k)\\
+            \end{align*}
+        }
+        \end{textblock*}
+    \pause
     \pause
     \item Pros \& Cons\\
         \pause
@@ -355,6 +364,11 @@
         \pause
         \textcolor{myblue}{$\boldsymbol{-}$} safety\\
     \end{itemize}
+    \begin{textblock*}{8cm}(9.5cm,4mm)
+        \visible<1->{
+            \resizebox{5cm}{!}{\input{schema/mpc_schema_bw.tex}}
+        }
+    \end{textblock*}
     \begin{textblock*}{7cm}(8.8cm,2.5cm)
         \visible<1->{
             \resizebox{7cm}{!}{\input{schema/rl_schema.tex}}
@@ -365,13 +379,21 @@
 
 \begin{frame}{Navigation MDP}
     \begin{itemize}
-        \item State/Observation Space
+        \item State/Observation $\mathcal{S}/\mathcal{O}$\\
+            - positions $\V{p}, \V{p}$ and velocities $\dot{\V{p}}, \dot{\V{p}}$\\
+            - LiDAR rays
         \pause
-        \item Action Space
+        \item Action $\mathcal{A}$\\
+            - acceleration\\
+            - velocity
         \pause
-        \item Reward function
+        \item Reward function $\mathcal{R}$\\
+            - completion (+) / collision (-) / proxemics (-)
+            - towards goal (+) / idleness (-) / smoothness (-)
         \pause
-        \item Transition function
+        \item Transition function $\mathcal{P}$\\
+            - Newton dynamics\\
+            - Crowd (constant, ORCA, SFM)
     \end{itemize}
 \end{frame}
 
