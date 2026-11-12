@@ -380,7 +380,7 @@
 \begin{frame}{Navigation MDP}
     \begin{itemize}
         \item State/Observation $\mathcal{S}/\mathcal{O}$\\
-            - positions $\V{p}, \V{p}$ and velocities $\dot{\V{p}}, \dot{\V{p}}$\\
+            - positions $\V{p}, \V{p}_{c_j}$ and velocities $\dot{\V{p}}, \dot{\V{p}}_{c_j}$\\
             - LiDAR rays
         \pause
         \item Action $\mathcal{A}$\\
@@ -388,7 +388,7 @@
             - velocity
         \pause
         \item Reward function $\mathcal{R}$\\
-            - completion (+) / collision (-) / proxemics (-)
+            - completion (+) / collision (-) / proxemics (-)\\
             - towards goal (+) / idleness (-) / smoothness (-)
         \pause
         \item Transition function $\mathcal{P}$\\
@@ -399,20 +399,23 @@
 
 \begin{frame}{Literature}
     \begin{itemize}
-        \item Classic
+        \item Model-based\\
+            - classic\\
             \pause
-        \item MPC
             \pause
-        \item Learning
+            - MPC\\
             \pause
         \item RL\\
             - Inverse RL\\
-            - RL for local navigation
+            \pause
+            - RL for local navigation\\
+            \pause
+            - Inter-crowd relations
             \pause
         \item Hybrid (RL + MPC)
     \end{itemize}
     \begin{textblock*}{13cm}(3.4cm,1.6cm)
-       \visible<1>{
+       \visible<1-2>{
             \begin{minipage}[t]{4.1cm}
                 \centering
                 \resizebox{4cm}{!}{\input{schema/classicalgo_dijkstra.tex}}
@@ -425,6 +428,8 @@
                 \par\vspace{1mm}
                 {\small Voronoi diagram \cite{Shahabi2018}}
             \end{minipage}\hfill
+       }
+       \visible<2>{
             \begin{minipage}[t]{4.6cm}
                 \centering
                 \resizebox{4cm}{!}{\input{schema/classicalgo_dwa.tex}}
@@ -434,29 +439,29 @@
        }
     \end{textblock*}
     \begin{textblock*}{8.6cm}(5.8cm,1.4cm)
-       \visible<2>{
+       \visible<3>{
            \centering
            \resizebox{8cm}{!}{\input{schema/mpc_zmp.tex}}\vspace{3mm}
            \includegraphics[height=3.5cm]{imgs/hrp2.png}\hspace{1cm}
            \includegraphics[height=3.5cm]{imgs/mpc_navigation.png} \cite{bohorquez_safe_2016}
        }
     \end{textblock*}
-    \begin{textblock*}{6cm}(4.8cm,3cm)
-       \visible<3>{
-           \centering
-           \includegraphics[height=3.5cm]{imgs/dataset.png}\\
-           \cite{pellegrini_you_2009}
-       }
-    \end{textblock*}
-    \begin{textblock*}{5cm}(10.8cm,3cm)
-       \visible<3>{
-           \centering
-           \includegraphics[height=3.5cm]{imgs/social_lstm.png}\\
-           \cite{alahi_2016_CVPR}
-       }
-    \end{textblock*}
+    % \begin{textblock*}{6cm}(4.8cm,3cm)
+    %    \visible<3>{
+    %        \centering
+    %        \includegraphics[height=3.5cm]{imgs/dataset.png}\\
+    %        \cite{pellegrini_you_2009}
+    %    }
+    % \end{textblock*}
+    % \begin{textblock*}{5cm}(10.8cm,3cm)
+    %    \visible<3>{
+    %        \centering
+    %        \includegraphics[height=3.5cm]{imgs/social_lstm.png}\\
+    %        \cite{alahi_2016_CVPR}
+    %    }
+    % \end{textblock*}
     \begin{textblock*}{4.8cm}(4.6cm,2.6cm)
-        \visible<4>{
+        \visible<4-6>{
         \centering
         \resizebox{4.8cm}{!}{
         \begin{tikzpicture}
@@ -481,28 +486,28 @@
         }
     \end{textblock*}
     \begin{textblock*}{8cm}(9cm,1.8cm)
-        \visible<4>{
+        \visible<5>{
         \centering
            \includegraphics[height=6cm]{imgs/rl_localnav.png}\\
            \cite{everett_collision_2021}
         }
     \end{textblock*}
     \begin{textblock*}{5cm}(5.4cm,1.8cm)
-        \visible<5>{
+        \visible<7>{
         \centering
            \includegraphics[height=3.4cm]{imgs/actor_critic_mpc.png}\\
            \cite{romero_actor-critic_2023}
         }
     \end{textblock*}
     \begin{textblock*}{6cm}(10.5cm,1.8cm)
-        \visible<5>{
+        \visible<7>{
         \centering
            \includegraphics[height=3.4cm]{imgs/hybrid_filter.png}\\
            \cite{tearle_predictive_2021}
         }
     \end{textblock*}
     \begin{textblock*}{11cm}(5.4cm,6cm)
-        \visible<5>{
+        \visible<7>{
         \centering
            \includegraphics[height=1.9cm]{imgs/hybrid_nav.png}\\
            \cite{xiao_learning_2023}
