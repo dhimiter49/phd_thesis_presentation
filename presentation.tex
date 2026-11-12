@@ -61,7 +61,7 @@
 
 \title[Safe RL for Robot Navigation with MPC]{Safe Reinforcement Learning for Robot Navigation \\ with Model Predictive Control}
 \subtitle{PhD Defense, Jury: Alain Dutech, Nicolas Mansard, Laetitia Matignon, Olivier Aycard, Pierre-Brice Wieber, Thierry Fraichard}
-\author{ Dhimiter Pikuli}
+\author{Dhimiter Pikuli}
 
 % Bibliography
 
@@ -362,6 +362,19 @@
     \end{textblock*}
 \end{frame}
 
+
+\begin{frame}{Navigation MDP}
+    \begin{itemize}
+        \item State/Observation Space
+        \pause
+        \item Action Space
+        \pause
+        \item Reward function
+        \pause
+        \item Transition function
+    \end{itemize}
+\end{frame}
+
 \begin{frame}{Literature}
     \begin{itemize}
         \item Classic
@@ -478,12 +491,10 @@
 \begin{frame}{Contribution}
     \begin{itemize}
         \item MPC\\
-            - Development\\
-            - Analysis\\
-            - Freezing problem
+            - Passive safety\\
+            - Freezing problem\\
         \pause
-        \item Optimal global control\\
-            - Cascading approach
+            - Optimal global control
         \pause
         \item Hybrid method\\
             - ProDMP for Navigation\\
@@ -499,7 +510,7 @@
                 &-\hat{\M{U}}_{c_j}\M{M}_{pv}\dot{P}\leq - d + \hat{\M{U}}_{c_j}\left(-(P_{c_j}-P_0)+\frac{1}{2}T\dot{P}_0\right).\\
             \end{align*}
         \end{textblock*}
-        \begin{textblock*}{12cm}(5cm,4.4cm)
+        \begin{textblock*}{12cm}(5cm,4.6cm)
             \centering
             \resizebox{9cm}{!}{\input{schema/mpc.tex}}
         \end{textblock*}
@@ -507,499 +518,194 @@
     \only<2>{
         \begin{textblock*}{6cm}(6cm,1cm)
             \centering
-            \movie[poster, height=3.8cm, width=6cm]{}{imgs/local_not_opt.mp4}
+            \movie[poster, showcontrols, height=3.8cm, width=6cm]{}{imgs/local_not_opt.mp4}
         \end{textblock*}
         \begin{textblock*}{6cm}(10cm,4.4cm)
             \centering
-            \movie[poster, height=4cm, width=6cm]{}{imgs/global_opt.mp4}
+            \movie[poster, showcontrols, height=4cm, width=6cm]{}{imgs/global_opt.mp4}
+        \end{textblock*}
+    }
+    \only<3>{
+        \begin{textblock*}{6cm}(5cm,1.8cm)
+            \includegraphics[height=4cm]{imgs/prodmp_ineff_40.pdf}
         \end{textblock*}
     }
 \end{frame}
 
 \section{Section 2}
-\begin{frame}{Reinforcement Learning for Navigation}
+\subsection{Subsection 2.1}
+\begin{frame}{}
+    \centering
+    \textbf{\Fontbig{Reinforcement Learning}}
 \end{frame}
 
-\begin{frame}{Method: RL w/ ProDMP and MPC}
+\begin{frame}{Policy Gradient}
     \begin{itemize}
-        \item Dynamic Movement Primitives (DMP)\\
-            - $\tau^2\ddot{y}=\alpha(\beta(g-y)-\tau\dot{y})-f$
-        \pause
-        \item In 2D Navigation $\rightarrow$ 2D trajectories
-        \pause
-        \item MPC execution and constraints
-        \pause
-        \item Other considerations\\
-            - Predicting crowd movement\\
-            - MPC and learning hyperparameters
+        \item Policy
+            \pause
+        \item Gradient
+            \pause
+        \item Derive
+            \pause
+        \item Update
     \end{itemize}
-    % \only<1>{
-    %     \begin{textblock*}{6cm}(10.4cm,2.5cm)
-    %         \centering
-    %         \movie[poster, height=5cm, width=6cm]{}{imgs/primitive.mp4}
-    %     \end{textblock*}
-    % }
-    % \only<2->{
-    %     \begin{textblock*}{6cm}(10.4cm,2cm)
-    %         \centering
-    %         \includegraphics[width=6cm]{imgs/prodmp_mpc.png}
-    %     \end{textblock*}
-    %     \begin{textblock*}{6cm}(10.4cm,1.4cm)
-    %         \begin{tikzpicture}[every node/.append style={rectangle,align=center},
-    %             L/.style = {draw, blue, line width=1, -{Stealth[scale=2,length=3,width=3]}},
-    %             G/.style = {draw, red, line width=1, -{Stealth[scale=2,length=3,width=3]}},]
-    %             \visible<2->{\node[minimum width=1.3cm] (traj) at (3.5, 0) {\Fontviii DMP trajectory};}
-    %             \visible<3->{\node[minimum width=1.3cm] (const) at (0, 0) {\Fontviii Crowd Constraints};}
-    %             \begin{scope}[on above layer]
-    %             \draw
-    %                 <3->{
-    %                     (const) edge[G] (0, -4.86)
-    %                     (const) edge[G] (1.36, -2)
-    %                     (const) edge[G] (2.5, -2.2)
-    %                     (const) edge[G] (3.06, -1.4)};
-    %             \draw
-    %                 <2->{(traj) edge[L] (3.5, -2.8)};
-    %             \end{scope}
-    %         \end{tikzpicture}
-    %     \end{textblock*}
-    % }
 \end{frame}
+
+\begin{frame}{Trust-region Policy Layers}
+    \begin{itemize}
+        \item Trust region
+        \item Distance metric
+        \item Derive
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Reinforcement Learning for Navigation}
+    \begin{itemize}
+        \item Analysis of the MDP choices
+        \item Environment
+    \end{itemize}
+\end{frame}
+
 
 \section{Section 3}
-\begin{frame}{ProDMP MPC}
-    \begin{itemize}
-        \item MPC\\
-            - Debugging and adaptation to parameters\\
-            - Uncertainty in the predictions\\
-            - FRP (a hacky solution)
-        \item ProDMP MPC\\
-            - MPC was doing the heavy-lifting\\
-            - Entropy too low for TRPL\\
-            - Simplifying the problem ($<$ replan)\\
-            - Intrinsic Reward
-    \end{itemize}
-    % \only<1>{
-    %     \begin{textblock*}{10cm}(6.5cm,2cm)
-    %         $$\dot{\boldsymbol{p}}_{max}=1m/s$$
-    %         $$\dot{\boldsymbol{p}}_{c_i,max}=1.5m/s$$
-    %         $$\ddot{\boldsymbol{p}}_{max}=10m/s^2$$
-    %         $$dt=0.1s$$
-    %         $$N=10,20$$
-    %     \end{textblock*}
-    % }
-    % \only<2-9>{
-    %     \begin{textblock*}{10cm}(9cm,0.8cm)
-    %         \resizebox{8cm}{!}{\input{schema/uncertainty.tex}}
-    %     \end{textblock*}
-    % }
-    % \only<10>{
-    %     \begin{textblock*}{8cm}(8.5cm,1.4cm)
-    %         \begin{figure}[h]
-    %             \centering
-    %             \includegraphics[width=0.75\textwidth]{imgs/mpc_freeze_s1.png}
-    %             \center Predicts a collision in the future, so it freezes
-    %         \end{figure}
-    %     \end{textblock*}
-    % }
-    % \only<11>{
-    %     \begin{textblock*}{8cm}(8.5cm,1.4cm)
-    %         \begin{figure}[h]
-    %             \centering
-    %             \includegraphics[width=0.75\textwidth]{imgs/mpc_freeze_s2.png}
-    %             \center Goal is very close, but constraints still limit behaviour
-    %         \end{figure}
-    %     \end{textblock*}
-    % }
-    % \only<12>{
-    %     \begin{textblock*}{8cm}(8.5cm,1.4cm)
-    %         \begin{figure}[h]
-    %             \centering
-    %             \includegraphics[width=0.75\textwidth]{imgs/mpc_freeze_s3.png}
-    %             \center No goal
-    %         \end{figure}
-    %     \end{textblock*}
-    % }
-    % \only<13>{
-    %     \begin{textblock*}{8cm}(8.5cm,1.4cm)
-    %         \begin{figure}[h]
-    %             \centering
-    %             \includegraphics[width=0.75\textwidth]{imgs/mpc_freeze_s1.png}
-    %             \includegraphics[width=0.75\textwidth]{imgs/mpc_unfreeze_short_horizon.png}
-    %             \center Set a shorter horizon in order to ignore collisions far in the future
-    %         \end{figure}
-    %     \end{textblock*}
-    % }
+\subsection{Subsection 3.1}
+\begin{frame}{}
+    \centering
+    \textbf{\Fontbig{Model Predictive Control for Navigation}}
 \end{frame}
 
-\begin{frame}{Evaluation}
+\begin{frame}{Model}
     \begin{itemize}
-        \item Constant moving crowd \&  ORCA
-        \pause
-        \item SOTA method\\
-            - gym-collision-avoidance\\
-            - evaluation (`natural' random spawning positions)\\
-            - algorithms (GA3C\_CADRL, CADRL, ORCA)
-        \pause
-        \pause
-        \item Reducing the FRP\\
-            - comparison of MPC to ProDMP MPC\\
+        \item Newton
+        \item Horizon
     \end{itemize}
-    % \only<2-3>{
-    %     \begin{textblock*}{4cm}(9.2cm,1.8cm)
-    %         \begin{figure}[h]
-    %             \centering
-    %             \includegraphics[height=5.4cm]{imgs/GCA_eval_GA3C.png}
-    %         \end{figure}
-    %         \center \hspace{4mm} GA3C\_CADRL
-    %     \end{textblock*}
-    % }
-    % \only<3>{
-    %     \begin{textblock*}{4cm}(13cm,1.8cm)
-    %         \begin{figure}[h]
-    %             \centering
-    %             \includegraphics[height=5.4cm]{imgs/GCA_eval_MPC.png}
-    %             \center \hspace{1mm} MPC
-    %         \end{figure}
-    %     \end{textblock*}
-    % }
-    % \only<4>{
-    %     \begin{textblock*}{7cm}(9.2cm,2.8cm)
-    %         \begin{figure}[h]
-    %             \centering
-    %             \includegraphics[width=1.0\textwidth]{imgs/mpc_freeze_s1.png}
-    %             \center Robot freezes because of the constraints in the MPC
-    %         \end{figure}
-    %     \end{textblock*}
-    % }
 \end{frame}
 
-\begin{frame}{Metrics}
+\begin{frame}{Objective}
     \begin{itemize}
-        \item Efficiency\\
-            - return from the reward function (scalar)\\
-            \pause
-            - time to goal (seconds)\\
-            \pause
-            - success rate of reaching goal (percentage)
-        \pause
-        \item Safety:\\
-            - collision rate (percentage)\\
-            - collision agent speed ($m/s$)\\
-            - collision speed ($m/s$)\\
-            \pause
-            - collision intersection ($m^2$)
-        \pause
-        \item FRP\\
-            - braking rate (percentage)\\
-                MPC will engage in a braking trajectory if the QP solver fails to find a solution
+        \item Velocity
     \end{itemize}
-    \only<1-3>{
-        \begin{textblock*}{8cm}(8.4cm,2cm)
-            \Fontvii
-            \begin{align*}
-                r_{g} &= \begin{cases}
-                    10, & d_t^g < \tau_{\textsc{p}} \land \|\dot{\boldsymbol{p}}\| < a_{\textsc{max}}T, \\
-                    C_g(d_{t-1}^g-d_t^g)\vert d_{t-1}^g-d_t^g\vert, & \text{otherwise},
-                \end{cases}\\
-                r_{c_i} &= \begin{cases}
-                    0, & d_{c_i} > \tau_{\textsc{s}}, \\
-                    -10, & d_{c_i} < 2\tau_{\textsc{p}}, \\
-                    1 - \exp(C_c/d_{c_i}), & \text{otherwise},
-                \end{cases}\\
-                &\text{where} \; d_t^g =\vert\vert \boldsymbol{p}_t - \boldsymbol{g}\vert\vert, \quad
-                 \text{and} \; d_t^{c_i} =\vert\vert \boldsymbol{p}_t - \boldsymbol{p}_{c_i}\vert\vert\\
-            \end{align*}
-        \end{textblock*}
-    }
-    \only<2-3>{
-        \begin{textblock*}{8cm}(8.4cm,5cm)
-            \begin{figure}[h]
-                \centering
-                \includegraphics[width=8cm]{imgs/ttg.png}
-            \end{figure}
-            \center \hspace{4mm} Time to goal
-        \end{textblock*}
-    }
-    % \only<4-5>{
-    %     \begin{textblock*}{8cm}(9.2cm,1.3cm)
-    %         \centering
-    %         \resizebox{6cm}{!}{\input{schema/colliding_circle.tex}}
-    %         \vspace{-0.7cm}
-    %     \end{textblock*}
-    % }
-    % \only<5>{
-    %     \begin{textblock*}{8cm}(4cm,5.2cm)
-    %         \centering
-    %         \resizebox{4cm}{!}{\input{schema/intersect_circle.tex}}
-    %         \vspace{-0.7cm}
-    %     \end{textblock*}
-    % }
-    % \only<6>{
-    %     \begin{textblock*}{8cm}(8cm,4.6cm)
-    %         \begin{align*}
-    %             \mathbb{1}_s&= \left\vert\left\vert \dot{\boldsymbol{p}}_{t-i}\right\vert\right\vert < v_{low} \quad  \forall i\in \{0,\dots, T_f\},\\
-    %             \mathbb{1}_o&= \left\vert\left\vert \boldsymbol{p}_{t-i} -\boldsymbol{p}_{t-i-1}\right\vert\right\vert < r_p \quad  \forall i\in \{0,\dots, T_f - 1\},\\
-    %             \mathbb{1}_a&= \vert\vert \boldsymbol{g} - \boldsymbol{p}_{t}\vert\vert < \vert\vert \boldsymbol{g} - \boldsymbol{p}_{t-T_f}\vert\vert.
-    %         \end{align*}
-    %     \end{textblock*}
-    % }
 \end{frame}
 
-
-\begin{frame}{Results}
+\begin{frame}{Constraints}
     \begin{itemize}
-        \item Constant velocity crowd
-        \pause
-        \pause
-        \pause
+        \item Passive safety
+            \pause
+        \item Velocity/Acceleration
+            \pause
+        \item Collision Avoidance
+    \end{itemize}
+\end{frame}
+
+\subsection{Subsection 3.2}
+\begin{frame}{Freezing Robot Problem}
+    \begin{itemize}
+        \item Braking
+            \pause
+        \item Initial Conditions
+            \pause
+        \item Heuristic
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Uncertainty}
+    \begin{itemize}
         \item ORCA crowd
-        \pause
-        \pause
-        \item Comparison to SOTA (GA3C-CADRL)\\
-            - Homogeneous crowd\\
             \pause
-            - Heterogeneous crowd
+        \item Relaxation
+            \pause
     \end{itemize}
-
-% \only<4-5>{
-%         \begin{textblock*}{11cm}(5.4cm,1.4cm)
-%             \begin{adjustbox}{width=0.8\textwidth}
-%             \begin{tabular}{ | c | c | c | c | c | }
-%             \hline
-%                 \backslashbox[32mm]{Metrics}{Algorithms} & \makecell{SAC} & \makecell{ProDMP} & \makecell{MPC SH} & \makecell{MPC SH \\ $d \pluseq 0.24$} \\
-%             \hline
-%                 return $\uparrow$ & 1.56 $\pm$ 0.52 & \textcolor{mygreen}{\textbf{6.25}} $\pm$ 0.47  & 3.65 & 4.16 \\
-%                 TTG $\downarrow$ (s) & \textcolor{mygreen}{\textbf{6.44}} $\pm$ 0.29 & 8.3 $\pm$ 0.07 & \textcolor{lightgreen}{\textbf{7.46}} & 7.89 \\
-%                 success $\uparrow$ (\%) & \textcolor{myred}{\textbf{39.3}} $\pm$ 1.94 & 63.54 $\pm$ 2.09 & 72.7 & \textcolor{mygreen}{\textbf{80.2}} \\
-%             \hline
-%                 col. $\downarrow$ (\%) & \textcolor{myred}{\textbf{19.6}} $\pm$ 4.38 & \textcolor{myred}{\textbf{12.86}} $\pm$ 1.47  & \textcolor{myred}{\textbf{23.8}} & \textcolor{myred}{\textbf{10.1}} \\
-%                 $\vert\vert\dot{p}-\dot{p}_c\vert\vert\downarrow$ (m/s) & \textcolor{myred}{\textbf{1.74}} $\pm$ 0.08 & \textcolor{mygreen}{\textbf{1.06}} $\pm$ 0.04  & \textcolor{mygreen}{\textbf{1.04}} & 1.22 \\
-%                 $\vert\vert\dot{p}\vert\vert$ $\downarrow$ (m/s) & \textcolor{myred}{\textbf{0.94}} $\pm$ 0.02 & \textcolor{myred}{\textbf{0.98}} $\pm$ 0.01  & 0.64 & 0.31\\
-%                 col. area $\downarrow$ (m$^2$) & 7.89 $\pm$ 0.09 & 7.58 $\pm$ 0.83  & 5.53 & 7.06 \\
-%             \hline
-%                 braking $\downarrow$ (\%) & - & - & 12.5 & 22.9 \\
-%             \hline
-%             \end{tabular}
-%             \end{adjustbox}
-
-%             \begin{adjustbox}{width=0.7\textwidth}
-%             \begin{tabular}{ | c | c | c | c | c | c | }
-%             \hline
-%                 \backslashbox[32mm]{Metrics}{Algorithms} & \makecell{ProDMP MPC \\ SH} & \makecell{ProDMP MPC \\ SH, $d \pluseq 0.06$} & \makecell{ProDMP MPC \\ uncert, SH} \\
-%             \hline
-%                 return $\uparrow$ & \textcolor{mygreen}{\textbf{5.95}} $\pm$ 0.47 & \textcolor{mygreen}{\textbf{6.21}} $\pm$ 0.37 & 3.99 $\pm$ 0.22 \\
-%                 TTG $\downarrow$ (s) & 8.53 $\pm$ 0.13 & 8.66 $\pm$ 0.13 & 7.94 $\pm$ 0.05 \\
-%                 success $\uparrow$ (\%) & 63.3 $\pm$ 2.56 & 62.4 $\pm$ 5.43 & \textcolor{myred}{\textbf{41.18}} $\pm$ 0.82 \\
-%             \hline
-%                 col. $\downarrow$ (\%) & \textcolor{lightgreen}{\textbf{2.58}} $\pm$ 0.45 & \textcolor{mygreen}{\textbf{1.22}} $\pm$ 0.31 & \textcolor{myred}{\textbf{11.72}} $\pm$ 0.62 \\
-%                 $\vert\vert\dot{p}-\dot{p}_c\vert\vert\downarrow$ (m/s) & 1.23 $\pm$ 0.05 & 1.26 $\pm$ 0.07 & 1.26 $\pm$ 0.02 \\
-%                 $\vert\vert\dot{p}\vert\vert$ $\downarrow$ (m/s) & \textcolor{myred}{\textbf{0.65}} $\pm$ 0.06 & 0.58 $\pm$ 0.09 & \textcolor{mygreen}{\textbf{0.0}} $\pm$ 0.0 \\
-%                 col. area $\downarrow$ (m$^2$) & \textcolor{mygreen}{\textbf{4.57}} $\pm$ 1.71 & 7.4 $\pm$ 1.98 & 5.88 $\pm$ 0.21\\
-%             \hline
-%                 braking $\downarrow$ (\%) & \textcolor{mygreen}{\textbf{1.52}} $\pm$ 0.26 & \textcolor{mygreen}{\textbf{1.56}} $\pm$ 0.37 & 14. $\pm$ 0.3 \\
-%             \hline
-%             \end{tabular}
-%             \end{adjustbox}
-
-%         \end{textblock*}
-%     }
-
-%     \only<6-7>{
-%         \begin{textblock*}{11cm}(6.8cm,1.4cm)
-%             \begin{adjustbox}{width=0.7\textwidth}
-%             \begin{tabular}{ | c | c | c | c | c | c | c | c | c | c | }
-%             \hline
-%                 \backslashbox[32mm]{Metrics}{Algorithms} & \makecell{GA3C-\\CADRL} & \makecell{MPC SH \\ relax \\ uncert} & \makecell{ProDMP \\ ORCA} & \makecell{ProDMP MPC \\ ORCA, SH} & \makecell{ProDMP MPC \\ ORCA, SH \\ uncert} \\
-%             \hline
-%                 return $\uparrow$ & \textcolor{mygreen}{\textbf{0.95}} & 0.56 & \textcolor{lightgreen}{\textbf{0.79}} $\pm$ 0.02 & \textcolor{lightgreen}{\textbf{0.79}} $\pm$ 0.02 & 0.37 $\pm$ 0.01 \\
-%                 TTG $\downarrow$ (s) & \textcolor{mygreen}{\textbf{7.36}} & 8.73 & 12.48 $\pm$ 0.29 & 12.87 $\pm$ 0.42 & 16.22 $\pm$ 0.16 \\
-%                 success $\uparrow$ (\%) & \textcolor{mygreen}{\textbf{99.84}} & \textcolor{lightgreen}{\textbf{97.68}} & 80.1 $\pm$ 2.3 & 80.1 $\pm$ 2.77 & \textcolor{myred}{\textbf{47.38}} $\pm$ 1.3\\
-%             \hline
-%                 col. $\downarrow$ (\%) & \textcolor{lightgreen}{\textbf{0.04}} & \textcolor{mygreen}{\textbf{0}} & \textcolor{lightgreen}{\textbf{0.22}} $\pm$ 0.13 & \textcolor{mygreen}{\textbf{0}} & \textcolor{mygreen}{\textbf{0}} \\
-%                 $\vert\vert\dot{p} - \dot{p_c}\vert\vert$ $\downarrow$ (m/s) & \textcolor{myred}{\textbf{1}} & \textcolor{mygreen}{\textbf{0}} & \textcolor{myred}{\textbf{0.81}} $\pm$ 0.06 & \textcolor{mygreen}{\textbf{0}} & \textcolor{mygreen}{\textbf{0}}\\
-%                 $\vert\vert\dot{p}\vert\vert$ $\downarrow$ (m/s) & \textcolor{myred}{\textbf{1}} & \textcolor{mygreen}{\textbf{0}} & \textcolor{myred}{\textbf{0.94}} $\pm$ 0.03 & \textcolor{mygreen}{\textbf{0}} & \textcolor{mygreen}{\textbf{0}} \\
-%             \hline
-%                 braking $\downarrow$ (\%) & - & 33.46 & - & \textcolor{mygreen}{\textbf{0.01}} $\pm$ 0 & 2.78 $\pm$ 1.07\\
-%             \hline
-%             \end{tabular}
-%             \end{adjustbox}
-%         \end{textblock*}
-%     }
-
-%     \only<7>{
-%         \begin{textblock*}{11cm}(6.8cm,5cm)
-%             \begin{adjustbox}{width=0.7\textwidth}
-%             \begin{tabular}{ | c | c | c | c | c | c | c | }
-%             \hline
-%                 \backslashbox[32mm]{Metrics}{Algorithms} & \makecell{GA3C-\\CADRL} & \makecell{SAC} & \makecell{ORCA} & \makecell{MPC SH \\ relax \\ uncert} & \makecell{ProDMP MPC \\ ORCA, SH} \\
-%             \hline
-%                 return $\uparrow$ & 0.24 & 0.29 & \textcolor{myred}{\textbf{-0.58}} & 0. &  \textcolor{mygreen}{\textbf{0.56}} \\
-%                 TTG $\downarrow$ (s) &  \textcolor{mygreen}{\textbf{7.9}} & 9.01 & \textcolor{lightgreen}{\textbf{8.25}} & 10 &  \textcolor{myred}{\textbf{15.18}} \\
-%                 success $\uparrow$ (\%) &  \textcolor{mygreen}{\textbf{97.53}} & 87.73 &  \textcolor{lightgreen}{\textbf{94.93}} &  \textcolor{lightgreen}{\textbf{94.3}} & \textcolor{myred}{\textbf{66.6}} \\
-%             \hline
-%                 col. $\downarrow$ (\%) &  \textcolor{lightgreen}{\textbf{2}} & \textcolor{myred}{\textbf{9.3}} &  \textcolor{myred}{\textbf{4.5}} &  \textcolor{lightgreen}{\textbf{1.4}} & \textcolor{mygreen}{\textbf{0.27}} \\
-%                 $\vert\vert\dot{p} - \dot{p_c}\vert\vert$ $\downarrow$ (m/s) & 0.96 & 1.11 & 1.04 & 1.1 & \textcolor{mygreen}{\textbf{0.91}} \\
-%                 $\vert\vert\dot{p}\vert\vert$ $\downarrow$ (m/s) & \textcolor{myred}{\textbf{0.7}} & \textcolor{myred}{\textbf{0.95}} & 0.39 & \textcolor{mygreen}{\textbf{0.35}} & \textcolor{mygreen}{\textbf{0.31}} \\
-%             \hline
-%                 braking $\downarrow$ (\%) & - & - & - & 23.8 & \textcolor{mygreen}{\textbf{1.2}} \\
-%             \hline
-%             \end{tabular}
-%             \end{adjustbox}
-%         \end{textblock*}
-%     }
-% \end{frame}
-
-% % \begin{frame}{Literature}
-% %     \begin{itemize}
-% %         \item Revision of SOTA with focus on combining MPC and RL
-% %         \pause
-% %         \item Crowd simulation and modeling
-% %         \pause
-% %         \item Freezing Robot Problem (FRP)
-% %         \pause
-% %         \item Social aspects of navigation
-% %         \pause
-% %         \item Transformers for RL
-% %     \end{itemize}
-% % \end{frame}
-
-% \begin{frame}{Cascading MPC}
-%     \begin{itemize}
-%         \item Decoupling planning and safety
-%         \pause
-%         \item Two horizons ($M$ and $N$)
-%         \pause
-%         \item Similar behaviour to MPC
-%         \item Short planning and long safety horizon\\
-%             - computational cost\\
-%             - analysis
-%     \end{itemize}
-%     \only<1-2>{
-%         \begin{textblock*}{10cm}(7cm,2cm)
-%             \resizebox{10cm}{!}{\input{schema/cascading.tex}}
-%         \end{textblock*}
-%     }
-
-%     \only<3->{
-%         \begin{textblock*}{9cm}(7.8cm,1.4cm)
-%         \begin{table}[h]
-%             \resizebox{\textwidth}{!}{%
-%             \begin{tabular}{ | c | c | c | c | c | c | c | }
-%             \hline
-%                 \diagbox[width=1cm]{M}{N} & 3 & 4 & 5 & 6 & 7 & 8\\
-%             \hline
-%                 2 & \cellcolor{green!20!red!80} \makecell{6.76,  10.8\%,\\ 0, 1.69} & \cellcolor{red!40!green!60} \makecell{7.45, 7.3\%,\\ 0, 1.64} & \cellcolor{red!20!green!80} \makecell{7.77, 5.2\%,\\ 0, 1.58} & \cellcolor{red!20!green!80} \makecell{7.92, 4.3\% \\ 0, 1.63} & \cellcolor{red!20!green!80} \makecell{7.95, 4.1\%, \\ 0, 1.56} &\cellcolor{red!20!green!80} \makecell{8.01, 3.7\%,\\ 0, 1.5} \\
-%             \hline
-%                 3 & \cellcolor{green!20!red!80} \makecell{6.47,  12.2\%,\\ 0, 1.7} & \cellcolor{green!40!red!60} \makecell{6.99, 9.6\%,\\ 0, 1.64} & \cellcolor{red!40!green!60} \makecell{7.46, 6.9\%,\\ 0, 1.58} & \cellcolor{red!20!green!80} \makecell{7.77, 5.2\% \\ 0, 1.57} & \cellcolor{red!20!green!80} \makecell{7.7, 5.6\%, \\ 0, 1.52} & \cellcolor{red!20!green!80} \makecell{7.81, 5\%,\\ 0, 1.49} \\
-%             \hline
-%                 4 & \cellcolor{green!20!red!80} \makecell{6.1,  14\%,\\ 0, 1.67} & \cellcolor{green!40!red!60} \makecell{6.56, 11.8\%,\\ 0, 1.61} & \cellcolor{green!40!red!60} \makecell{7.2, 8.2\%,\\ 0, 1.58} & \cellcolor{red!40!green!60} \makecell{7.62, 5.9\% \\ 0, 1.56} & \cellcolor{red!40!green!60} \makecell{7.56, 6.3\%, \\ 0, 1.52} & \cellcolor{red!20!green!80} \makecell{7.71, 5.5\%,\\ 0, 1.46} \\
-%             \hline
-%                 7 & \cellcolor{green!20!red!80} \makecell{5.21,  18.3\%,\\ 0, 1.62} & \cellcolor{green!20!red!80} \makecell{5.85, 15.2\%,\\ 0, 1.58} & \cellcolor{green!40!red!60} \makecell{6.36, 12.4\%,\\ 0, 1.53} & \cellcolor{green!40!red!60} \makecell{6.97, 9.1\% \\ 0, 1.5} & \cellcolor{green!40!red!60} \makecell{7.19, 8\%, \\ 0, 1.47} & \cellcolor{green!40!red!60} \makecell{7.54, 6.2\%,\\ 0, 1.43} \\
-%             \hline
-%             \end{tabular}
-%             }
-
-%             \resizebox{0.86\textwidth}{!}{%
-%             \begin{tabular}{ | c | c | c | c | c | c |}
-%             \hline
-%                 \diagbox[width=1cm]{M}{N} & 9 & 10 & 11 & 12 & 13 \\
-%             \hline
-%                 2 & \cellcolor{red!20!green!80} \makecell{8.02, 3.6\%,\\ 0, 1.5} & \cellcolor{red!20!green!80} \makecell{8.02, 3.6\%,\\ 0, 1.52} & \cellcolor{green!90} \makecell{8.06, 3.5\%,\\ 0, 1.51} & \cellcolor{green!90} \makecell{8.06, 3.5\%,\\ 0, 1.5} & \cellcolor{green!90} \makecell{8.06, 3.5\%,\\ 0, 1.5} \\
-%             \hline
-%                 3 & \cellcolor{red!20!green!80}\makecell{7.96, 4.2\%,\\ 0, 1.5} & \cellcolor{red!20!green!80}\makecell{7.97, 4.2\%,\\ 0, 1.51} & \cellcolor{green!90}\makecell{8.09, 3.6\%,\\ 0, 1.49} & \cellcolor{red!20!green!80}\makecell{8.08, 3.7\%,\\ 0, 1.47} & \cellcolor{red!20!green!80}\makecell{8.08, 3.7\%,\\ 0, 1.51} \\
-%             \hline
-%                 4 & \cellcolor{red!20!green!80} \makecell{7.84, 4.9\%,\\ 0, 1.47} & \cellcolor{red!20!green!80} \makecell{7.92, 4.5\%,\\ 0, 1.48} & \cellcolor{red!20!green!80} \makecell{8.06, 3.8\%,\\ 0, 1.45} & \cellcolor{red!20!green!80}\makecell{8.02, 4\%,\\ 0, 1.46} & \cellcolor{red!20!green!80}\makecell{8.04, 3.9\%,\\ 0, 1.47} \\
-%             \hline
-%                 7 & \cellcolor{red!20!green!80}\makecell{7.71, 5.4\%,\\ 0, 1.46} & \cellcolor{red!20!green!80}\makecell{7.81, 4.9\%,\\ 0, 1.47} & \cellcolor{red!20!green!80}\makecell{7.94, 4.3\%,\\ 0, 1.44} & \cellcolor{red!20!green!80}\makecell{7.96, 4.2\%,\\ 0, 1.44} & \cellcolor{red!20!green!80}\makecell{7.98, 4.1\%,\\ 0, 1.48}  \\
-%             \hline
-%             \end{tabular}
-%         }
-%         \end{table}
-%         \end{textblock*}
-%     }
 \end{frame}
 
-\begin{frame}{Formation}
+\subsection{Subsection 3.3}
+\begin{frame}{Optimal Global Control}
     \begin{itemize}
-        \item Courses\\
-            - 56 hours of interdisciplinary courses (French B2), total 96/40\\
-            - 18 hours of ethic scientific research, total 18/6\\
-            - 40 hours of professional courses (Les Doctoriales), total 40/40\\
-            - 62.5 hours of scientific courses (Summer schools, SAHRI, PAISS), total 62.5/40
-        \item Participation\\
-            - Journée thématique "Interaction humain-robot par méthodes d'apprentissage ou méthodes hybrides" (Lyon, 1 day)\\
-            - Three meetings with KIT collaborators
+        \item Itself
+        \item Model of the environment
+        \item Long horizon
     \end{itemize}
 \end{frame}
+
+\begin{frame}{Limitations}
+    \begin{itemize}
+        \item Passive Safety\\
+            - Planning and safety
+            \pause
+        \item Freezing Robot Problem
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Cascading Control}
+    \begin{itemize}
+        \item Model/Objective
+        \item Constraints
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Cascading Control Problems}
+    \begin{itemize}
+        \item Computation
+            \pause
+        \item Braking Issue
+            \pause
+        \item Performance
+    \end{itemize}
+\end{frame}
+
 
 \section{Section 4}
-
-\begin{frame}{Perspective}
-    \begin{itemize}
-        \item Post-submission\\
-            - rewriting results\\
-            - optimize learning with ORCA\\
-            - learning better cooperation
-        \pause
-        \item Transformer \& Diffusion Models
-        \pause
-        \item Relaxing constraints
-        \pause
-        \item Cascading
-        \pause
-        \item Thesis
-    \end{itemize}
-
-    % \only<6>{
-    %     \begin{textblock*}{4cm}(7.2cm,0.8cm)
-    %         \tikzstyle{descript} = [text = black,align=center, minimum height=1.8cm, align=center, outer sep=0pt,font = \footnotesize]
-    %         \tikzstyle{activity} =[align=center,outer sep=1pt]
-
-    %         \begin{tikzpicture}[very thick, black]
-    %             \small
-
-    %             %% Coordinates
-    %             \coordinate (Nov) at (0,0);
-    %             \coordinate (Dec) at (0,-1);
-    %             \coordinate (Jan_Mar) at (0,-2);
-    %             \coordinate (Apr) at (0,-3);
-    %             \coordinate (May_Jun) at (0,-4);
-    %             \coordinate (Jul_Sep) at (0,-5);
-    %             \coordinate (Oct) at (0,-6);
-    %             \coordinate (Fin) at (0,-7);
-
-    %             %% Filled regions
-    %             \fill[color=red!20] rectangle (Nov) -- ($(Dec)+(0,0.2)$) -- ($(Dec)+(4,0.2)$) -- ($(Nov)+(4,0)$);
-    %             \fill[color=blue!20] rectangle ($(Dec)+(0,0.2)$) -- (Jan_Mar) -- ($(Jan_Mar)+(4,0)$) -- ($(Dec)+(4,0.2)$);
-    %             \fill[color=green!20] rectangle (Jan_Mar) -- (Apr) -- ($(Apr)+(4,0)$) -- ($(Jan_Mar)+(4,0)$);
-    %             \fill[color=yellow!20] rectangle (Apr) -- (May_Jun) -- ($(May_Jun)+(4,0)$) -- ($(Apr)+(4,0)$);
-    %             \fill[color=magenta!20] rectangle (May_Jun) -- (Jul_Sep) -- ($(Jul_Sep)+(4,0)$) -- ($(May_Jun)+(4,0)$);
-    %             \fill[color=gray!20] rectangle (Jul_Sep) -- (Oct) -- ($(Oct)+(4,0)$) -- ($(Jul_Sep)+(4,0)$);
-    %             \fill[color=cyan!20] rectangle (Oct) -- ($(Fin)+(0,0.16)$) -- ($(Fin)+(4,0.16)$) -- ($(Oct)+(4,0)$);
-    %             % \shade[left color=green, right color=white] rectangle (P2) -- (P3) -- ($(P3)+(0,1)$) -- ($(P2)+(0,1)$); % Current work
-
-    %             %% Text inside filled regions
-    %             \draw ($(Nov)+(1.9, -0.4)$) node[activity,red!60] {New results \\ Cascading paper};
-    %             \draw ($(Dec)+(1.9, -0.4)$) node[activity,blue!60] {Final Decisions \\ architecture, constraints};
-    %             \draw ($(Jan_Mar)+(1.9, -0.5)$) node[activity,green!60] {Working on 3$^{rd}$ paper};
-    %             \draw ($(Apr)+(1.9, -0.5)$) node[activity,brown!40] {Thesis structure \\ 1 $^{st}$ rough draft};
-    %             \draw ($(May_Jun)+(1.9, -0.5)$) node[activity,magenta!60] {Thesis feedback \\ thesis full draft};
-    %             \draw ($(Jul_Sep)+(1.9, -0.5)$) node[activity,gray!60] {Referee review};
-    %             \draw ($(Oct)+(1.9, -0.4)$) node[activity,cyan!60] {Final version \\ Defense};
-
-    %             %% Arrow
-    %             \draw[->] (Nov) -- (Fin);
-    %             %% Ticks
-    %             \foreach \x in {0,-1,...,-6}
-    %                 \draw(2pt, \x cm) -- (-2pt, \x cm);
-    %             %% Labels
-    %             \foreach \i \j in {0/Nov,-1/Dec,-2/Jan-Mar,-3/Apr,-4/May-Jun,-5/Jul-Sep,-6/Oct}{
-    %                 \draw (0, \i) node[left=3pt] {\j} ;
-    %             }
-    %         \end{tikzpicture}
-    %     \end{textblock*}
-    % }
+\subsection{Subsection 4.1}
+\begin{frame}{}
+    \centering
+    \textbf{\Fontbig{Hybrid Approach for Navigation}}
 \end{frame}
+
+\begin{frame}{Hybrid}
+    \begin{itemize}
+        \item MPC as safety filter
+        \item Episode-based RL\\
+            - ProDMP
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Probabilistic Dynamic Movement Primitives (ProDMP)}
+    \begin{itemize}
+        \item DMP
+        \item ProDMP
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{ProDMP for Navigation}
+    \begin{itemize}
+        \item DMP
+        \item ProDMP
+    \end{itemize}
+\end{frame}
+
+\subsection{Subsection 4.2}
+\begin{frame}{Hybrid Approach}
+    \begin{itemize}
+        \item Algorithm
+        \item Intrinsic Reward
+        \item Architecture
+    \end{itemize}
+\end{frame}
+
+\subsection{Subsection 4.3}
+\begin{frame}{Results - Constant Crowd}
+\end{frame}
+
+\begin{frame}{Results - ORCA Crowd}
+\end{frame}
+
+\begin{frame}{Results - Homogeneous Crowd}
+\end{frame}
+
+\begin{frame}{Results - Heterogeneous Crowd}
+\end{frame}
+
 
 \begin{frame}{}
 \centering

@@ -218,7 +218,7 @@
       \usebeamerfont{date in head/foot}%
       \strut\insertshortdate
   \end{beamercolorbox}%
-  \begin{beamercolorbox}[wd=\dimexpr\paperwidth-47mm\relax, ht=\kitbottomheight, dp=\kitbottomdepth, leftskip=2mm]{}
+  \begin{beamercolorbox}[wd=\dimexpr\paperwidth-47mm\relax, ht=\kitbottomheight, dp=\kitbottomdepth, leftskip=5mm]{}
       \insertshortauthor: \insertshorttitle
   \end{beamercolorbox}%
 
