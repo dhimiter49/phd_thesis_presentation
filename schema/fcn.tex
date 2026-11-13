@@ -1,0 +1,61 @@
+\begin{tikzpicture}[every node/.append style={align=center, thick},
+    neuron/.style = {circle, draw=black, line width=1, minimum size=0.7cm, font=\small},
+    input/.style = {neuron, fill=lightblue},
+    hidden/.style = {neuron, fill=lightgreen},
+    output/.style = {neuron, fill=lightred},
+    conn/.style = {draw=black!60, line width=0.6}]
+
+    \def\dy{1.2}      % vertical spacing between neurons
+    \def\dhx{3}      % horizontal position of the hidden layer
+    \def\dox{6}      % horizontal position of the output layer
+
+    % Neuron positions
+    \foreach \i in {1,...,3}
+        \coordinate (I-\i) at (0, {\dy*(2-\i)});
+    \foreach \i in {1,...,4}
+        \coordinate (H-\i) at (\dhx, {\dy*(2.5-\i)});
+    \foreach \i in {1,...,2}
+        \coordinate (O-\i) at (\dox, {\dy*(1.5-\i)});
+
+    % Fully connected layers
+    \foreach \i in {1,...,3}
+        \foreach \j in {1,...,4}
+            \draw[conn] (I-\i) -- (H-\j);
+    \foreach \i in {1,...,4}
+        \foreach \j in {1,...,2}
+            \draw[conn] (H-\i) -- (O-\j);
+
+    % Neurons
+    \foreach \i in {1,...,3}
+        \node[input] at (I-\i) {$x_\i$};
+    \foreach \i in {1,...,4}
+        \node[hidden] at (H-\i) {$h_\i$};
+    \foreach \i in {1,...,2}
+        \node[output] at (O-\i) {$\hat y_\i$};
+
+    % Layer labels
+    % \node (input_str) at (0, 2.8) {Input layer};
+    % \node (hidden_str) at (\dhx, 2.8) {Hidden layer};
+    % \node (output_str) at (\dox, 2.8) {Output layer};
+
+    % Network input / output
+    \node (net_in) at (-2.4, 0) {$\V{s} \in \mathbb{R}^{3}$};
+    \draw[->, -{Stealth[width=2mm]}, line width=1] (net_in.east) -- ([xshift=-8mm]I-2);
+    % bracket grouping the input layer
+    \draw[line width=1] (-0.5, 1.6) -- (-0.7, 1.6) -- (-0.7, -1.6) -- (-0.5, -1.6);
+    % bracket grouping the output layer
+    \draw[line width=1] (6.5, 1.0) -- (6.7, 1.0) -- (6.7, -1.0) -- (6.5, -1.0);
+    \node (net_out) at (8.4, 0) {$\V{a} \in \mathbb{R}^{2}$};
+    \draw[->, -{Stealth[width=2mm]}, line width=1] ([xshift=-9mm]net_out.west) -- (net_out.west);
+
+    % Weight rectangles: first and final layer transitions
+    \draw[dashed, line width=1] (0.5, -1.8) rectangle (2.5, 1.8);
+    \draw[dashed, line width=1] (3.5, -1.8) rectangle (5.5, 1.8);
+    
+    % All weights combine into the network parameters
+    \draw[line width=1] (1.5, -1.8) -- (1.5, -2.7) -- (3, -2.7);
+    \draw[line width=1] (4.5, -1.8) -- (4.5, -2.7) -- (3, -2.7);
+    \draw[->, -{Stealth[width=2mm]}, line width=1] (3, -2.7) -- (3, -3.3);
+    \node (theta) at (3, -3.55) {$\V{\theta}$};
+
+\end{tikzpicture}

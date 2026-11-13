@@ -349,8 +349,8 @@
         \begin{textblock*}{3cm}(1.4cm,3.4cm)
         \visible<2->{
             \begin{align*}
-                \pi^\star &= \argmax_\pi J(\pi), \; \text{where}\\
-                &J(\pi)=\sum_{k=0}^\infty\gamma^k\mathbb{E}_{(\V{s}_k,\V{a}_k)\sim \rho_\pi}\mathcal{R}(\V{s}_k,\V{a}_k)\\
+                \pi^\star &= \argmax_\pi G(\pi), \; \text{where}\\
+                &G(\pi)=\mathbb{E}_{\V{\tau}\sim \rho_\pi}\left[\sum_{k=0}^\infty\gamma^k\mathcal{R}(\V{s}_k,\V{a}_k)\right]\\
             \end{align*}
         }
         \end{textblock*}
@@ -364,12 +364,12 @@
         \pause
         \textcolor{myblue}{$\boldsymbol{-}$} safety\\
     \end{itemize}
-    \begin{textblock*}{8cm}(9.5cm,4mm)
+    \begin{textblock*}{8cm}(9.5cm,14mm)
         \visible<1->{
             \resizebox{5cm}{!}{\input{schema/mpc_schema_bw.tex}}
         }
     \end{textblock*}
-    \begin{textblock*}{7cm}(8.8cm,2.5cm)
+    \begin{textblock*}{7cm}(8.8cm,3.5cm)
         \visible<1->{
             \resizebox{7cm}{!}{\input{schema/rl_schema.tex}}
         }
@@ -460,7 +460,7 @@
     %        \cite{alahi_2016_CVPR}
     %    }
     % \end{textblock*}
-    \begin{textblock*}{4.8cm}(4.6cm,2.6cm)
+    \begin{textblock*}{4.8cm}(4.6cm,2.2cm)
         \visible<4-6>{
         \centering
         \resizebox{4.8cm}{!}{
@@ -543,17 +543,17 @@
         \end{textblock*}
     }
     \only<2>{
-        \begin{textblock*}{6cm}(6cm,1cm)
+        \begin{textblock*}{6cm}(6cm, 5mm)
             \centering
-            \movie[poster, showcontrols, height=3.8cm, width=6cm]{}{imgs/local_not_opt.mp4}
+            \movie[poster, showcontrols, height=4cm, width=6cm]{}{imgs/local_not_opt.mp4}
         \end{textblock*}
-        \begin{textblock*}{6cm}(10cm,4.4cm)
+        \begin{textblock*}{6cm}(10cm, 3.9cm)
             \centering
-            \movie[poster, showcontrols, height=4cm, width=6cm]{}{imgs/global_opt.mp4}
+            \movie[poster, showcontrols, height=4.45cm, width=6.3cm]{}{imgs/global_opt.mp4}
         \end{textblock*}
     }
     \only<3>{
-        \begin{textblock*}{6cm}(5cm,1.8cm)
+        \begin{textblock*}{6cm}(6cm,1.8cm)
             \includegraphics[height=4cm]{imgs/prodmp_ineff_40.pdf}
         \end{textblock*}
     }
@@ -568,19 +568,36 @@
 
 \begin{frame}{Policy Gradient}
     \begin{itemize}
-        \item Policy
+        \item Policy\\
+        \hspace{5mm}$\pi_{\V{\theta}}(\V{a}\vert\V{s})=\mathcal{N}(\V{a}\vert\mu_{\V{\theta}}(\V{s}), \Sigma_{\V{\theta}}(\V{s}))$
+        \pause
+        \item Objective\\
+        \hspace{5mm}$G(\V{\theta})=\mathbb{E}_{\V{\tau}\sim p_{\V{\theta}}(\V{\tau})}\left[ \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})\right]$\\
+        \hspace{1cm}$p_{\V{\theta}}(\V{\tau})=\mathcal{P}(\V{s}_0)\prod_t \pi_{\V{\theta}}(\V{a}_t\vert\V{s}_t)\mathcal{P}(\V{s}_{t+1}\vert\V{s}_t, \V{a}_t)$
+        \pause
+        \item Gradient\\
+            \hspace{5mm}$\nabla_{\V{\theta}}G(\V{\theta})=\textcolor<4->{myred}{\nabla_{\V{\theta}}} \textcolor<4->{myblue}{\int} \textcolor<4->{myred}{p_{\V{\theta}}(\tau)} \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})\textcolor<4->{myblue}{d\V{\tau}}$
             \pause
-        \item Gradient
             \pause
-        \item Derive
-            \pause
-        \item Update
+            \vspace{1.2cm}
+        \item Update $\V{\theta} \leftarrow \V{\theta} + \alpha \nabla_{\V{\theta}}G(\V{\theta})$
     \end{itemize}
+    \only<1->{
+        \begin{textblock*}{12cm}(6.5cm,1.5cm)
+            \centering
+            \resizebox{8cm}{!}{\input{schema/fcn.tex}}
+        \end{textblock*}
+    }
+    \only<4->{
+        \begin{textblock*}{12cm}(3cm,6.2cm)
+            $\approx \textcolor<4->{myblue}{\dfrac{1}{K} \sum\limits_i^K} \left(\textcolor<4->{myred}{\sum\limits_t\nabla_{\V{\theta}}\log(\pi_{\V{\theta}}(\V{a}_{i,t}\vert \V{s}_{i,t}))}\right)  \left(\sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{i,t},\V{a}_{i,t})\right)$
+        \end{textblock*}
+    }
 \end{frame}
 
-\begin{frame}{Trust-region Policy Layers}
+\begin{frame}{Trust Region Projection Layers (TRPL)}
     \begin{itemize}
-        \item Trust region
+        \item Trust regions
         \item Distance metric
         \item Derive
     \end{itemize}
@@ -731,6 +748,29 @@
 \end{frame}
 
 \begin{frame}{Results - Heterogeneous Crowd}
+\end{frame}
+
+\subsection{Section 5}
+\subsection{Subsection 5.1}
+\begin{frame}{}
+    \centering
+    \textbf{\Fontbig{Conclusion \& Perspective}}
+\end{frame}
+
+\begin{frame}{Conclusion}
+    \begin{itemize}
+        \item MPC limitations
+        \item Hybrid advantages
+        \item Hybrid Limitations
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Future Work}
+    \begin{itemize}
+        \item Optimal global control
+        \item Crowd modeling
+        \item More capable policy
+    \end{itemize}
 \end{frame}
 
 
