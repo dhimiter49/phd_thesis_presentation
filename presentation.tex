@@ -597,10 +597,25 @@
 
 \begin{frame}{Trust Region Projection Layers (TRPL)}
     \begin{itemize}
-        \item Trust regions
-        \item Distance metric
-        \item Derive
+        \item Trust regions\\
+            - stabilize learning\\
+            \hspace{5mm}$\M{\theta}^\star= \argmax_{\M{\theta}}G(\pi_{\M{\theta}},\pi_{\M{\theta}_{old}})$\\
+            \hspace{10mm}$\text{s.t.}\quad D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta,\quad \forall \V{s}\in\mathcal{S}$
+        \pause
+        \item Distance metric\\
+            - Kullback-Leibler\\
+            \hspace{5mm}$D(\pi_{\M{\theta}}\vert\vert \pi_{\M{\theta}_{old}}) = \sum\limits_{\V{s},\V{a}}\pi_{\M{\theta}}(\V{a}\vert \V{s})\log\dfrac{\pi_{\M{\theta}}(\V{a}\vert\V{s})}{\pi_{\M{\theta}_{old}}(\V{a}\vert\V{s})}<\delta$
+        \pause
+        \item Derive mean and variance projection\\
+            \hspace{5mm}$\argmin\limits_{\tilde{\mu}} \T{(\mu-\tilde{\mu})}\Sigma_{old}^{-1}(\mu-\tilde{\mu}),\quad \text{s.t.}\quad \T{(\mu_{old}-\tilde{\mu})}\Sigma_{old}^{-1}(\mu_{old}-\tilde{\mu})\leq\delta_\mu$\\
+            \hspace{10mm}$\rightarrow \tilde\mu=\dots$
     \end{itemize}
+    \only<1->{
+        \begin{textblock*}{12cm}(6cm,1.6cm)
+            \centering
+            \resizebox{7cm}{!}{\input{schema/trust_region.tex}}
+        \end{textblock*}
+    }
 \end{frame}
 
 

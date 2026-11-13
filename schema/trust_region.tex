@@ -1,0 +1,30 @@
+\begin{tikzpicture}[every node/.append style={align=center, thick},
+    contour/.style = {line width=1}]
+
+    \def\cx{6.2}   % contour center x
+    \def\cy{0}     % contour center y
+
+    % Contours of the 2D function
+    \draw[contour, myblue!35] (\cx, \cy) ellipse (3.95 and 2.3);
+    \draw[contour, myblue!50] (\cx, \cy) ellipse (3.0 and 1.75);
+    \draw[contour, myblue!70] (\cx, \cy) ellipse (2.05 and 1.2);
+    \draw[contour, myblue!90] (\cx, \cy) ellipse (1.1 and 0.65);
+
+    % Current point, close to the edge
+    \coordinate (pt) at (3.6, 1.45);
+    \fill (pt) circle (0.07);
+    \node[fill=white, inner sep=1pt, anchor=east] at ([xshift=-1mm, yshift=1mm]pt) {$\V{\theta}_{old}$};
+
+    % Trust region
+    \draw[lejla, dashed, line width=1.2] (pt) circle (1.5);
+    \node[lejla, fill=white, inner sep=1pt] at (2.5, 0.75) {$D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta$};
+
+    % Proposed update: too large, leaves the trust region
+    \draw[->, -{Stealth[width=2mm]}, myred, line width=1.5] (pt) -- ([xshift=4.7cm, yshift=-3.3cm]pt);
+
+    % Clipped update: similar direction, stays inside the trust region
+    \draw[->, -{Stealth[width=2mm]}, mygreen, line width=1.5] (pt) -- ([xshift=1.05cm, yshift=-1.1cm]pt);
+    \fill ([xshift=1.05cm, yshift=-1.1cm]pt) circle (0.07);
+    \node[fill=white, inner sep=1pt] at ([xshift=10.7mm, yshift=-14mm]pt) {$\V{\theta}$};
+
+\end{tikzpicture}
