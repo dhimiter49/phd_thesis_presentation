@@ -14,6 +14,11 @@ Figures/*.eps
 *.bbl
 *.blg
 *.brf
+*.bcf
 *.lot
 *.dpth
 *.md5
+*.nav
+*.run.xml
+*.snm
+*.vrb
