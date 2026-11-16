@@ -1,0 +1,9 @@
+\begin{tikzpicture}
+    \useasboundingbox (-0.5,-0.5) rectangle (2.8, 1.2);
+    \coordinate (agent) at (0, 0);
+    \fill[mygreen] (agent) circle (0.5);
+
+    \draw[->, -{Stealth[width=2mm]}, line width=1.5] (agent) -- (2, 1) node[midway, above, sloped] () {$\dot{p}_k$};
+    \draw<7->[->, -{Stealth[width=2mm]}, line width=1.5] (agent) -- (2.5, -0.2) node[midway, above, sloped] () {$\dot{p}_{k+1}$};
+
+\end{tikzpicture}

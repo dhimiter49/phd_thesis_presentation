@@ -30,6 +30,7 @@
 %% example: \documentclass[16:9,de,navbarinfooter]{sdqbeamer}
 
 \documentclass[navbaroff]{sdqbeamer}
+\ifdefined\OnlyFrame\expandafter\includeonlyframes\expandafter{\OnlyFrame}\fi
 
 %% TITLE PICTURE
 
@@ -380,24 +381,58 @@
 \end{frame}
 
 
-\begin{frame}{Navigation MDP}
+\begin{frame}[label=nav_mdp]{Navigation MDP}
     \begin{itemize}
         \item State/Observation $\mathcal{S}/\mathcal{O}$\\
             - positions $\V{p}, \V{p}_{c_j}$ and velocities $\dot{\V{p}}, \dot{\V{p}}_{c_j}$\\
+            \pause
             - LiDAR rays
+        \pause
         \pause
         \item Action $\mathcal{A}$\\
             - acceleration\\
+        \pause
+        \pause
             - velocity
         \pause
+        \pause
         \item Reward function $\mathcal{R}$\\
-            - completion (+) / collision (-) / proxemics (-)\\
-            - towards goal (+) / idleness (-) / smoothness (-)
+            - completion (+) \pause/ collision (-) \pause/ proxemics (-)\\
+            \pause
+            \pause
+            - towards goal (+) \pause/ idleness (-) \pause/ smoothness (-)
+        \pause
+        \pause
         \pause
         \item Transition function $\mathcal{P}$\\
             - Newton dynamics\\
             - Crowd (constant, ORCA, SFM)
     \end{itemize}
+    \begin{textblock*}{7cm}(7.5cm,1.5cm)
+        \visible<1-3>{
+            \resizebox{4cm}{!}{\input{schema/multi_agent.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(12cm,1.1cm)
+        \visible<2-3>{
+            \resizebox{4cm}{!}{\input{schema/multi_agent_lidar.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(7cm,3cm)
+        \visible<4-7>{
+            \resizebox{3cm}{!}{\input{schema/acc_control.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(11cm,3cm)
+        \visible<6-7>{
+            \resizebox{3cm}{!}{\input{schema/vel_control.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{5cm}(8.7cm,2cm)
+        \visible<8-16>{
+            \resizebox{9cm}{!}{\input{schema/reward_comp.tex}}
+        }
+    \end{textblock*}
 \end{frame}
 
 \begin{frame}{Literature}
@@ -797,7 +832,7 @@
             \pause
             \pause
             \pause
-        \item Collision Avoidance\\
+        \item Collision Avoidance \cite{bohorquez_safe_2016}\\
             - $\vert\vert \V{p} - \V{p}_{c_j}\vert\vert\geq d$
             \pause
             \pause

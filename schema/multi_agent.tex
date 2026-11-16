@@ -1,0 +1,31 @@
+\begin{tikzpicture}[every node/.append style={align=center, thick},
+    body/.style = {circle, line width=1, minimum size=0.8cm},
+    vel/.style = {->, -{Stealth[width=2mm]}, line width=1.5},
+    rel/.style = {->, -{Stealth[width=2mm]}, dotted, line width=1}]
+
+    % Middle circle and three surrounding circles, non symmetric placement
+    \coordinate (c) at (0, 0);
+    \coordinate (c1) at (2.6, 1.8);
+    \coordinate (c2) at (3.9, -1.2);
+    \coordinate (c3) at (-2.4, -2.0);
+
+    % Vectors from the middle circle to each circle (relative position)
+    \draw[rel] (c) -- (2.19, 1.52) node[midway, above, sloped] () {$\Delta\boldsymbol{p}_{c_1}$};
+    \draw[rel] (c) -- (3.42, -1.05) node[midway, below, sloped] () {$\Delta\boldsymbol{p}_{c_2}$};
+    \draw[rel] (c) -- (-2.02, -1.68) node[midway, below, sloped] () {$\Delta\boldsymbol{p}_{c_3}$};
+
+    % Velocity of the middle circle
+    \draw[vel, mygreen] (c) -- (-0.94, 0.19) node[pos=0.8, above, sloped] () {$\dot{\boldsymbol{p}}$};
+
+    % Velocities of the surrounding circles
+    \draw[vel, myred] (c1) -- (3.6, 2.4) node[midway, above, sloped] () {$\dot{\boldsymbol{p}}_{c_1}$};
+    \draw[vel, myred] (c2) -- (4.45, -0.45) node[midway, right] () {$\dot{\boldsymbol{p}}_{c_2}$};
+    \draw[vel, myred] (c3) -- (-3.5, -1.55) node[midway, above, sloped] () {$\dot{\boldsymbol{p}}_{c_3}$};
+
+    % Bodies drawn on top of the vector bases
+    \node[body, fill=mygreen] at (c) {};
+    \node[body, fill=myred] at (c1) {};
+    \node[body, fill=myred] at (c2) {};
+    \node[body, fill=myred] at (c3) {};
+
+\end{tikzpicture}

@@ -1,0 +1,47 @@
+\begin{tikzpicture}[every node/.append style={align=center, thick},
+    body/.style = {circle, line width=1, minimum size=0.8cm},
+    vel/.style = {->, -{Stealth[width=2mm]}, line width=1.5},
+    rel/.style = {->, -{Stealth[width=2mm]}, dotted, line width=1}]
+
+    % Middle circle and three surrounding circles, non symmetric placement
+    \coordinate (c) at (0, 0);
+    \coordinate (c1) at (2.6, 1.8);
+    \coordinate (c2) at (3.9, -1.2);
+    \coordinate (c3) at (-2.4, -2.0);
+
+    % LiDAR rays: 40 equidistant beams, range 4
+    \foreach \a in {0, 9, ..., 351}{
+        \pgfmathparse{(\a==36) || (\a==216) || (\a==225) || (\a==342) ? 0 : 1}
+        \ifnum\pgfmathresult=1
+            \draw[dashed, line width=0.5] (c) -- ++(\a:4);
+        \fi
+    }
+
+    % Vectors from the middle circle to each circle (relative position)
+    \draw[dashed] (c) -- (2.24, 1.64) node[midway, above, sloped] () {};
+    \draw[dashed] (c) -- (3.5, -1.14) node[midway, below, sloped] () {};
+    \draw[dashed] (c) -- (-2.25, -1.62) node[midway, below, sloped] () {};
+    \draw[dashed] (c) -- (-2.05, -2.05) node[midway, below, sloped] () {};
+
+    % Velocity of the middle circle
+    \draw[vel, mygreen] (c) -- (-0.94, 0.19) node[pos=0.8, above, sloped] () {$\dot{\boldsymbol{p}}$};
+
+    % Velocities of the surrounding circles
+    \draw[vel, myred] (c1) -- (3.6, 2.4) node[midway, above, sloped] () {};
+    \draw[vel, myred] (c2) -- (4.45, -0.45) node[midway, right] () {};
+    \draw[vel, myred] (c3) -- (-3.5, -1.55) node[midway, above, sloped] () {};
+
+    % Bodies drawn on top of the vector bases
+    \node[body, fill=mygreen] at (c) {};
+    \node[body, fill=myred] at (c1) {};
+    \node[body, fill=myred] at (c2) {};
+    \node[body, fill=myred] at (c3) {};
+
+    \visible<3->{
+        \draw[->, thick] (2.24, 1.64) -- (3.06595126, 2.2519819);
+        \draw[->, thick] (3.5, -1.14) -- (3.69016685, -1.20194006);
+        \draw[->, thick] (-2.25, -1.62) -- (-2.65576717, -1.91215236);
+        \draw[->, thick] (-2, -2) -- (-2.34698485, -2.34698485);
+    }
+
+\end{tikzpicture}
