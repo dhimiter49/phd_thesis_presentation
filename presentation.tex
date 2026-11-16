@@ -65,6 +65,9 @@
 
 % Bibliography
 
+% \usepgfplotslibrary{groupplots,dateplot,external}
+% \tikzexternalize
+
 \usepackage[backend=biber, style=numeric, sortcites, hyperref]{biblatex}
 \usepackage{color,colortbl}
 \usepackage{xcolor}
@@ -589,7 +592,7 @@
         \end{textblock*}
     }
     \only<4->{
-        \begin{textblock*}{12cm}(3cm,6.2cm)
+        \begin{textblock*}{12cm}(3.2cm,6.2cm)
             $\approx \textcolor<4->{myblue}{\dfrac{1}{K} \sum\limits_i^K} \left(\textcolor<4->{myred}{\sum\limits_t\nabla_{\V{\theta}}\log(\pi_{\V{\theta}}(\V{a}_{i,t}\vert \V{s}_{i,t}))}\right)  \left(\sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{i,t},\V{a}_{i,t})\right)$
         \end{textblock*}
     }
@@ -622,9 +625,53 @@
 
 \begin{frame}{Reinforcement Learning for Navigation}
     \begin{itemize}
-        \item Analysis of the MDP choices
-        \item Environment
+        \item Analysis\\
+            - action\\
+            \pause
+            - observation\\
+            \pause
+            - reward function
+            \pause
+        \item Environment\\
+            - constant\\
+            \pause
+            - ORCA\\
+            \pause
+            - One way
     \end{itemize}
+    % \only<1>{
+    %     \begin{textblock*}{12cm}(5cm,2.5cm)
+    %         \centering
+    %         \resizebox{6cm}{!}{\input{graphs/navigation.tex}}
+    %     \end{textblock*}
+    % }
+    % \only<2>{
+    %     \begin{textblock*}{12cm}(5cm,2.5cm)
+    %         \centering
+    %         \resizebox{6cm}{!}{\input{graphs/static_obs.tex}}
+    %     \end{textblock*}
+    % }
+    % \only<3>{
+    %     \begin{textblock*}{12cm}(4.5cm,2.2cm)
+    %         \centering
+    %         \resizebox{7cm}{!}{\input{graphs/static_rew.tex}}
+    %     \end{textblock*}
+    % }
+    \only<4>{
+        \begin{textblock*}{12cm}(7cm,3.5cm)
+            \includegraphics[height=4cm]{imgs/env.png}
+        \end{textblock*}
+    }
+    \only<5>{
+        \begin{textblock*}{12cm}(8cm,2.5cm)
+            \includegraphics[height=6cm]{imgs/env_orca.png}
+        \end{textblock*}
+    }
+    \only<6>{
+        \begin{textblock*}{12cm}(7cm,2.5cm)
+            \includegraphics[height=5.6cm]{imgs/env_oneway.png}
+        \end{textblock*}
+    }
 \end{frame}
 
 
@@ -637,25 +684,200 @@
 
 \begin{frame}{Model}
     \begin{itemize}
-        \item Newton
-        \item Horizon
+        \pause
+        \item Holonomic robot\\
+            \pause
+            - Newton dynamics
+            \pause
+        \item Matrix form\\
+            - initial conditions $x_0, \dot{x}_0$\\
+            - control $\dot{x}_1$
+            \pause
+        \item Horizon $N$\\
+            - $X=\T{\begin{bmatrix}x_1,\; x_2,\dots x_N\end{bmatrix}}$\\
+            - $\dot{X}=\T{\begin{bmatrix} \dot{x}_1,\; \dot{x}_2,\dots \dot{x}_N\end{bmatrix}}$
+            \pause
+        \item 2D\\
+            - $P=\T{\begin{bmatrix} \T{X},\T{Y}\end{bmatrix}}$
     \end{itemize}
+    \only<1->{
+        \begin{textblock*}{3cm}(2.3cm,0.6cm)
+            \resizebox{3.6cm}{!}{\input{schema/mpc_schema_model.tex}}
+        \end{textblock*}
+    }
+    \only<2->{
+        \begin{textblock*}{12cm}(6cm,1.2cm)
+            \begin{tikzpicture}
+                % Dashed velocity vectors in any direction (holonomic robot)
+                \draw[dashed, ->, -{Stealth[width=1.6mm]}, black!30, line width=1] (0,0) -- (-0.53, 1.15);
+                \draw[dashed, ->, -{Stealth[width=1.6mm]}, black!30, line width=1] (0,0) -- (0.68, 1.29);
+                \draw[dashed, ->, -{Stealth[width=1.6mm]}, black!30, line width=1] (0,0) -- (1.02, 0.47);
+                \draw[dashed, ->, -{Stealth[width=1.6mm]}, black!30, line width=1] (0,0) -- (1.06, -0.35);
+                \draw[dashed, ->, -{Stealth[width=1.6mm]}, black!30, line width=1] (0,0) -- (0.54, -1.0);
+                \draw[dashed, ->, -{Stealth[width=1.6mm]}, black!30, line width=1] (0,0) -- (-0.26, -1.31);
+                \draw[dashed, ->, -{Stealth[width=1.6mm]}, black!30, line width=1] (0,0) -- (-1.06, -0.83);
+                \draw[dashed, ->, -{Stealth[width=1.6mm]}, black!30, line width=1] (0,0) -- (-1.36, 0.54);
+                % Robot
+                \node at (0,0) {\includegraphics[height=1.2cm]{imgs/mirokai.png}};
+            \end{tikzpicture}
+        \end{textblock*}
+    }
+    \only<3->{
+        \begin{textblock*}{5cm}(9cm,1.2cm)
+            \begin{align*}
+                x_{1} &= x_0 + T\dot{x}_0 + \dfrac{1}{2}T^2\ddot{x}_0 \\
+                \dot{x}_1 &= \dot{x}_0 + T\ddot{x}_0 \Leftrightarrow \ddot{x}_0=\dfrac{\dot{x}_1-\dot{x}_0}{T},
+            \end{align*}
+        \end{textblock*}
+    }
+    \only<4->{
+        \begin{textblock*}{8cm}(8cm,3.5cm)
+            \begin{align*}
+                \begin{bmatrix}x_1 \\ \dot{x}_1\end{bmatrix}&=\begin{bmatrix}1 & T \\ 0 & 1\end{bmatrix} \begin{bmatrix}x_0 \\ \dot{x}_0\end{bmatrix} + \begin{bmatrix}\frac{1}{2}T^2 \\ T\end{bmatrix}\frac{\dot{x}_1-\dot{x}_0}{T}\\
+                &=\begin{bmatrix}1 & \frac{1}{2}T \\ 0 & 0\end{bmatrix} \begin{bmatrix}x_0 \\ \dot{x}_0\end{bmatrix} + \begin{bmatrix}\frac{1}{2}T \\ 1\end{bmatrix}\dot{x}_1
+            \end{align*}
+        \end{textblock*}
+    }
+    \only<5->{
+        \begin{textblock*}{12cm}(6cm,6.2cm)
+                $X=X_0+\dfrac{1}{2}T\dot{X}_0+\M{M}_{xv}\dot{X}, \quad \M{M}_{xv} = \begin{bmatrix}1/2 & 0 & \dots & 0 \\ 1 & 1/2 & \ddots & \vdots \\ \vdots & \ddots & \ddots & 0 \\ 1 & \dots & 1 & 1/2 \end{bmatrix}T$
+        \end{textblock*}
+    }
 \end{frame}
 
 \begin{frame}{Objective}
     \begin{itemize}
-        \item Velocity
+           \pause
+        \item Reference $P^{ref}$
+           \pause
+        \item Minimize\\
+            - $P - P^{ref}$
+           \pause
+        \item Quadratic objective\\
+            - $\dfrac{1}{2}\vert\vert P - P^{ref}\vert \vert^2$
+           \pause
+        \item Regularisation term\\
+            - $\vert\vert \dot{P}\vert\vert^2$
+           \pause
+        \item Optimizer\\
+            - $\min_{\dot{P}}\dfrac{1}{2}\T{\dot{P}}Q\dot{P}+l\dot{P}$
     \end{itemize}
+    \only<1->{
+        \begin{textblock*}{3cm}(2.8cm,0.6cm)
+            \resizebox{3.6cm}{!}{\input{schema/mpc_schema_objective.tex}}
+        \end{textblock*}
+    }
+    \only<2->{
+        \begin{textblock*}{10cm}(6cm,0.7cm)
+            \resizebox{9cm}{!}{\input{schema/mpc.tex}}
+        \end{textblock*}
+    }
+    \only<4->{
+        \begin{textblock*}{12cm}(5.4cm,4.6cm)
+            \begin{align*}
+                & \min\limits_{\dot{P}}\dfrac{1}{2}\left\vert\left\vert P - P^{ref}\right\vert\right\vert^2 \\
+                \Leftrightarrow & \min\limits_{\dot{P}} \T{\left(P_0-P^{ref}+\dfrac{1}{2}T\dot{P}_0+\M{M}_{pv}\dot{P}\right)}\left(\dots\right)\\
+                \Leftrightarrow & \min\limits_{\dot{P}}\underbrace{\T{\left(P_0-P^{ref} + \dfrac{1}{2}T\dot{P}_0 \right)}\M{M}_{pv}}_{l}\dot{P} + \dfrac{1}{2}\T{\dot{P}}\underbrace{\T{\M{M}_{pv}}\M{M}_{pv}}_{Q} \dot{P}.
+            \end{align*}
+        \end{textblock*}
+    }
 \end{frame}
 
 \begin{frame}{Constraints}
     \begin{itemize}
-        \item Passive safety
             \pause
-        \item Velocity/Acceleration
+        \item Control\\
+            - velocity and acceleration\\
+            - linearization
             \pause
-        \item Collision Avoidance
+            \pause
+            \pause
+            \pause
+            \pause
+            \pause
+            \pause
+            \pause
+        \item Collision Avoidance\\
+            - $\vert\vert \V{p} - \V{p}_{c_j}\vert\vert\geq d$
+            \pause
+            \pause
+            \pause
+            \pause
+        \item Passive safety\\
+            \pause
+            - $\dot{\V{p}}_N=0$
     \end{itemize}
+    \only<1->{
+        \begin{textblock*}{3cm}(3.4cm,0.6cm)
+            \resizebox{3.6cm}{!}{\input{schema/mpc_schema_constraint.tex}}
+        \end{textblock*}
+    }
+    \only<2-9>{
+        \begin{textblock*}{5cm}(6.8cm,1.5cm)
+            \resizebox{4.5cm}{!}{\input{schema/lin_control_const.tex}}
+        \end{textblock*}
+    }
+    \only<7-9>{
+        \begin{textblock*}{8cm}(10.62cm,2.65cm)
+            \begin{tikzpicture}
+                \draw[->, black, thick] (0, 0) to[bend left=20] (1,0);
+            \end{tikzpicture}
+            $y<m_ix+b_i\Leftrightarrow y - m_ix < b_i$
+        \end{textblock*}
+    }
+    \only<8-9>{
+        \begin{textblock*}{5cm}(12.6cm,3.2cm)
+            $\M{M}_{i}\dot{P} < B_{i}$\\
+            $\M{M}_{i}=\begin{bmatrix}-\M{I}_Nm_i \: \vert \: \M{I}_N\end{bmatrix}$\\
+            $B_{i}=\T{\begin{bmatrix}b_{i}, \dots b_{i}\end{bmatrix}}$
+        \end{textblock*}
+    }
+    \only<9>{
+        \begin{textblock*}{5cm}(12.6cm,5.2cm)
+            $\M{M}_{i}\ddot{P} < B_{i}$\\
+            $\M{M}_{i}\M{M}_{\ddot{P}\dot{P}} < B_{i}$\\
+        \end{textblock*}
+    }
+    \only<11-13>{
+        \begin{textblock*}{5cm}(6.5cm,4.5cm)
+            $\hat{\V{u}}_{c_j}(\V{p} - \V{p}_{c_j})\geq d $\\
+            \vspace{2mm}
+            $\hat{\V{u}}_{c_j}=\dfrac{\V{p} - \V{p}_{c_j}}{\vert\vert \V{p} - \V{p}_{c_j}\vert\vert}$\\
+        \end{textblock*}
+    }
+    \only<12-13>{
+        \begin{textblock*}{9cm}(10cm,2.7cm)
+            \resizebox{6cm}{!}{\input{schema/collision_avoidance.tex}}
+        \end{textblock*}
+    }
+    \only<13>{
+        \begin{textblock*}{5cm}(6.3cm,6.3cm)
+            $\hat{\V{u}}_{c_j,k}=\dfrac{\bar{\V{p}}_k - \V{p}_{c_j,k}}{\vert\vert \bar{\V{p}}_k - \V{p}_{c_j,k}\vert\vert}$
+        \end{textblock*}
+    }
+    \only<14-15>{
+        \begin{textblock*}{9cm}(7cm,3.5cm)
+            \begin{tikzpicture}
+                \node at (0.54,1.8) {Collision};
+                \fill[mygreen] (0,0) circle (0.5);
+                \draw[->, thick, mygreen] (0,0) -- (0.8, 1.1);
+                \fill[myred] (0.98,0) circle (0.5);
+                \draw[->, thick, myred] (0.98,0) -- (-0.5, -1.2);
+            \end{tikzpicture}
+            \hspace{8mm}
+            \begin{tikzpicture}
+                \node at (0.52,1.8) {PS Collision};
+                \fill[mygreen] (0,0) circle (0.5);
+                \fill[myred] (0.98,0) circle (0.5);
+                \draw[->, thick, myred] (0.98,0) -- (-0.5, -1.2);
+            \end{tikzpicture}
+        \end{textblock*}
+    }
+    \only<15>{
+        \begin{textblock*}{9cm}(12.5cm,3.5cm)
+            $\dot{P}=\begin{bmatrix}\dot{x}_1 \\\vdots \\\dot{x}_{N-1} \\\dot{y}_1 \\\vdots \\\dot{y}_{N-1}\end{bmatrix}\in\mathbb{R}^{2(N-1)}$\\
+        \end{textblock*}
+    }
 \end{frame}
 
 \subsection{Subsection 3.2}

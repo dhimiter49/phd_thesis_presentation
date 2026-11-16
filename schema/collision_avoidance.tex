@@ -1,0 +1,49 @@
+\begin{tikzpicture}
+    % green circle in the middle
+    \node[circle, fill=mygreen, minimum size=8mm] (center) at (0,0) {};
+
+    % four red circles, slightly shifted off the exact axes
+    \node[circle, fill=myred, minimum size=8mm] (top)    at (0.4, 2.5) {};
+    \node[circle, fill=myred, minimum size=8mm] (left)   at (-2.4, 0.6) {};
+    \node[circle, fill=myred, minimum size=8mm] (right)  at (2.4, 0.3) {};
+    \node[circle, fill=myred, minimum size=8mm] (bottom) at (0.2, -2.0) {};
+
+    \draw[thick, ->, myred] (top) -- ++(-145:0.9);
+    \draw[thick, ->, myred] (left) -- ++(-90:1.4);
+    \draw[thick, ->, myred] (right) -- ++(60:1.1);
+    \draw[thick, ->, myred] (bottom) -- ++(14:1.2);
+
+    % dashed connections
+    \draw[dashed, thick] (center) -- (top);
+    \draw[dashed, thick] (center) -- (left);
+    \draw[dashed, thick] (center) -- (right);
+    \draw[dashed, thick] (center) -- (bottom);
+
+    \foreach \x/\y/\z in {0.4/2.5/2.5, -2.4/0.6/2.8, 2.4/0.3/2.5, 0.2/-2.0/3.2}{
+        \pgfmathsetmacro{\len}{veclen(\x,\y)}
+        \pgfmathsetmacro{\ux}{\x/\len}
+        \pgfmathsetmacro{\uy}{\y/\len}
+        \pgfmathsetmacro{\tx}{\x-0.4*\ux}   % tangent point on the outer edge of the circle
+        \pgfmathsetmacro{\ty}{\y-0.4*\uy}
+        \draw[thick] ({\tx+\z*\uy},{\ty-\z*\ux}) -- ({\tx-\z*\uy},{\ty+\z*\ux});
+    }
+
+    \foreach \x/\y/\z in {0.4/2.5/1, -2.4/0.6/2, 2.4/0.3/3, 0.2/-2.0/4}{
+        \pgfmathsetmacro{\len}{veclen(\x,\y)}
+        \pgfmathsetmacro{\ux}{\x/\len}
+        \pgfmathsetmacro{\uy}{\y/\len}
+        \pgfmathsetmacro{\sx}{\x-0.4*\ux}   % start at the inner edge of the circle
+        \pgfmathsetmacro{\sy}{\y-0.4*\uy}
+        \draw[->, thick] ({\sx},{\sy}) -- ({\sx-0.7*\ux},{\sy-0.7*\uy});
+        \pgfmathsetmacro{\lx}{\sx-0.5*\ux+0.4*\uy}
+        \pgfmathsetmacro{\ly}{\sy-0.5*\uy-0.4*\ux}
+        \node at ({\lx},{\ly}) {$\hat{u}_{c_\z}$};
+        \pgfmathsetmacro{\ax}{\sx-0.25*\ux}
+        \pgfmathsetmacro{\ay}{\sy-0.25*\uy}
+        \pgfmathsetmacro{\cx}{\sx-0.25*\uy}
+        \pgfmathsetmacro{\cy}{\sy+0.25*\ux}
+        \pgfmathsetmacro{\bx}{\sx-0.25*\ux-0.25*\uy}
+        \pgfmathsetmacro{\by}{\sy-0.25*\uy+0.25*\ux}
+        \draw[thin] ({\ax},{\ay}) -- ({\bx},{\by}) -- ({\cx},{\cy});
+    }
+\end{tikzpicture}

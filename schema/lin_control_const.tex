@@ -1,0 +1,56 @@
+% #1 : number of sides
+% #2 : radius of the circumscribed circle
+% #3 : Prefix of vertices
+% #4 : angle for a rotation around the center
+% The macro defines only the vertices
+
+\newcommand\RegPolygon[4]{%
+    \foreach \n in {1,...,#1}{%
+    + (#4+\n*360/#1:#2) coordinate (#3\n)}
+}
+
+% Draw the polygon
+% #1 : options
+% #2 : number of sides
+% #3 : the prefix
+
+\newcommand\DrawPolygon[3][]{%
+    \def\s{1}
+    \draw[#1] (#3\s)
+    \foreach \s  in  {2,...,#2}{--(#3\s)}--cycle;
+}
+
+% macro to draw the inscribed circle
+% #1 : number of sides
+% #2 : : radius of the circumscribed circle
+
+\newcommand\DrawCircleIns[2]{%
+    circle ({#2*cos(180/#1)})
+}
+
+\begin{tikzpicture}
+    % Reference frame: fixed bounding box so adding elements does not change the size
+    \useasboundingbox (-3.6,-3.6) rectangle (3.6,3.6);
+    \coordinate (O) at (0,0);
+    \coordinate (K1) at (3,0);
+    \coordinate (K2) at (2.1213,2.1213);
+    \path (0,0)  \RegPolygon{8}{3}{S}{45};
+    % Polygon appears from step 2 on
+    \draw<4->[myred,dashed,line width=2pt] (S1) \foreach \s  in  {2,...,8} {--(S\s)}--cycle;
+    \draw<5->[myred,dashed,line width=2pt,fill=black, fill opacity=0.1] (S1) \foreach \s  in  {2,...,8} {--(S\s)}--cycle;
+    \draw<2>[line width=2pt, myred] (0,0) circle (3);
+    \draw<5->[line width=2pt, black!30] (0,0) circle (3);
+    \draw<3-4>[line width=2pt, myred, fill=black, fill opacity=0.1] (0,0) circle (3);
+    \fill[mygreen] (0,0) circle (0.5);
+    \draw[->, thick, mygreen] (0,0) -- (0.6, 1.4);
+    % \draw[black,fill=black] (3,0) circle (0.05);
+
+    % Constraint directions appear from step 3 on
+    \draw<6-> (O) -- (K1);
+    \draw<6-> (O) -- (K2);
+    \draw<6-> (1,0) arc (0:45:1);
+    \node<6-> at ([xshift=-4mm, yshift=-2mm]22.5:2.05) {$45^\circ$};
+
+    % First polygon edge (0 to 45 degrees) becomes a line beyond the polygon
+    \draw<7->[black, line width=2pt] (3.498, -1.201) -- (1.624, 3.322);
+\end{tikzpicture}
