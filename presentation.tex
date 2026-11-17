@@ -32,6 +32,10 @@
 \documentclass[navbaroff]{sdqbeamer}
 \ifdefined\OnlyFrame\expandafter\includeonlyframes\expandafter{\OnlyFrame}\fi
 
+% Needed for bar plots
+\def\mathdefault#1{#1}
+\everymath=\expandafter{\the\everymath\displaystyle}
+
 %% TITLE PICTURE
 
 % if a custom picture is to be used on the title page, copy it into the 'logos'
@@ -927,14 +931,136 @@
 \end{frame}
 
 \subsection{Subsection 3.2}
-\begin{frame}{Freezing Robot Problem}
+\begin{frame}[label=frp]{Freezing Robot Problem (FRP)}
     \begin{itemize}
-        \item Braking
+        \item MPC problem \cite{trautman_unfreezing_2010}\\
+            - $\vert\vert \V{\bar{p}}_k - \V{p}_{k,c_j}\vert\vert\geq d$\\
+            \hspace{5mm}$\quad \forall k \in \{1,\dots N\}$\\
             \pause
-        \item Initial Conditions
             \pause
-        \item Heuristic
+            \pause
+            - initial guess $\V{\bar{p}}_k=\V{p}_0$\\
+            \pause
+            \pause
+            \pause
+            \pause
+            - limited horizon $N$
+            \pause
+        \item In practice
+            \pause
+            \pause
+            \pause
+        \item Heuristic\\
+            - $N:=\lceil N/2\rceil$
     \end{itemize}
+    \only<1-8>{
+        \begin{textblock*}{10cm}(6cm,2.4cm)
+            \resizebox{4cm}{!}{\input{schema/frp.tex}}
+        \end{textblock*}
+    }
+    \only<9-11>{
+        \begin{textblock*}{10cm}(6cm,2cm)
+            \newsavebox\fstimg
+            \savebox\fstimg{\includegraphics{imgs/FRP2.png}}
+            \includegraphics[height=3cm, trim=0.3\wd\fstimg{} 0.25\ht\fstimg{} 0.2\wd\fstimg{} 0.25\ht\fstimg{}, clip]{imgs/FRP2.png}
+        \end{textblock*}
+        \begin{textblock*}{10cm}(6cm,5.1cm)
+            \newsavebox\sndimg
+            \savebox\sndimg{\includegraphics{imgs/FRP3.png}}
+            \includegraphics[height=3cm, trim=0.3\wd\sndimg{} 0.25\ht\sndimg{} 0.2\wd\sndimg{} 0.25\ht\sndimg{}, clip]{imgs/FRP3.png}
+        \end{textblock*}
+    }
+    \only<10-11>{
+        \begin{textblock*}{3cm}(12.4cm,4cm)
+            $N$\\
+            $T$\\
+            $d_{\V{p}\V{p}_c}$\\
+            $\dot{\V{p}}_c$\\
+        \end{textblock*}
+
+    }
+    \only<11>{
+        \begin{textblock*}{5cm}(12.8cm,3.8cm)
+            \begin{tikzpicture}
+                \draw[thick] (0,2) -- (0.4, 2) -- (0.4, -0.1) -- (0, -0.1);
+                \draw[->, thick] (0.4, 0.95) -- (0.7, 0.95);
+            \end{tikzpicture}
+        \end{textblock*}
+        \begin{textblock*}{5cm}(13.6cm,4.52cm)
+            $N<\dfrac{d_{\V{p}\V{p}_c}}{\vert\vert\dot{\V{p}}_c\vert\vert}+1$
+        \end{textblock*}
+
+    }
+    \only<12-16>{
+        \begin{textblock*}{5cm}(5cm,4.5cm)
+            \begin{tikzpicture}
+                \useasboundingbox (-0.5,-0.5) rectangle (2.8, 1.2);
+                \coordinate (agent) at (0, 0);
+                \coordinate (agent0) at (-0.5, 0);
+                \coordinate (c1) at (2.8, 0.8);
+                \coordinate (c2) at (2.8, -0.6);
+
+                \fill<12>[mygreen] (agent0) circle (0.3);
+                \draw<12>[thick] (agent0) -- (agent) -- ([xshift=4mm, yshift=-1mm]agent) -- ([xshift=5mm, yshift=-2mm]agent);
+                \fill<13->[mygreen] (agent) circle (0.3);
+
+
+                \draw[mygreen, thick] (2.9, -0.1) -- (3.1, 0.1);
+                \draw[mygreen, thick] (3.1, -0.1) -- (2.9, 0.1);
+
+                \visible<12>{
+                \fill[myred] (c1) circle (0.3);
+                \fill[myred] (c2) circle (0.3);
+                \draw[->, myred, ultra thick] (c1) -- ([xshift=-6mm, yshift=-1.5mm]c1);
+                \draw[->, myred, ultra thick] (c2) -- ([xshift=-6mm]c2);
+                \fill[myred, fill opacity=0.7] ([xshift=-6mm, yshift=-1.5mm]c1) circle (0.3);
+                \fill[myred, fill opacity=0.5] ([xshift=-12mm, yshift=-3mm]c1) circle (0.3);
+                \fill[myred, fill opacity=0.7] ([xshift=-6mm]c2) circle (0.3);
+                \fill[myred, fill opacity=0.5] ([xshift=-12mm]c2) circle (0.3);
+                \fill[myred, fill opacity=0.3] ([xshift=-18mm, yshift=-4.5mm]c1) circle (0.3);
+                \fill[myred, fill opacity=0.3] ([xshift=-18mm]c2) circle (0.3);
+                }
+                \visible<13>{
+                \coordinate (c1) at (2.2, 0.6);
+                \coordinate (c2) at (2.2, -0.6);
+                \fill[myred] (c1) circle (0.3);
+                \fill[myred] (c2) circle (0.3);
+                \draw[->, myred, ultra thick] (c1) -- ([xshift=-6mm, yshift=-1.5mm]c1);
+                \draw[->, myred, ultra thick] (c2) -- ([xshift=-6mm]c2);
+                \fill[myred, fill opacity=0.7] ([xshift=-6mm, yshift=-1.5mm]c1) circle (0.3);
+                \fill[myred, fill opacity=0.5] ([xshift=-12mm, yshift=-3mm]c1) circle (0.3);
+                \fill[myred, fill opacity=0.7] ([xshift=-6mm]c2) circle (0.3);
+                \fill[myred, fill opacity=0.5] ([xshift=-12mm]c2) circle (0.3);
+                \fill[myred, fill opacity=0.3] ([xshift=-18mm, yshift=-4.5mm]c1) circle (0.3);
+                \fill[myred, fill opacity=0.3] ([xshift=-18mm]c2) circle (0.3);
+                }
+                \draw<13>[thick] (agent) -- ([xshift=4mm, yshift=-1mm]agent) -- ([xshift=5mm, yshift=-2mm]agent);
+                \visible<14->{
+                \coordinate (c1) at (2.2, 0.6);
+                \coordinate (c2) at (2.2, -0.6);
+                \fill[myred] (c1) circle (0.3);
+                \fill[myred] (c2) circle (0.3);
+                \draw[->, myred, ultra thick] (c1) -- ([xshift=-6mm, yshift=-1.5mm]c1);
+                \draw[->, myred, ultra thick] (c2) -- ([xshift=-6mm]c2);
+                \fill[myred, fill opacity=0.7] ([xshift=-6mm, yshift=-1.5mm]c1) circle (0.3);
+                \fill[myred, fill opacity=0.5] ([xshift=-12mm, yshift=-3mm]c1) circle (0.3);
+                \fill[myred, fill opacity=0.7] ([xshift=-6mm]c2) circle (0.3);
+                \fill[myred, fill opacity=0.5] ([xshift=-12mm]c2) circle (0.3);
+                }
+                \draw<15->[thick] (agent) -- ([xshift=2mm, yshift=4mm]agent) -- ([xshift=4mm, yshift=7mm]agent);
+            \end{tikzpicture}
+        \end{textblock*}
+        \only<16>{
+            \begin{textblock*}{8cm}(9cm,1.5cm)
+                \centering
+                $a_{max}=1m/s^2$\\
+                \resizebox{7.8cm}{!}{\input{graphs/bar_plot_mpc_vel_hs.pgf}}\\
+                $a_{max}=10m/s^2$\\
+                \resizebox{7.8cm}{!}{\input{graphs/bar_plot_mpc_vel_hs_acc10.pgf}}
+            \end{textblock*}
+        }
+
+    }
 \end{frame}
 
 \begin{frame}{Uncertainty}
