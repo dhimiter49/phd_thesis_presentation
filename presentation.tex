@@ -1063,13 +1063,36 @@
     }
 \end{frame}
 
-\begin{frame}{Uncertainty}
+\begin{frame}[label=uncert]{Uncertainty}
     \begin{itemize}
-        \item ORCA crowd
+        \item Future position\\
+            - $\dot{\V{p}}_k=[0, v_{max}] \;\; \forall k$\\
             \pause
-        \item Relaxation
             \pause
+            \pause
+            \pause
+            - $\vert\vert \bar{\V{p}}_k-\V{p}_{k,c_j}\vert\vert \geq d_k$\\
+            \hspace{3mm}$\rightarrow d = d_0 + \T{\begin{bmatrix} Tv_{max},\; 2Tv_{max}, \dots\end{bmatrix}}$
+            \pause
+        \item Relaxation $r_u$\\
+            - e.g. $r_u=0.5$\\
+            \hspace{3mm}$\rightarrow d = d_0 + 0.5\T{\begin{bmatrix} Tv_{max},\; 2Tv_{max}, \dots\end{bmatrix}}$
+            \pause
+            \pause
+        \item Results
     \end{itemize}
+    \only<1-7>{
+        \begin{textblock*}{10cm}(7.5cm,1.2cm)
+            \resizebox{6cm}{!}{\input{schema/uncert.tex}}
+        \end{textblock*}
+    }
+    \only<8>{
+        \begin{textblock*}{8cm}(8cm,1.5cm)
+            \centering
+            \resizebox{8.5cm}{!}{\input{graphs/bar_plot_mpc_orca_acc10.pgf}}\\
+            \resizebox{8.5cm}{!}{\input{graphs/bar_plot_mpc_orca_relax_acc10_ht3.pgf}}
+        \end{textblock*}
+    }
 \end{frame}
 
 \subsection{Subsection 3.3}
