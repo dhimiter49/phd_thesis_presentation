@@ -271,7 +271,41 @@
 \setbeamercolor*{palette sidebar tertiary}{fg=black!75}
 \setbeamercolor*{palette sidebar quaternary}{fg=black!75}
 
-\setbeamercolor*{item projected}{fg=white,bg=kit-green100}
+\setbeamercolor*{item projected}{fg=white,bg=kit-green100!85!gray}
+
+%% ---------------------------------
+%% | KIT-style matte enumerate balls |
+%% ---------------------------------
+\setbeamertemplate{enumerate item}{%
+  \raisebox{-0.75ex}[1.65ex][0.75ex]{%
+    \begin{pgfpicture}{-1.25ex}{0ex}{1.25ex}{2.4ex}%
+      \usebeamercolor{item projected}%
+      \color{bg}\pgfpathcircle{\pgfpoint{0ex}{1.2ex}}{1.2ex}\pgfusepath{fill}%
+      \color{fg}%
+      \pgftext[center, y=1.1ex]{\bfseries\insertenumlabel}%
+    \end{pgfpicture}%
+  }%
+}
+\setbeamertemplate{enumerate subitem}{%
+  \raisebox{-0.55ex}[1.45ex][0.55ex]{%
+    \begin{pgfpicture}{-1.05ex}{0ex}{1.05ex}{2ex}%
+      \usebeamercolor{item projected}%
+      \color{bg}\pgfpathcircle{\pgfpoint{0ex}{1ex}}{1ex}\pgfusepath{fill}%
+      \color{fg}%
+      \pgftext[center, y=0.9ex]{\bfseries\small\insertsubenumlabel}%
+    \end{pgfpicture}%
+  }%
+}
+\setbeamertemplate{enumerate subsubitem}{%
+  \raisebox{-0.4ex}[1.3ex][0.4ex]{%
+    \begin{pgfpicture}{-0.9ex}{0ex}{0.9ex}{1.7ex}%
+      \usebeamercolor{item projected}%
+      \color{bg}\pgfpathcircle{\pgfpoint{0ex}{0.85ex}}{0.85ex}\pgfusepath{fill}%
+      \color{fg}%
+      \pgftext[center, y=0.78ex]{\bfseries\footnotesize\insertsubsubenumlabel}%
+    \end{pgfpicture}%
+  }%
+}
 
 \setbeamercolor*{block title}{fg=white,bg=kit-green100}
 \setbeamercolor*{block title alerted}{use=alerted text,fg=white,bg=alerted text.fg!75!black}

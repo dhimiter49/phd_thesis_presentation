@@ -1,0 +1,23 @@
+\begin{tikzpicture}
+    \useasboundingbox (-4,-4) rectangle (4, 4);
+    \coordinate (agent) at (0, 0);
+    \fill<4->[myred!20] (agent) circle (3.5);
+    \fill<3->[myred!40] (agent) circle (2.5);
+    \fill<2->[myred!60] (agent) circle (1.5);
+    \fill[myred] (agent) circle (0.5);
+
+    \draw[thick] (agent) -- ([xshift=0.5cm]agent) node[midway, above] () {$r$};
+    \draw<2->[thick] ([shift={(12:0.5)}]agent) -- ([shift={(12:1.5)}]agent) node[midway, above] () {$Tv_{max}$};
+    \draw<3->[thick] ([shift={(-5:1.5)}]agent) -- ([shift={(-5:2.5)}]agent) node[midway, above] () {$Tv_{max}$};
+    \draw<4->[thick] ([shift={(5:2.5)}]agent) -- ([shift={(5:3.5)}]agent) node[midway, above] () {$Tv_{max}$};
+
+    \coordinate (agent_relax) at (6.6, 0);
+    \visible<7->{
+        \draw[->, ultra thick] (3.8, 0) -- (4.3, 0);
+        \fill[myred!20] (agent_relax) circle (2);
+        \fill[myred!40] (agent_relax) circle (1.5);
+        \fill[myred!60] (agent_relax) circle (1);
+        \fill[myred] (agent_relax) circle (0.5);
+    }
+
+\end{tikzpicture}
