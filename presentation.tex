@@ -1174,27 +1174,27 @@
             \begin{tikzpicture}[rotate=-45]
             % Quarter disk
             \draw[black!40] (0,0) -- (4,0) arc (0:90:4) -- cycle;
-            \coordinate (c1) at (2.9, 2.9);
+            \coordinate (c1) at (3.1, 2.5);
             \coordinate (c2) at (4.2, 1.2);
             \fill[myred] (c1) circle (0.3);
             \fill[myred] (c2) circle (0.3);
 
-            \fill[myred, fill opacity=0.7] ([xshift=-5mm, yshift=-5mm]c1) circle (0.3);
-            \fill[myred, fill opacity=0.5] ([xshift=-10mm, yshift=-10mm]c1) circle (0.3);
-            \fill[myred, fill opacity=0.3] ([xshift=-15mm, yshift=-15mm]c1) circle (0.3);
-            \fill[myred, fill opacity=0.15] ([xshift=-20mm, yshift=-20mm]c1) circle (0.3);
+            \fill[myred, fill opacity=0.7] ([xshift=-6mm, yshift=-3mm]c1) circle (0.3);
+            \fill[myred, fill opacity=0.5] ([xshift=-12mm, yshift=-6mm]c1) circle (0.3);
+            \fill[myred, fill opacity=0.3] ([xshift=-18mm, yshift=-9mm]c1) circle (0.3);
+            \fill[myred, fill opacity=0.15] ([xshift=-24mm, yshift=-12mm]c1) circle (0.3);
             \fill[myred, fill opacity=0.7] ([xshift=-7mm, yshift=-2mm]c2) circle (0.3);
             \fill[myred, fill opacity=0.5] ([xshift=-14mm, yshift=-4mm]c2) circle (0.3);
             \fill[myred, fill opacity=0.3] ([xshift=-21mm, yshift=-6mm]c2) circle (0.3);
             \fill[myred, fill opacity=0.15] ([xshift=-28mm, yshift=-8mm]c2) circle (0.3);
 
             % Path of close samples from the robot to the goal
-                \draw<7->[mygreen, line width=1.2] (0,0) -- (0.4,0.7) -- (0.30,1.30) -- (0.70,1.70)
+                \draw<7->[mygreen, line width=1.2] (0,0) -- (0.4,0.7) -- (0.30,1.30) -- (0.60,1.90)
                 -- (1.05,2.35) -- (1.60,2.90) -- (2.44,3.2);
 
             % Random samples covering the quarter disk
             \foreach \x/\y in {0.4/0.7, 0.65/0.2, 3.0/0.6, 1./0.45, 3.8/0.1, 2.2/0.5,
-                               0.70/1.70, 1.15/1.10, 0.45/2.60, 0.80/3.45, 1.30/3.40,
+                               0.60/1.90, 1.15/1.10, 0.45/2.60, 0.80/3.45, 1.30/3.40,
                                1.60/2.90, 1.90/1.95, 2.35/2.45, 2.75/1.90, 2.90/2.60,
                                2.10/0.75, 2.75/1.15, 3.50/0.90, 3.40/1.50, 1.05/2.35,
                                0.30/1.30, 1.30/2.10}
