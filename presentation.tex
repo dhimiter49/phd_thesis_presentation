@@ -107,6 +107,12 @@
 \definecolor{lejla}{RGB}{162,97,255}
 \definecolor{orange}{RGB}{210,125,69}
 
+% Natural sizes for percentage-based trims, defined once (frames re-execute per overlay)
+\newsavebox\fstimg
+\savebox\fstimg{\includegraphics{imgs/FRP2.png}}
+\newsavebox\sndimg
+\savebox\sndimg{\includegraphics{imgs/FRP3.png}}
+
 \section{Section 1}
 \subsection{Subsection 1.1}
 \begin{frame}{}
@@ -956,13 +962,9 @@
     }
     \only<9-11>{
         \begin{textblock*}{10cm}(6cm,2cm)
-            \newsavebox\fstimg
-            \savebox\fstimg{\includegraphics{imgs/FRP2.png}}
             \includegraphics[height=3cm, trim=0.3\wd\fstimg{} 0.25\ht\fstimg{} 0.2\wd\fstimg{} 0.25\ht\fstimg{}, clip]{imgs/FRP2.png}
         \end{textblock*}
         \begin{textblock*}{10cm}(6cm,5.1cm)
-            \newsavebox\sndimg
-            \savebox\sndimg{\includegraphics{imgs/FRP3.png}}
             \includegraphics[height=3cm, trim=0.3\wd\sndimg{} 0.25\ht\sndimg{} 0.2\wd\sndimg{} 0.25\ht\sndimg{}, clip]{imgs/FRP3.png}
         \end{textblock*}
     }
@@ -1107,7 +1109,7 @@
         \item Long $N$ problem\\
             - initial guess $\bar{\V{p}}=0$\\
             \pause
-            \hspace{3mm}$\rightarrow$ rapidly exploring random tree (RRT)
+            \hspace{3mm}$\rightarrow$ Rapidly-exploring random tree (RRT)
     \end{itemize}
     \only<1>{
         \begin{textblock*}{6cm}(6cm, 1cm)
@@ -1211,7 +1213,7 @@
 \begin{frame}[label=limitations]{Limitations}
     \begin{itemize}
         \item Passive Safety\\
-            - Planning and safety
+            - Braking trajectories
             \pause
         \item Freezing Robot Problem
     \end{itemize}
