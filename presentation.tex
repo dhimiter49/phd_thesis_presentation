@@ -106,6 +106,7 @@
 \definecolor{green}{RGB}{51,224,200}
 \definecolor{lejla}{RGB}{162,97,255}
 \definecolor{orange}{RGB}{210,125,69}
+\definecolor{yellow}{RGB}{240,155,99}
 
 % Natural sizes for percentage-based trims, defined once (frames re-execute per overlay)
 \newsavebox\fstimg
@@ -1069,11 +1070,11 @@
             \pause
             \pause
             - $\vert\vert \bar{\V{p}}_k-\V{p}_{k,c_j}\vert\vert \geq d_k$\\
-            \hspace{3mm}$\rightarrow d = d_0 + \T{\begin{bmatrix} Tv_{max},\; 2Tv_{max}, \dots\end{bmatrix}}$
+            \hspace{3mm}$\rightarrow d = d_0 + Tv_{max}\T{\begin{bmatrix} 1,\; 2, \dots\end{bmatrix}}$
             \pause
         \item Relaxation $r_u$\\
             - e.g. $r_u=0.5$\\
-            \hspace{3mm}$\rightarrow d = d_0 + 0.5\T{\begin{bmatrix} Tv_{max},\; 2Tv_{max}, \dots\end{bmatrix}}$
+            \hspace{3mm}$\rightarrow d = d_0 + 0.5Tv_{max}\T{\begin{bmatrix} 1,\; 2, \dots\end{bmatrix}}$
             \pause
             \pause
         \item Results
@@ -1210,23 +1211,70 @@
     }
 \end{frame}
 
-\begin{frame}[label=limitations]{Limitations}
+\begin{frame}[label=limit]{Limitations}
     \begin{itemize}
-        \item Passive Safety\\
-            - Braking trajectories
+        \item Passive safety\\
             \pause
-        \item Freezing Robot Problem
+            - Braking trajectories $\dot{\V{p}}:=0$
+            \pause
+            \pause
+            \pause
+            \pause
+        \item Planning and safety\\
+            - one horizon $N$
     \end{itemize}
+    \begin{textblock*}{5cm}(7cm,3cm)
+        \begin{tikzpicture}[scale=1.6]
+            \useasboundingbox (-0.5,-0.5) rectangle (2.8, 1.2);
+            \coordinate (agent) at (0, 0);
+            \coordinate (c1) at (1, -0.4);
+            \coordinate (c2) at (2, 0);
+
+            \fill[mygreen] (agent) circle (0.3);
+            \fill[myred] (c1) circle (0.3);
+            \fill[myred] (c2) circle (0.3);
+            \draw<2>[ultra thick](agent) -- ([xshift=8mm, yshift=6mm]agent) -- ([xshift=15mm, yshift=8mm]agent) -- ([xshift=18mm, yshift=8mm]agent);
+            \draw<3->[mygreen, ultra thick](agent) -- ([xshift=8mm, yshift=6mm]agent);
+            \draw<4->[yellow, ultra thick]([xshift=8mm, yshift=6mm]agent) -- ([xshift=15mm, yshift=8mm]agent);
+            \draw<5->[myred, ultra thick]([xshift=15mm, yshift=8mm]agent) -- ([xshift=18mm, yshift=8mm]agent);
+            \draw[->, mygreen, ultra thick] (agent) -- ([xshift=8mm, yshift=8mm]agent);
+
+            \draw[mygreen, thick] (3.3, -0.1) -- (3.5, 0.1);
+            \draw[mygreen, thick] (3.5, -0.1) -- (3.3, 0.1);
+        \end{tikzpicture}
+    \end{textblock*}
 \end{frame}
 
-\begin{frame}{Cascading Control}
+\begin{frame}[label=casc]{Cascading Control}
     \begin{itemize}
-        \item Model/Objective
-        \item Constraints
+        \item Cascade of braking trajectories\\
+            \pause
+            - same objective $\min\limits_{\dot{P}}\frac{1}{2}\vert\vert P - P^{ref}\vert\vert^2$\\
+            \hspace{3mm}$P \rightarrow \V{p}_i=\V{b}_{i,1},\;\; \forall i\in\{1,\dots,M\}$\\
+            \pause
+            - plan $\dot{P} \rightarrow \dot{\V{p}}_i=\dot{\V{b}}_{i,1},\;\; \forall i\in\{1,\dots,M\}$\\
+            \pause
+            \pause
+            - safety $\dot{B}_i=\begin{bmatrix}\dot{\V{b}}_{i,1},\dots,\dot{\V{b}}_{i,N}\end{bmatrix},\;\; \forall i\in\{1,\dots,M\}$
+            \pause
+        \item Decoupling planning $M$ and safety $N$
+        \pause
+        \item Example
     \end{itemize}
+    \only<1->{
+        \begin{textblock*}{10cm}(8cm, 0.2cm)
+            \resizebox{8cm}{!}{\input{schema/cascading_b.tex}}
+        \end{textblock*}
+    }
+    \only<7>{
+        \begin{textblock*}{6cm}(9cm, 4.6cm)
+            \centering
+            \movie[poster, showcontrols, height=4cm, width=5.65cm]{}{imgs/casc_example.mp4}
+        \end{textblock*}
+    }
 \end{frame}
 
-\begin{frame}{Cascading Control Problems}
+\begin{frame}[label=casc_problem]{Cascading Control Problems}
     \begin{itemize}
         \item Computation
             \pause

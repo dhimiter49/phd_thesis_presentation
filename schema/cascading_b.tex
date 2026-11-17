@@ -1,0 +1,43 @@
+\begin{tikzpicture}
+    \coordinate (A) at (0, 0);
+    \coordinate (mid) at (4, -1);
+    \coordinate (B) at (8, 2);
+    \node [fill=mygreen, circle, minimum size=0.8cm] at (A) {};
+    \node [cross out, ultra thick, draw=mygreen, minimum size=0.4cm, rotate=6] at (B) {};
+
+    \draw[ultra thick, name path=traj] (A) to[out=50,in=130] (mid);
+    \draw[ultra thick, -{Stealth[scale=1.4]}, name path=snd_traj] (mid) to[out=-50,in=100] (B);
+
+    \path[name path=inter] (4, -2) -- (4, 4);
+    \path[name path=inter_] (1.4, -1) -- (1.4, 2);
+    \path[name path=inter__] (6.6, 1) -- (6.6, 2);
+    \path[name path=inter___] (8, 1) -- (8, 3);
+
+    \fill [name intersections={of=inter_ and traj}, draw=myred, fill=myred](intersection-1) circle (2pt) node[below=3pt] {$\V{b}_{1,1}$};
+    \fill [name intersections={of=inter and traj}, draw=myred, fill=myred](intersection-1) circle (2pt) node[below left] {$\V{b}_{2,1}$};
+    \fill [name intersections={of=inter__ and snd_traj}, draw=myred, fill=myred](intersection-1) circle (2pt) node[below right] {$\V{b}_{3,1}$};
+    \fill [name intersections={of=inter___ and snd_traj}, draw=myred, fill=myred](intersection-1) circle (2pt) node[below right, yshift=-2mm, xshift=-2mm] {$\V{b}_{M,1}$};
+
+
+    \draw[thick, -{Stealth[scale=1.0]}, draw=myred] (1.4, 0.56) to[out=-15,in=-10] (2.6, 2);
+    \fill[draw=myred, fill=myred] (2.6, 2) circle (2pt) node[above] {$\V{b}_{1,N}$};
+
+    \draw[thick, -{Stealth[scale=1.0]}, draw=myred] (4, -1) to[out=-55,in=130] (5, 1.1);
+    \fill[draw=myred, fill=myred] (5, 1.1) circle (2pt) node[above=3pt] {$\V{b}_{2,N}$};
+
+    \draw[thick, -, draw=myred] (6.6, 1.05) to[out=80,in=30] (6.8, 2);
+    \draw[thick, -{Stealth[scale=1.0]}, draw=myred] (6.8, 2) to[out=-150,in=-100] (6.5, 2.5);
+    \fill[thick, draw=myred, fill=myred] (6.5, 2.5) circle (2pt) node[above] {$\V{b}_{3,N}$};
+
+    \draw[thick, -{Stealth[scale=1.0]}, draw=myred] (B) to[out=50,in=130] ([yshift=0.5cm, xshift=1cm]B);
+    \fill[draw=myred, fill=myred] ([yshift=0.5cm, xshift=1cm]B) circle (2pt) node[below, xshift=2mm] {$\V{b}_{M,N}$};
+
+    \draw<4->[mygreen, ->, thick] (A) -- (1.4, 0.56) node[midway, below, xshift=2mm] {$\dot{\V{b}}_{1,1}$};
+    \draw<4->[mygreen, ->, thick] (1.4, 0.56) -- (4, -1) node[midway, below] {$\dot{\V{b}}_{2,1}$};
+    \draw<4->[mygreen, ->, thick] (4, -1) -- (6.6, 1.05) node[midway, above] {$\dot{\V{b}}_{3,1}$};
+    \draw<4->[mygreen, ->, thick] (6.6, 1.05) -- (7.2, 1.96) node[midway,xshift=4mm,yshift=-1mm] {$\dot{\V{b}}_{4,1}$};
+    \draw<5->[mygreen, ->, thick] (1.4, 0.56) -- (2.15, 0.8) node[midway, above] {$\dot{\V{b}}_{1,2}$};
+    \draw<5->[mygreen, ->, thick] (2.9, 1.75) -- (2.6, 2) node[midway,xshift=6mm] {$\dot{\V{b}}_{1,N}$};
+    \draw<5->[mygreen, ->, thick] (4.65, 1.05) -- (5, 1.1) node[midway,xshift=-6mm] {$\dot{\V{b}}_{2,N}$};
+    \draw<5->[mygreen, ->, thick] (6.55, 2.1) -- (6.5, 2.5) node[midway,xshift=-5mm] {$\dot{\V{b}}_{3,N}$};
+\end{tikzpicture}
