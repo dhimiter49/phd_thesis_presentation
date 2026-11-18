@@ -1444,14 +1444,19 @@
             - LiDAR
             \pause
     \end{itemize}
-    \begin{textblock*}{4cm}(5.4cm,3.2cm)
+    \begin{textblock*}{4cm}(5cm,3.1cm)
         \only<2->{$\gamma \quad \lambda \quad \delta_\mu \quad \delta_\Sigma$\\}
         \only<3->{$\eta \quad B \quad \V{h}$\\}
         \only<4->{$n_b \quad c_{\V{w}} \quad c_g \quad r \quad c_g$}
     \end{textblock*}
-    \only<5->{
-        \begin{textblock*}{10cm}(9cm,2cm)
+    \only<5-7>{
+        \begin{textblock*}{10cm}(5.8cm,4.6cm)
             \resizebox{5cm}{!}{\input{schema/mpc_hybrid_intrinsic.tex}}
+        \end{textblock*}
+    }
+    \only<8->{
+        \begin{textblock*}{10cm}(8.2cm,2.8cm)
+            \resizebox{9cm}{!}{\input{schema/policy_net_2x1d.tex}}
         \end{textblock*}
     }
 \end{frame}
