@@ -1462,16 +1462,56 @@
 \end{frame}
 
 \subsection{Subsection 4.3}
-\begin{frame}{Results - Constant Crowd}
+\begin{frame}[label=res_const]{Results - Constant Crowd}
+    \only<1>{
+        \begin{textblock*}{10cm}(1.5cm,2cm)
+            \resizebox{14cm}{!}{\input{graphs/plot_prodmp_const.pgf}}
+        \end{textblock*}
+    }
+    \only<2>{
+        \begin{textblock*}{6cm}(0.5cm, 1.8cm)
+            \centering
+            MPC\\
+            \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/mpc_ineff.mp4}
+            \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/prodmp_mpc_eff.mp4}
+        \end{textblock*}
+        \begin{textblock*}{6cm}(5.6cm, 1.8cm)
+            \centering
+            ProDMP\\
+            \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/mpc_ineff.mp4}
+            \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/prodmp_mpc_eff.mp4}
+        \end{textblock*}
+        \begin{textblock*}{6cm}(10.7cm, 1.8cm)
+            \centering
+            ProDMP-MPC\\
+            \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/mpc_ineff.mp4}
+            \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/prodmp_mpc_eff.mp4}
+        \end{textblock*}
+    }
 \end{frame}
 
 \begin{frame}{Results - ORCA Crowd}
+    \only<1>{
+    \begin{textblock*}{10cm}(1.5cm,2cm)
+        \resizebox{14cm}{!}{\input{graphs/plot_prodmp_orca.pgf}}
+    \end{textblock*}
+    }
 \end{frame}
 
 \begin{frame}{Results - Homogeneous Crowd}
+    \only<1>{
+    \begin{textblock*}{10cm}(1.5cm,2cm)
+        \resizebox{14cm}{!}{\input{graphs/plot_prodmp_hom.pgf}}
+    \end{textblock*}
+    }
 \end{frame}
 
 \begin{frame}{Results - Heterogeneous Crowd}
+    \only<1>{
+    \begin{textblock*}{10cm}(1.5cm,2cm)
+        \resizebox{14cm}{!}{\input{graphs/plot_prodmp_inhom_snd.pgf}}
+    \end{textblock*}
+    }
 \end{frame}
 
 \subsection{Section 5}
