@@ -1338,7 +1338,7 @@
             - ProDMP
     \end{itemize}
     \only<1->{
-        \begin{textblock*}{10cm}(6cm,1.5cm)
+        \begin{textblock*}{10cm}(6cm,2.5cm)
             \resizebox{9cm}{!}{\input{schema/mpc_hybrid.tex}}
         \end{textblock*}
     }
@@ -1352,17 +1352,50 @@
         \item Dynamic MP\\
             - damped spring model
             \pause
+            \pause
         \item ProDMP\\
             - offline solution to the ODE
             \pause
     \end{itemize}
+    \only<-1>{
+        \begin{textblock*}{10cm}(6.8cm,2cm)
+            \movie[poster, showcontrols, height=4.3cm, width=5cm]{}{imgs/primitive.mp4}
+        \end{textblock*}
+    }
+    \only<2->{
+        \begin{textblock*}{10cm}(6.8cm,2cm)
+           \movie[poster, showcontrols, height=2cm, width=2.8cm]{}{imgs/primitive.mp4}
+        \end{textblock*}
+    }
+    \only<2->{
+        \begin{textblock*}{12cm}(6.8cm,4.3cm)
+            $\tau^2\ddot{\V{y}}=\alpha(\beta(\V{g}-\V{y})-\tau\dot{\V{y}})-\V{f}$\vspace{2mm}\\
+            $\V{f}\sim\dfrac{\sum_i\phi_iw_i}{\sum_i\phi_i}, \; \phi_i\sim\exp$
+        \end{textblock*}
+    }
+    \only<3->{
+        \begin{textblock*}{12cm}(11.8cm,4cm)
+            \resizebox{5cm}{!}{\input{schema/gaussians.tex}}
+        \end{textblock*}
+    }
+    \only<4->{
+        \begin{textblock*}{10cm}(1.6cm,6.2cm)
+            $\V{y} \equiv c_1\V{y}_1 + c_2\V{y}_2 + \T{\M{\Phi}}\begin{bmatrix}\V{w}\\ g\end{bmatrix}$
+        \end{textblock*}
+    }
+    \only<5->{
+        \begin{textblock*}{10cm}(6.8cm,6.5cm)
+            \resizebox{8cm}{!}{\input{schema/prodmp.tex}}
+        \end{textblock*}
+    }
 \end{frame}
 
 
-\begin{frame}{ProDMP for Navigation}
+\begin{frame}[label=prodmp_nav]{ProDMP for Navigation}
     \begin{itemize}
-        \item DMP
-        \item ProDMP
+        \item 2D\\
+            - trajectory $\V{y}\in\mathbb{R}^2$
+        \item Control
     \end{itemize}
 \end{frame}
 

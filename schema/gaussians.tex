@@ -1,0 +1,30 @@
+% exp(-(x-mu_k)^2 / sigma_k), k = 1..4:
+%   (mu, sigma) = (1.0000, 7.5080), (0.3679, 55.4767),
+%                 (0.1353, 409.9202), (0.0498, 3028.9248)
+% Exponent rewritten as -((x-mu_k)*t_k)^2 with t_k = 1/sqrt(sigma_k)
+% so pgfmath never squares large numbers (avoids "dimension too large").
+% Each curve is drawn only up to mu_k + ~4.4*sqrt(sigma_k) where it has died out.
+\begin{tikzpicture}
+    \begin{axis}[
+        width=10cm, height=5.5cm,
+        xlabel={},
+        ylabel={$\phi_i$},
+        xmin=0, xmax=150,
+        ymin=0, ymax=1.05,
+        xtick={0,50,...,150},
+        ytick={0,0.25,...,1},
+        tick label style={font=\scriptsize},
+        label style={font=\scriptsize},
+        legend pos=south east,
+        legend style={font=\scriptsize, draw=black!40},
+    ]
+        \addplot[myblue, ultra thick, domain=0:30, samples=150] {exp(-((x-1.0000)^2*0.1331912627))};
+        % \addlegendentry{$\mu{=}1.0000,\ \sigma{=}7.5080$}
+        \addplot[mygreen, ultra thick, domain=0:50, samples=150] {exp(-((x-0.3679)^2*0.01802558552))};
+        % \addlegendentry{$\mu{=}0.3679,\ \sigma{=}55.4767$}
+        \addplot[orange, ultra thick, domain=0:150, samples=200] {exp(-((x-0.1353)^2*0.002439499200)};
+        % \addlegendentry{$\mu{=}0.1353,\ \sigma{=}409.9202$}
+        \addplot[lejla, ultra thick, domain=0:150, samples=200] {exp(-((x-0.0498)^2*0.0003301501576)};
+        % \addlegendentry{$\mu{=}0.0498,\ \sigma{=}3028.9248$}
+    \end{axis}
+\end{tikzpicture}

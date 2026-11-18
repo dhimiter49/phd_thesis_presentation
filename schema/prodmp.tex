@@ -1,0 +1,16 @@
+\begin{tikzpicture}
+    \node[draw, rounded corners] (dnn_prodmp) at (0,-1.9) {DNN};
+    \node[draw=none] (weight) at ([xshift=2.8cm]dnn_prodmp) {$\V{w}_g$};
+    \node[draw=none] (traj) at ([xshift=5.2cm]dnn_prodmp) {$\V{\lambda}$};
+    \node[draw=none] (loss) at ([xshift=7.2cm]dnn_prodmp) {MSE Loss};
+    \node[draw=none] at ([yshift=0.45cm, xshift=0.1cm]dnn_prodmp) {Online:};
+    \node[draw=none] (offline) at ([yshift=1.05cm, xshift=1.4cm]dnn_prodmp) {Offline, computed once:};
+    \draw[black!20] (-0.5, -1.15) -- (8, -1.15);
+    \node[draw=none] (phi) at ([xshift=0.8cm]offline.east) {$\V{\Phi}$};
+
+    \draw[ultra thick, blue, ->, -stealth] ([xshift=0.1cm]dnn_prodmp.east) -- (weight);
+    \draw[ultra thick, blue, ->, -stealth] (weight) -- (traj);
+    \draw[ultra thick, blue, ->, -stealth] (traj) -- (loss);
+    \draw[ultra thick, red, ->, -stealth] (offline.east) -- (phi);
+    \draw[ultra thick, blue] (phi) -- ([yshift=-0.8cm]phi.south);
+\end{tikzpicture}
