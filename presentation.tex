@@ -1108,6 +1108,7 @@
             \end{enumerate}
         \pause
         \item Long $N$ problem\\
+            - slow, not real-time
             - initial guess $\bar{\V{p}}=0$\\
             \pause
             \hspace{3mm}$\rightarrow$ Rapidly-exploring random tree (RRT)
@@ -1274,14 +1275,41 @@
     }
 \end{frame}
 
-\begin{frame}[label=casc_problem]{Cascading Control Problems}
+\begin{frame}[label=casc_problem]{Cascading Control Problem}
     \begin{itemize}
-        \item Computation
+        \item Computation\\
+            - $\times M$ more control dimensions\\
+            - $\times M$ more constraints
             \pause
-        \item Braking Issue
+        \item Braking issue\\
+            - goal:\\
+            \hspace{4mm}in case a collision is inevitable, stop before it\\
             \pause
-        \item Performance
+            - reality:\\
+            \hspace{4mm}ensure no collisions for $(N-1)$-steps and stop at $N$\\
+            \pause
+            \hspace{4mm} $\rightarrow$ stopping at $\frac{N}{2}$ is not possible
+            \pause
+        \item Set a long $N$\\
+            - braking reduces distance
     \end{itemize}
+    \only<2-5>{
+        \begin{textblock*}{6cm}(10.8cm,1.2cm)
+            \resizebox{6cm}{!}{\input{schema/cascading_issue_12.tex}}
+        \end{textblock*}
+    }
+    \only<6>{
+        \begin{textblock*}{6cm}(10.8cm,1.2cm)
+            \includegraphics[width=5.8cm]{imgs/casc_prob_12_crop_.pdf}\vspace{1mm}
+            \includegraphics[width=5.8cm]{imgs/casc_example_40.pdf}
+        \end{textblock*}
+        \begin{textblock*}{6cm}(11.3cm,3.8cm)
+            \begin{tikzpicture}
+                \node at (0,0) {$N=40$};
+                \node at (0,3.7) {$N=20$};
+            \end{tikzpicture}
+        \end{textblock*}
+    }
 \end{frame}
 
 
