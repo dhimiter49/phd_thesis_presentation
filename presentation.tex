@@ -94,7 +94,7 @@
 \newcommand\Fontviii{\fontsize{7}{4}\selectfont}
 \newcommand\Fontviiii{\fontsize{12}{12}\selectfont}
 \newcommand\Fontbig{\fontsize{30}{4}\selectfont}
-\newcommand\Fontviiiiii{\fontsize{5}{4}\selectfont}
+\newcommand\Fontsmall{\fontsize{5}{4}\selectfont}
 %table of contents
 
 \definecolor{myred}{RGB}{255,108,107}
@@ -1390,19 +1390,41 @@
     }
 \end{frame}
 
-
 \begin{frame}[label=prodmp_nav]{ProDMP for Navigation}
     \begin{itemize}
         \item 2D\\
             - trajectory $\V{y}\in\mathbb{R}^2$
-        \item Control
+            \pause
+        \item Control\\
+            - PD-controller $K_p\Delta p_t + K_d\Delta \dot{p}_t$\\
+            \pause
+            - velocity $\dot{\V{p}}_t$\\
+            \pause
+            - MPC $\min\limits_{\dot{P}}\dfrac{1}{2}\left\vert\left\vert P - P^{ref}\right\vert\right\vert^2$
+            \pause
+        \item Process
+            \pause
     \end{itemize}
+    \only<1->{
+        \begin{textblock*}{4cm}(5.4cm,2cm)
+            $$\V{y} \equiv c_1\V{y}_1 + c_2\V{y}_2 + \T{\M{\Phi}}\begin{bmatrix}\V{w}\\ g\end{bmatrix}$$
+            $$\textcolor{cyan}{\V{\lambda}=[\V{y}_k]_{k=1:M}}, \quad M>N$$
+        \end{textblock*}
+        \begin{textblock*}{10cm}(10cm,1.2cm)
+            \resizebox{6cm}{!}{\input{schema/mpc_hybrid_.tex}}
+        \end{textblock*}
+    }
+    \only<5->{
+        \begin{textblock*}{10cm}(7.8cm,4.7cm)
+            \resizebox{7cm}{!}{\input{schema/hybrid.tex}}
+        \end{textblock*}
+    }
 \end{frame}
 
 \subsection{Subsection 4.2}
 \begin{frame}{Hybrid Approach}
     \begin{itemize}
-        \item Algorithm
+        \item TRPL
         \item Intrinsic Reward
         \item Architecture
     \end{itemize}

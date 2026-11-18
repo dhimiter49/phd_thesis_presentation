@@ -1,0 +1,41 @@
+\begin{tikzpicture}[every node/.append style={align=center, ultra thick},
+    L/.style = {draw, black, line width=1, -{stealth[scale=2]}},
+    G/.style = {draw, black, line width=1}]
+    \useasboundingbox (-3,-3) rectangle (3, 1);
+    \node[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (agent) at (-2.4, 0) {Agent};
+    \node[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (prodmp) at (0, 0) {ProDMP};
+    \node<8->[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (const) at (0, 1.1) {Constraints};
+    % \node[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (mpc) at (2.4, 0) {MPC};
+
+    \node[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (mpc) at (2.4, 0) {MPC \\ \\};
+    \node[rectangle, rounded corners=2pt, line width=1pt, inner sep=2pt, minimum width=8mm, draw=black, font=\Fontsmall] (model) at (2.4, 0.08) {Model};
+    \node[rectangle, rounded corners=2pt, line width=1pt, inner sep=2pt, minimum width=8mm, draw=black, font=\Fontsmall] (opt) at (2.4, -0.4)  {Optimizer};
+
+    \draw[->, -{stealth[scale=2]}, black, line width=1] (opt.east) to [out=45,in=-45] (model.east);
+    \draw[->, -{stealth[scale=2]}, black, line width=1] (model.west) to [out=-135,in=135] (opt.west);
+
+    \draw[->, -{stealth[scale=2]}, black, line width=1] (agent) -- (prodmp) node[midway, above] () {$\V{w}_t$};
+    \draw[->, -{stealth[scale=2]}, black, line width=1] (prodmp) -- (mpc) node[midway, above] () {$\V{\lambda}_t$};
+    \node[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (env) at (0, -2) {Environment};
+    \node[] (a) at (2.97, -1.2) {action \\$\V{a}_t$};
+    \node<7->[] (a) at (-3.35, 0.25) {$\V{o}_t$};
+    \node<8->[] (a) at (-3.35, 0.8) {$\V{s}_t$};
+    \node<-8>[] (s) at (-3.1, -1.4) {state\\$\V{s}_t$};
+    \draw[->, -{stealth[scale=2]}, black, line width=1] (mpc.east) -- ([xshift=6mm]mpc.east) |- (env);
+    \draw<-8>[->, -{stealth[scale=2]}, black, line width=1] (env.west) -- ([xshift=-25mm]env.west) |- (agent.west);
+    \draw<8->[->, -{stealth[scale=2]}, black, line width=1] ([xshift=-5.58mm]agent.west) |- (const.west);
+    \draw<8->[->, -{stealth[scale=2]}, black, line width=1] (const.east) -| (mpc.north);
+
+    \visible<9->{
+        \node[] (s) at (-4.3, -1.2) {state \\ $\V{s}_t$};
+        \node[] (r) at (-2.9, -1.2) {reward \\$r_t$};
+        \node[] (r_) at (-1.5, -1.65) {$r_{t+1}$};
+        \node[] (s_) at (-1.5, -2.05) {$\V{s}_{t+1}$};
+        \draw[->, -{stealth[scale=2]}, black, line width=1] (-2.25, -2.2) -| ([xshift=-25mm]env.west) |- (agent.west);
+        \draw[->, -{stealth[scale=2]}, black, line width=1] (-2.25, -1.8) -| (-3.5, -0.2) -- ([yshift=-0.2cm]agent.west);
+        \draw
+            (-1.1, -2.2) edge[L] (-2.2, -2.2)
+            (-1.1, -1.8) edge[L] (-2.2, -1.8)
+            (-2.2, -2.4) edge[G, dotted] (-2.2, -1.6);
+    }
+\end{tikzpicture}
