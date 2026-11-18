@@ -1427,10 +1427,33 @@
 \subsection{Subsection 4.2}
 \begin{frame}[label=learn_hybrid]{Learning ProDMP MPC}
     \begin{itemize}
-        \item TRPL + ProDMP
-        \item Intrinsic Reward
-        \item Architecture
+        \item TRPL + ProDMP \cite{otto_deep_2023}\\
+            \pause
+            - RL parameters\\
+            \pause
+            - training parameters\\
+            \pause
+            - ProDMP parameters
+            \pause
+        \item Intrinsic Reward\\
+            - $r_i=-C_i\sum\limits_{k=1}^{r}\left\vert\left\vert P_k - P_k^{ref}\right\vert\right\vert$
+            \pause
+            \pause
+            \pause
+        \item Architecture\\
+            - LiDAR
+            \pause
     \end{itemize}
+    \begin{textblock*}{4cm}(5.4cm,3.2cm)
+        \only<2->{$\gamma \quad \lambda \quad \delta_\mu \quad \delta_\Sigma$\\}
+        \only<3->{$\eta \quad B \quad \V{h}$\\}
+        \only<4->{$n_b \quad c_{\V{w}} \quad c_g \quad r \quad c_g$}
+    \end{textblock*}
+    \only<5->{
+        \begin{textblock*}{10cm}(9cm,2cm)
+            \resizebox{5cm}{!}{\input{schema/mpc_hybrid_intrinsic.tex}}
+        \end{textblock*}
+    }
 \end{frame}
 
 \subsection{Subsection 4.3}

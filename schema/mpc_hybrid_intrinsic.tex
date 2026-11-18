@@ -1,0 +1,31 @@
+\begin{tikzpicture}
+    \coordinate (A) at (0, 0);
+    \coordinate (mid) at (4, 4);
+    \coordinate (mid_) at (7, 3.6);
+    \coordinate (mid__) at (7, 4);
+    \coordinate (B) at (8, 4);
+    \coordinate (C1) at (7.2, 5);
+    \coordinate (C2) at (7.6, 3);
+    \node [fill=mygreen, circle, minimum size=0.8cm] at (A) {};
+    \node [fill=myred, circle, minimum size=0.8cm] at (C1) {};
+    \node [fill=myred, circle, minimum size=0.8cm] at (C2) {};
+    \node [cross out, ultra thick, draw=mygreen, minimum size=0.4cm, rotate=6] at (B) {};
+    \draw[ultra thick, ->, mygreen] (A) -- ++(30:0.8);
+    
+    \draw[ultra thick] (A) to[out=42,in=-180] (mid);
+    \draw[ultra thick] (mid) to[out=0,in=-170] (mid__);
+    \draw[ultra thick, -{Stealth[scale=1.4]}] (mid__) to[out=2,in=-180] (B);
+    
+    \draw[ultra thick, cyan] (A) to[out=40,in=-180] (4, 3.8);
+    \draw[ultra thick, cyan] (4, 3.8) to[out=2,in=-178] (B);
+
+    \draw<6->[ultra thick, blue] (A) to[out=30,in=-150] (3.4, 2.4);
+    \draw<6->[ultra thick, blue] (3.4, 2.4) to[out=30,in=-150] (B);
+    
+    \draw<7->[<->, ultra thick] (3.4, 2.4) -- (2.75,3.6) node[midway, right] () {$\V{-}$};
+    \draw<7->[<->, ultra thick] (1.9, 1.4) -- (1.5,2) node[midway, right] () {$\V{-}$};
+    \draw<7->[<->, ultra thick] (5.5,3.15) -- (5.2,3.96) node[midway, right] () {$\V{-}$};
+
+    \draw[ultra thick, ->, myred] (C1) -- ++(-145:1.5);
+    \draw[ultra thick, ->, myred] (C2) -- ++(-160:1.5);
+\end{tikzpicture}
