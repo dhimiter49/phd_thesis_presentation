@@ -645,7 +645,7 @@
         \end{textblock*}
     }
     \only<4->{
-        \begin{textblock*}{12cm}(3.2cm,6.2cm)
+        \begin{textblock*}{12cm}(3.28cm,6.48cm)
             $\approx \textcolor<4->{myblue}{\dfrac{1}{K} \sum\limits_i^K} \left(\textcolor<4->{myred}{\sum\limits_t\nabla_{\V{\theta}}\log(\pi_{\V{\theta}}(\V{a}_{i,t}\vert \V{s}_{i,t}))}\right)  \left(\sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{i,t},\V{a}_{i,t})\right)$
         \end{textblock*}
     }
@@ -888,7 +888,7 @@
     \only<9>{
         \begin{textblock*}{5cm}(12.6cm,5.2cm)
             $\M{M}_{i}\ddot{P} < B_{i}$\\
-            $\M{M}_{i}\M{M}_{\ddot{P}\dot{P}} < B_{i}$\\
+            $\M{M}_{i}\M{M}_{\ddot{P}\dot{P}}\dot{P} < B_{i}$\\
         \end{textblock*}
     }
     \only<11-13>{
@@ -1232,13 +1232,13 @@
             \coordinate (c2) at (2, 0);
 
             \fill[mygreen] (agent) circle (0.3);
+            \draw[->, mygreen, ultra thick] (agent) -- ([xshift=8mm, yshift=8mm]agent);
             \fill[myred] (c1) circle (0.3);
             \fill[myred] (c2) circle (0.3);
             \draw<2>[ultra thick](agent) -- ([xshift=8mm, yshift=6mm]agent) -- ([xshift=15mm, yshift=8mm]agent) -- ([xshift=18mm, yshift=8mm]agent);
             \draw<3->[mygreen, ultra thick](agent) -- ([xshift=8mm, yshift=6mm]agent);
             \draw<4->[yellow, ultra thick]([xshift=8mm, yshift=6mm]agent) -- ([xshift=15mm, yshift=8mm]agent);
             \draw<5->[myred, ultra thick]([xshift=15mm, yshift=8mm]agent) -- ([xshift=18mm, yshift=8mm]agent);
-            \draw[->, mygreen, ultra thick] (agent) -- ([xshift=8mm, yshift=8mm]agent);
 
             \draw[mygreen, thick] (3.3, -0.1) -- (3.5, 0.1);
             \draw[mygreen, thick] (3.5, -0.1) -- (3.3, 0.1);
@@ -1268,7 +1268,7 @@
         \end{textblock*}
     }
     \only<7>{
-        \begin{textblock*}{6cm}(9cm, 4.6cm)
+        \begin{textblock*}{6cm}(10cm, 4.6cm)
             \centering
             \movie[poster, showcontrols, height=4cm, width=5.65cm]{}{imgs/casc_example.mp4}
         \end{textblock*}
@@ -1320,12 +1320,25 @@
     \textbf{\Fontbig{Hybrid Approach for Navigation}}
 \end{frame}
 
-\begin{frame}{Hybrid}
+\begin{frame}[label=hybrid]{Hybrid}
     \begin{itemize}
-        \item MPC as safety filter
-        \item Episode-based RL\\
+        \item Objective
+            \pause
+        \item Complementary advantages\\
+            - theoretical infinite horizon\\
+            \pause
+            - safety guarantees\\
+            \pause
+            - better collaboration
+            \pause
+        \item Need episode-based RL\\
             - ProDMP
     \end{itemize}
+    \only<1->{
+        \begin{textblock*}{10cm}(6cm,1.5cm)
+            \resizebox{9cm}{!}{\input{schema/mpc_hybrid.tex}}
+        \end{textblock*}
+    }
 \end{frame}
 
 \begin{frame}{Probabilistic Dynamic Movement Primitives (ProDMP)}
