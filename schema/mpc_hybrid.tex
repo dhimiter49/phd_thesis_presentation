@@ -11,6 +11,7 @@
     \node [fill=myred, circle, minimum size=0.8cm] at (C1) {};
     \node [fill=myred, circle, minimum size=0.8cm] at (C2) {};
     \node [cross out, ultra thick, draw=mygreen, minimum size=0.4cm, rotate=6] at (B) {};
+    \draw[ultra thick, ->, mygreen] (A) -- ++(30:0.8);
 
     \draw<2>[ultra thick] (A) to[out=15,in=-180] (mid);
     \draw<2>[ultra thick] (mid) to[out=0,in=-170] (mid_);
@@ -23,7 +24,6 @@
     \draw<4->[ultra thick] (mid) to[out=0,in=-170] (mid__);
     \draw<4->[ultra thick, -{Stealth[scale=1.4]}] (mid__) to[out=2,in=-180] (B);
 
-    \draw[ultra thick, ->, mygreen] (A) -- ++(30:0.8);
     \draw[ultra thick, ->, myred] (C1) -- ++(-145:1.5);
     \draw[ultra thick, ->, myred] (C2) -- ++(-160:1.5);
 
