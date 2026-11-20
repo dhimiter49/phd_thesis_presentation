@@ -218,9 +218,9 @@
             \resizebox{7cm}{!}{\input{schema/mpc_schema.tex}}
         }
     \end{textblock*}
-    \begin{textblock*}{7cm}(9.05cm,3.4cm)
+    \begin{textblock*}{7cm}(9.05cm,3.6cm)
         \visible<2->{
-            \resizebox{5.2cm}{!}{\input{schema/rl_schema.tex}}
+            \resizebox{5cm}{!}{\input{schema/rl_schema.tex}}
         }
     \end{textblock*}
     \begin{textblock*}{10cm}(1.4cm,6.2cm)
@@ -261,51 +261,48 @@
 
 \begin{frame}{Literature}
     \begin{itemize}
-        \item Model-based\\
-            - classic\\
-            \pause
-            \pause
-            - MPC\\
+        \item MPC\\
+            - \cite{wieber_trajectory_2006}\\
+            - \cite{bohorquez_safe_2016}
             \pause
         \item RL\\
-            - Inverse RL\\
+            -  \cite{everett_collision_2021}
             \pause
-            - RL for local navigation\\
-            \pause
-            - Inter-crowd relations
-            \pause
-        \item Hybrid (RL + MPC)
+        \item Hybrid (RL + MPC)\\
+           - \cite{romero_actor-critic_2023}\\
+           - \cite{tearle_predictive_2021}\\
+           - \cite{xiao_learning_2023}
     \end{itemize}
-    \begin{textblock*}{13cm}(3.4cm,1.6cm)
-       \visible<1-2>{
-            \begin{minipage}[t]{4.1cm}
-                \centering
-                \resizebox{4cm}{!}{\input{schema/classicalgo_dijkstra.tex}}
-                \par\vspace{1mm}
-                {\small Dijkstra's algorithm \cite{Dijkstra1959}}
-            \end{minipage}\hfill
-            \begin{minipage}[t]{4.1cm}
-                \centering
-                \resizebox{4cm}{!}{\input{schema/classicalgo_voronoi.tex}}
-                \par\vspace{1mm}
-                {\small Voronoi diagram \cite{Shahabi2018}}
-            \end{minipage}\hfill
-       }
-       \visible<2>{
-            \begin{minipage}[t]{4.6cm}
-                \centering
-                \resizebox{4cm}{!}{\input{schema/classicalgo_dwa.tex}}
-                \par\vspace{1mm}
-                {\small Dynamic window approach \cite{fox_dynamic_1997}}
-            \end{minipage}
-       }
-    \end{textblock*}
-    \begin{textblock*}{8.6cm}(5.8cm,1.4cm)
-       \visible<3>{
+    % \begin{textblock*}{13cm}(3.4cm,1.6cm)
+    %    \visible<1-2>{
+    %         \begin{minipage}[t]{4.1cm}
+    %             \centering
+    %             \resizebox{4cm}{!}{\input{schema/classicalgo_dijkstra.tex}}
+    %             \par\vspace{1mm}
+    %             {\small Dijkstra's algorithm \cite{Dijkstra1959}}
+    %         \end{minipage}\hfill
+    %         \begin{minipage}[t]{4.1cm}
+    %             \centering
+    %             \resizebox{4cm}{!}{\input{schema/classicalgo_voronoi.tex}}
+    %             \par\vspace{1mm}
+    %             {\small Voronoi diagram \cite{Shahabi2018}}
+    %         \end{minipage}\hfill
+    %    }
+    %    \visible<2>{
+    %         \begin{minipage}[t]{4.6cm}
+    %             \centering
+    %             \resizebox{4cm}{!}{\input{schema/classicalgo_dwa.tex}}
+    %             \par\vspace{1mm}
+    %             {\small Dynamic window approach \cite{fox_dynamic_1997}}
+    %         \end{minipage}
+    %    }
+    % \end{textblock*}
+    \begin{textblock*}{8.6cm}(5.8cm,1cm)
+       \visible<1>{
            \centering
            \resizebox{8cm}{!}{\input{schema/mpc_zmp.tex}}\vspace{3mm}
            \includegraphics[height=3.5cm]{imgs/hrp2.png}\hspace{1cm}
-           \includegraphics[height=3.5cm]{imgs/mpc_navigation.png} \cite{bohorquez_safe_2016}
+           \includegraphics[height=3.5cm]{imgs/mpc_navigation.png}
        }
     \end{textblock*}
     % \begin{textblock*}{6cm}(4.8cm,3cm)
@@ -322,57 +319,53 @@
     %        \cite{alahi_2016_CVPR}
     %    }
     % \end{textblock*}
-    \begin{textblock*}{4.8cm}(4.6cm,2.2cm)
-        \visible<4-6>{
-        \centering
-        \resizebox{4.8cm}{!}{
-        \begin{tikzpicture}
-            \node[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
-            \draw[ultra thick] (4.47, -4) -- (6.97, -1.5);
-            \draw[ultra thick, mygreen] (8.2, -1.8) -- (8.4, -2); % goal
-            \draw[ultra thick, mygreen] (8.1, -2.05) -- (8.5, -1.75); % goal
-            \draw[->, ultra thick, mygreen] ([xshift=6mm, yshift=-7mm]env.center) to[bend right=30] (8.3, -2);
-            \draw[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
-            \fill[black!8] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
-            \node[anchor=west] at ([yshift=-0.5cm]env.center) {\includegraphics[height=1cm]{imgs/mirokai.png}};
-            \node[anchor=center] at ([xshift=-1.1cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
-            \node[anchor=east] at ([xshift=2cm]env.center) {\reflectbox{\includegraphics[height=1.2cm]{imgs/walking.png}}};
-            \node[anchor=east] at ([xshift=0.45cm, yshift=0.8cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
+    % \begin{textblock*}{4.8cm}(4.6cm,2.2cm)
+    %     \visible<4-6>{
+    %     \centering
+    %     \resizebox{4.8cm}{!}{
+    %     \begin{tikzpicture}
+    %         \node[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
+    %         \draw[ultra thick] (4.47, -4) -- (6.97, -1.5);
+    %         \draw[ultra thick, mygreen] (8.2, -1.8) -- (8.4, -2); % goal
+    %         \draw[ultra thick, mygreen] (8.1, -2.05) -- (8.5, -1.75); % goal
+    %         \draw[->, ultra thick, mygreen] ([xshift=6mm, yshift=-7mm]env.center) to[bend right=30] (8.3, -2);
+    %         \draw[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
+    %         \fill[black!8] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
+    %         \node[anchor=west] at ([yshift=-0.5cm]env.center) {\includegraphics[height=1cm]{imgs/mirokai.png}};
+    %         \node[anchor=center] at ([xshift=-1.1cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
+    %         \node[anchor=east] at ([xshift=2cm]env.center) {\reflectbox{\includegraphics[height=1.2cm]{imgs/walking.png}}};
+    %         \node[anchor=east] at ([xshift=0.45cm, yshift=0.8cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
 
-            \draw[ultra thick, myred] ([xshift=1mm, yshift=-7mm]env.center) -- ([xshift=-8mm, yshift=-4.5mm]env.center);
-            \draw[ultra thick, myred] ([xshift=6mm, yshift=-7.5mm]env.center) -- ([xshift=14mm, yshift=-4mm]env.center);
-            \draw[ultra thick, myred] ([xshift=1mm, yshift=-7mm]env.center) -- ([yshift=1mm]env.center);
-        \end{tikzpicture}
-        }\\
-        \cite{vasquez_inverse_2014}
-        }
-    \end{textblock*}
-    \begin{textblock*}{8cm}(9cm,1.8cm)
-        \visible<5>{
+    %         \draw[ultra thick, myred] ([xshift=1mm, yshift=-7mm]env.center) -- ([xshift=-8mm, yshift=-4.5mm]env.center);
+    %         \draw[ultra thick, myred] ([xshift=6mm, yshift=-7.5mm]env.center) -- ([xshift=14mm, yshift=-4mm]env.center);
+    %         \draw[ultra thick, myred] ([xshift=1mm, yshift=-7mm]env.center) -- ([yshift=1mm]env.center);
+    %     \end{tikzpicture}
+    %     }\\
+    %     \cite{vasquez_inverse_2014}
+    %     }
+    % \end{textblock*}
+    \begin{textblock*}{8cm}(5cm,1.8cm)
+        \visible<2>{
         \centering
            \includegraphics[height=6cm]{imgs/rl_localnav.png}\\
-           \cite{everett_collision_2021}
         }
     \end{textblock*}
     \begin{textblock*}{5cm}(5.4cm,1.8cm)
-        \visible<7>{
+        \visible<3>{
         \centering
            \includegraphics[height=3.4cm]{imgs/actor_critic_mpc.png}\\
-           \cite{romero_actor-critic_2023}
         }
     \end{textblock*}
     \begin{textblock*}{6cm}(10.5cm,1.8cm)
-        \visible<7>{
+        \visible<3>{
         \centering
            \includegraphics[height=3.4cm]{imgs/hybrid_filter.png}\\
-           \cite{tearle_predictive_2021}
         }
     \end{textblock*}
     \begin{textblock*}{11cm}(5.4cm,6cm)
-        \visible<7>{
+        \visible<3>{
         \centering
            \includegraphics[height=1.9cm]{imgs/hybrid_nav.png}\\
-           \cite{xiao_learning_2023}
         }
     \end{textblock*}
 \end{frame}
