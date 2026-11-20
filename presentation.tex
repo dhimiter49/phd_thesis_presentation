@@ -92,7 +92,7 @@
   \maps[datatype=bibtex]{
     \map{ \step[fieldsource=entrykey, match={wieber_trajectory_2006}, final] \step[fieldset=shortjournal, fieldvalue={Humanoids}] }
     \map{ \step[fieldsource=entrykey, match={bohorquez_safe_2016}, final] \step[fieldset=shortjournal, fieldvalue={Humanoids}] }
-    \map{ \step[fieldsource=entrykey, match={romero_actor-critic_2023}, final] \step[fieldset=shortjournal, fieldvalue={arXiv}] }
+    \map{ \step[fieldsource=entrykey, match={romero_actor-critic_2023}, final] \step[fieldset=shortjournal, fieldvalue={ICRA}] }
     \map{ \step[fieldsource=entrykey, match={tearle_predictive_2021}, final] \step[fieldset=shortjournal, fieldvalue={RA-L}] }
     \map{ \step[fieldsource=entrykey, match={xiao_learning_2023}, final] \step[fieldset=shortjournal, fieldvalue={CoRL}] }
     \map{ \step[fieldsource=entrykey, match={everett_collision_2021}, final] \step[fieldset=shortjournal, fieldvalue={IEEE Access}] }
@@ -315,19 +315,19 @@
     \end{textblock*}
 \end{frame}
 
-\begin{frame}{Literature}
+\begin{frame}[label=lit]{Literature}
     \begin{itemize}
         \item MPC\\
-            - \cite{wieber_trajectory_2006}\\
-            - \cite{bohorquez_safe_2016}
+            - {\Fontsmaller\cite{wieber_trajectory_2006}} \\
+            - {\Fontsmaller\cite{bohorquez_safe_2016}}
             \pause
         \item RL\\
-            -  \cite{everett_collision_2021}
+            - {\Fontsmaller\cite{everett_collision_2021}}
             \pause
         \item Hybrid (RL + MPC)\\
-           - \cite{romero_actor-critic_2023}\\
-           - \cite{tearle_predictive_2021}\\
-           - \cite{xiao_learning_2023}
+            - {\Fontsmaller\cite{romero_actor-critic_2023}} \\
+            - {\Fontsmaller\cite{tearle_predictive_2021}} \\
+            - {\Fontsmaller\cite{xiao_learning_2023}}
     \end{itemize}
     % \begin{textblock*}{13cm}(3.4cm,1.6cm)
     %    \visible<1-2>{
@@ -353,7 +353,7 @@
     %         \end{minipage}
     %    }
     % \end{textblock*}
-    \begin{textblock*}{8.6cm}(5.8cm,1cm)
+    \begin{textblock*}{8.6cm}(6.8cm,1cm)
        \visible<1>{
            \centering
            \resizebox{8cm}{!}{\input{schema/mpc_zmp.tex}}\vspace{3mm}
@@ -400,28 +400,28 @@
     %     \cite{vasquez_inverse_2014}
     %     }
     % \end{textblock*}
-    \begin{textblock*}{8cm}(5cm,1.8cm)
+    \begin{textblock*}{8cm}(6.8cm,1.8cm)
         \visible<2>{
         \centering
            \includegraphics[height=6cm]{imgs/rl_localnav.png}\\
         }
     \end{textblock*}
-    \begin{textblock*}{5cm}(5.4cm,1.8cm)
+    \begin{textblock*}{5cm}(6.8cm,2.5cm)
         \visible<3>{
         \centering
-           \includegraphics[height=3.4cm]{imgs/actor_critic_mpc.png}\\
+           \includegraphics[height=3cm]{imgs/actor_critic_mpc.png}\\
         }
     \end{textblock*}
-    \begin{textblock*}{6cm}(10.5cm,1.8cm)
+    \begin{textblock*}{6cm}(11.2cm,2.5cm)
         \visible<3>{
         \centering
-           \includegraphics[height=3.4cm]{imgs/hybrid_filter.png}\\
+           \includegraphics[height=3cm]{imgs/hybrid_filter.png}\\
         }
     \end{textblock*}
-    \begin{textblock*}{11cm}(5.4cm,6cm)
+    \begin{textblock*}{7cm}(7.5cm,6cm)
         \visible<3>{
         \centering
-           \includegraphics[height=1.9cm]{imgs/hybrid_nav.png}\\
+           \includegraphics[height=1.6cm]{imgs/hybrid_nav.png}\\
         }
     \end{textblock*}
 \end{frame}
