@@ -121,120 +121,17 @@
     \textbf{\Fontbig{Introduction}}
 \end{frame}
 
-\begin{frame}{Thesis}
-    \centering
-    \textbf{\Fontviiii{Safe Reinforcement Learning for Robot Navigation with Model Predictive Control}}
-    \vspace{4cm}
-    \begin{textblock*}{6cm}(0.88cm,2.45cm)
-        \begin{tikzpicture}
-            \path[use as bounding box] (-1,0) rectangle (15,0.55);
-            % Rounded rectangle
-            \draw<2->[rounded corners=6pt, ultra thick, mygreen] (5.2,0) rectangle (8.54,0.55);
-            \draw<4->[rounded corners=6pt, ultra thick, orange] (0.05,0) rectangle (4.6,0.55);
-            \draw<6->[rounded corners=6pt, ultra thick, myblue] (9.42,0) rectangle (14.15,0.55);
-
-            % Arrow from the bottom border pointing down
-            \draw<3->[-{Stealth}, ultra thick, mygreen] (6.97,0) -- (6.97,-1.5);
-            \draw<5->[-{Stealth}, ultra thick, orange] (2.325,0) -- (2.0,-1.5);
-            \draw<7->[-{Stealth}, ultra thick, myblue] (12,0) -- (12,-1.5);
-
-            % Environment
-            \node<3->[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
-            \draw<3->[ultra thick] (4.47, -4) -- (6.97, -1.5);
-            \draw<3->[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
-            \fill<3->[black!8] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
-            \node<3->[anchor=west] at ([yshift=-0.5cm]env.center) {\includegraphics[height=1cm]{imgs/mirokai.png}};
-            \node<3->[anchor=center] at ([xshift=-1.1cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
-            \node<3->[anchor=east] at ([xshift=2cm]env.center) {\reflectbox{\includegraphics[height=1.2cm]{imgs/walking.png}}};
-            \node<3->[anchor=east] at ([xshift=0.45cm, yshift=0.8cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
-
-            % RL
-            \node<5->[draw, ultra thick, orange, fill=black!8, minimum width=4cm, minimum height=3cm] (rl) at (2.0, -3) {};
-            \node<5->[xshift=-1.2cm] at (rl.center) {\resizebox{1.2cm}{!}{\input{schema/robot_head.tex}}};
-            \node<5->[xshift=1.2cm, yshift=-0.05cm] at (rl.center) {\includegraphics[height=1.5cm]{imgs/world_.png}};
-            \draw<5->[->, ultra thick] (1.4, -2.5) to[bend left=40] (2.6, -2.5);
-            \draw<5->[->, ultra thick] (2.6, -3.7) to[bend left=40] (1.4, -3.7);
-
-            % MPC
-            \node<7->[draw, ultra thick, myblue, fill=black!8, minimum width=4cm, minimum height=3cm] (mpc) at (12.0, -3) {};
-            \node<7->[xshift=-1.2cm] at (mpc.center) {\resizebox{1.4cm}{!}{\input{schema/optimization.tex}}};
-            \node<7->[xshift=1.2cm] at (mpc.center) {\includegraphics[height=1.2cm]{imgs/world_bw.png}};
-            \node<7->[xshift=1.2cm, yshift=0.9cm] at (mpc.center){
-                \begin{tikzpicture}[scale=0.1]
-                    \draw[->, black!30] (-2.8,0) -- (2.8,0);
-                    \draw[->, black!30] (0,-0.3) -- (0,5);
-                    \draw[very thick, lejla, domain=-3:3, smooth] plot (\x, {0.6*\x*\x});
-                \end{tikzpicture}
-            };
-            \node<7->[xshift=1.2cm, yshift=-1cm] at (mpc.center){
-                \begin{tikzpicture}[scale=0.1]
-                    \draw[->, black!30] (-2.8,0) -- (2.8,0);
-                    \draw[->, black!30] (0,-0.3) -- (0,5);
-                    \draw[very thick, lejla, domain=-3:3, smooth] plot (\x, {0.6*\x*\x});
-                    \draw[very thick, myred] (-3,1) -- (3,2.2);
-                \end{tikzpicture}
-            };
-            \draw<7->[-{Stealth}, ultra thick] (12.6, -3) -- (11.5, -3);
-            \draw<7->[-{Stealth}, ultra thick] (12.6, -2.1) -- (11.45, -2.8);
-            \draw<7->[-{Stealth}, ultra thick] (12.6, -4) -- (11.45, -3.2);
-            \draw<8->[-{Stealth}, ultra thick] (13.2, -4.35) -- (13.2, -4.8) -| (-0.4,0);
-        \end{tikzpicture}
-    \end{textblock*}
-\end{frame}
-
-% example scope
-% \begin{scope}[on above layer]
-%     \draw
-%         <3->{
-%             (const) edge[G] (0, -4.86)
-%             (const) edge[G] (1.36, -2)
-%             (const) edge[G] (2.5, -2.2)
-%             (const) edge[G] (3.06, -1.4)};
-%     \draw
-%         <2->{(traj) edge[L] (3.5, -2.8)};
-%     \end{scope}
-
-\subsection{Subsection 1.2}
-\begin{frame}{Context}
-    \begin{itemize}
-        \item Inria + UGA + MIAI
-            \pause
-        \item Collaborators: KIT and Enchanted Tools
-            \pause
-        \item Background\\
-            Inria: safe robot control\\
-            KIT: learning for robot control\\
-            Enchanted Tools: Mirokai robot
-            \pause
-        \item Thesis focus: \textbf{safe \& efficient robot navigation}
-        \item Another thesis for social navigation (Jordan Cosio)
-    \end{itemize}
-        \begin{textblock*}{10cm}(9.5cm,2.2cm)
-            \includegraphics[width=2cm]{imgs/logo_inria.png}\hspace{0.4cm}
-            \raisebox{-3mm}{\includegraphics[width=2cm]{imgs/Logo_UGA.png}\hspace{0.4cm}}
-            \includegraphics[width=2cm]{imgs/logo_miai.png}
-        \end{textblock*}
-    \only<2->{
-        \begin{textblock*}{10cm}(9.5cm,3.8cm)
-            \includegraphics[width=2cm]{imgs/Logo_KIT.png}\hspace{0.4cm}
-            \includegraphics[width=2cm]{imgs/alr-logo.png}\hspace{0.4cm}
-            \includegraphics[width=2cm]{imgs/Enchanted_Tools_Logo.png}
-        \end{textblock*}
-    }
-\end{frame}
-
-\subsection{Subsection 1.3}
 \begin{frame}{Robot Crowd Navigation}
     \begin{itemize}
         \item Objective\\
             \pause
-            - reach the assigned goal\\
+            - reach an assigned goal\\
+            \pause
+            - our scope is moving\\
             \pause
             - avoid the crowd \\
             \pause
             - non-verbal cooperation\\
-            \pause
-            - our scope is local navigation
             % without communicating, perception, self-localizing, planning, map building
         \pause
     \vspace{4mm}
@@ -252,20 +149,20 @@
         \pause
         - $\mathcal{P}:\mathcal{S}\times\mathcal{S}\times\mathcal{A}\rightarrow \left[0, 1\right] $
     \end{itemize}
-    \begin{textblock*}{4.8cm}(6.2cm,1.6cm)
-        \visible<1->{
-            \includegraphics[width=4.8cm]{imgs/miroki.jpg}
-            \vspace{-0.7cm}
-            \center \Fontviii Mirokai robots from Enchanted Tools
-        }
-    \end{textblock*}
-    \begin{textblock*}{4.8cm}(11.2cm,1.6cm)
+    % \begin{textblock*}{4.8cm}(6.2cm,1.6cm)
+    %     \visible<1->{
+    %         \includegraphics[width=4.8cm]{imgs/miroki.jpg}
+    %         \vspace{-0.7cm}
+    %         \center \Fontviii Mirokai robots from Enchanted Tools
+    %     }
+    % \end{textblock*}
+    \begin{textblock*}{4.8cm}(8.5cm,1.6cm)
         \begin{tikzpicture}
             \node[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
             \draw[ultra thick] (4.47, -4) -- (6.97, -1.5);
             \draw[ultra thick, mygreen] (8.2, -1.8) -- (8.4, -2); % goal
             \draw[ultra thick, mygreen] (8.1, -2.05) -- (8.5, -1.75); % goal
-            \draw<2->[->, ultra thick, mygreen] ([xshift=6mm, yshift=-7mm]env.center) to[bend right=30] (8.3, -2);
+            \draw<3->[->, ultra thick, mygreen] ([xshift=6mm, yshift=-7mm]env.center) to[bend right=30] (8.3, -2);
 
             \draw[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
             \fill[black!8] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
@@ -274,14 +171,74 @@
             \node[anchor=east] at ([xshift=2cm]env.center) {\reflectbox{\includegraphics[height=1.2cm]{imgs/walking.png}}};
             \node[anchor=east] at ([xshift=0.45cm, yshift=0.8cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
 
-            \draw<3->[ultra thick, myred] ([xshift=1mm, yshift=-7mm]env.center) -- ([xshift=-8mm, yshift=-4.5mm]env.center);
-            \draw<3->[ultra thick, myred] ([xshift=6mm, yshift=-7.5mm]env.center) -- ([xshift=14mm, yshift=-4mm]env.center);
-            \draw<3->[ultra thick, myred] ([xshift=1mm, yshift=-7mm]env.center) -- ([yshift=1mm]env.center);
+            \draw<4->[ultra thick, myred] ([xshift=1mm, yshift=-7mm]env.center) -- ([xshift=-8mm, yshift=-4.5mm]env.center);
+            \draw<4->[ultra thick, myred] ([xshift=6mm, yshift=-7.5mm]env.center) -- ([xshift=14mm, yshift=-4mm]env.center);
+            \draw<4->[ultra thick, myred] ([xshift=1mm, yshift=-7mm]env.center) -- ([yshift=1mm]env.center);
         \end{tikzpicture}
     \end{textblock*}
-    \begin{textblock*}{7.7cm}(8.4cm,5cm)
-        \visible<6->{
-            \resizebox{7.7cm}{!}{\input{schema/mdp.tex}}
+\end{frame}
+
+\begin{frame}[label=nav_mdp]{Navigation MDP}
+    \begin{itemize}
+        \item State/Observation $\mathcal{S}/\mathcal{O}$\\
+            - positions $\V{p}, \V{p}_{c_j}$ and velocities $\dot{\V{p}}, \dot{\V{p}}_{c_j}$\\
+            \pause
+            - LiDAR rays
+        \pause
+        \pause
+        \item Action $\mathcal{A}$\\
+            - acceleration\\
+        \pause
+        \pause
+            - velocity
+        \pause
+        \pause
+        \item Reward function $\mathcal{R}$\\
+            - completion (+) \pause/ collision (-) \pause/ proxemics (-)\\
+            \pause
+            \pause
+            - towards goal (+) \pause/ idleness (-) \pause/ smoothness (-)
+        \pause
+        \pause
+        \pause
+        \item Transition function $\mathcal{P}$\\
+            - Constant\\
+        \pause
+            - ORCA, SFM
+    \end{itemize}
+    \begin{textblock*}{7cm}(7.5cm,1.5cm)
+        \visible<1-3>{
+            \resizebox{4cm}{!}{\input{schema/multi_agent.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(12cm,1.1cm)
+        \visible<2-3>{
+            \resizebox{4cm}{!}{\input{schema/multi_agent_lidar.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(7cm,3cm)
+        \visible<4-7>{
+            \resizebox{3cm}{!}{\input{schema/acc_control.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(11cm,3cm)
+        \visible<6-7>{
+            \resizebox{3cm}{!}{\input{schema/vel_control.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{5cm}(8.7cm,2cm)
+        \visible<8-16>{
+            \resizebox{9cm}{!}{\input{schema/reward_comp.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{5cm}(10cm,1.5cm)
+        \visible<17->{
+            \resizebox{4cm}{!}{\input{schema/const_crowd.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{5cm}(10cm,5cm)
+        \visible<18->{
+            \resizebox{4cm}{!}{\input{schema/const_orca.tex}}
         }
     \end{textblock*}
 \end{frame}
@@ -387,72 +344,6 @@
     \begin{textblock*}{7cm}(8.8cm,3.5cm)
         \visible<1->{
             \resizebox{7cm}{!}{\input{schema/rl_schema.tex}}
-        }
-    \end{textblock*}
-\end{frame}
-
-
-\begin{frame}[label=nav_mdp]{Navigation MDP}
-    \begin{itemize}
-        \item State/Observation $\mathcal{S}/\mathcal{O}$\\
-            - positions $\V{p}, \V{p}_{c_j}$ and velocities $\dot{\V{p}}, \dot{\V{p}}_{c_j}$\\
-            \pause
-            - LiDAR rays
-        \pause
-        \pause
-        \item Action $\mathcal{A}$\\
-            - acceleration\\
-        \pause
-        \pause
-            - velocity
-        \pause
-        \pause
-        \item Reward function $\mathcal{R}$\\
-            - completion (+) \pause/ collision (-) \pause/ proxemics (-)\\
-            \pause
-            \pause
-            - towards goal (+) \pause/ idleness (-) \pause/ smoothness (-)
-        \pause
-        \pause
-        \pause
-        \item Transition function $\mathcal{P}$\\
-            - Constant\\
-        \pause
-            - ORCA, SFM
-    \end{itemize}
-    \begin{textblock*}{7cm}(7.5cm,1.5cm)
-        \visible<1-3>{
-            \resizebox{4cm}{!}{\input{schema/multi_agent.tex}}
-        }
-    \end{textblock*}
-    \begin{textblock*}{7cm}(12cm,1.1cm)
-        \visible<2-3>{
-            \resizebox{4cm}{!}{\input{schema/multi_agent_lidar.tex}}
-        }
-    \end{textblock*}
-    \begin{textblock*}{7cm}(7cm,3cm)
-        \visible<4-7>{
-            \resizebox{3cm}{!}{\input{schema/acc_control.tex}}
-        }
-    \end{textblock*}
-    \begin{textblock*}{7cm}(11cm,3cm)
-        \visible<6-7>{
-            \resizebox{3cm}{!}{\input{schema/vel_control.tex}}
-        }
-    \end{textblock*}
-    \begin{textblock*}{5cm}(8.7cm,2cm)
-        \visible<8-16>{
-            \resizebox{9cm}{!}{\input{schema/reward_comp.tex}}
-        }
-    \end{textblock*}
-    \begin{textblock*}{5cm}(10cm,1.5cm)
-        \visible<17->{
-            \resizebox{4cm}{!}{\input{schema/const_crowd.tex}}
-        }
-    \end{textblock*}
-    \begin{textblock*}{5cm}(10cm,5cm)
-        \visible<18->{
-            \resizebox{4cm}{!}{\input{schema/const_orca.tex}}
         }
     \end{textblock*}
 \end{frame}
@@ -577,6 +468,8 @@
 
 \begin{frame}{Contribution}
     \begin{itemize}
+        \item RL
+            \pause
         \item MPC\\
             - Passive safety\\
             - Freezing problem\\
@@ -587,7 +480,7 @@
             - ProDMP for Navigation\\
             - ProDMP and MPC
     \end{itemize}
-    \only<1>{
+    \only<2>{
         \begin{textblock*}{12cm}(4.8cm,1cm)
             \Fontvii
             \begin{align*}
@@ -602,14 +495,14 @@
             \resizebox{9cm}{!}{\input{schema/mpc.tex}}
         \end{textblock*}
     }
-    \only<2>{
+    \only<3>{
         \begin{textblock*}{6cm}(7cm, 2.5cm)
             \centering
             \movie[poster, showcontrols, height=5.65cm, width=8cm]{}{imgs/global_opt.mp4}
         \end{textblock*}
     }
-    \only<3>{
-        \begin{textblock*}{6cm}(6cm,1.8cm)
+    \only<4>{
+        \begin{textblock*}{6cm}(6.8cm,3cm)
             \includegraphics[height=4cm]{imgs/prodmp_ineff_40.pdf}
         \end{textblock*}
     }
@@ -1611,7 +1504,120 @@
 \backupend
 
 \appendix
-\begin{frame}[label={app1}]
+\begin{frame}[label={intro}]
+\frametitle{Thesis}
+    \centering
+    \textbf{\Fontviiii{Safe Reinforcement Learning for Robot Navigation with Model Predictive Control}}
+    \vspace{4cm}
+    \begin{textblock*}{6cm}(0.88cm,2.45cm)
+        \begin{tikzpicture}
+            \path[use as bounding box] (-1,0) rectangle (15,0.55);
+            % Rounded rectangle
+            \draw<2->[rounded corners=6pt, ultra thick, mygreen] (5.2,0) rectangle (8.54,0.55);
+            \draw<4->[rounded corners=6pt, ultra thick, orange] (0.05,0) rectangle (4.6,0.55);
+            \draw<6->[rounded corners=6pt, ultra thick, myblue] (9.42,0) rectangle (14.15,0.55);
+
+            % Arrow from the bottom border pointing down
+            \draw<3->[-{Stealth}, ultra thick, mygreen] (6.97,0) -- (6.97,-1.5);
+            \draw<5->[-{Stealth}, ultra thick, orange] (2.325,0) -- (2.0,-1.5);
+            \draw<7->[-{Stealth}, ultra thick, myblue] (12,0) -- (12,-1.5);
+
+            % Environment
+            \node<3->[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
+            \draw<3->[ultra thick] (4.47, -4) -- (6.97, -1.5);
+            \draw<3->[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
+            \fill<3->[black!8] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
+            \node<3->[anchor=west] at ([yshift=-0.5cm]env.center) {\includegraphics[height=1cm]{imgs/mirokai.png}};
+            \node<3->[anchor=center] at ([xshift=-1.1cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
+            \node<3->[anchor=east] at ([xshift=2cm]env.center) {\reflectbox{\includegraphics[height=1.2cm]{imgs/walking.png}}};
+            \node<3->[anchor=east] at ([xshift=0.45cm, yshift=0.8cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
+
+            % RL
+            \node<5->[draw, ultra thick, orange, fill=black!8, minimum width=4cm, minimum height=3cm] (rl) at (2.0, -3) {};
+            \node<5->[xshift=-1.2cm] at (rl.center) {\resizebox{1.2cm}{!}{\input{schema/robot_head.tex}}};
+            \node<5->[xshift=1.2cm, yshift=-0.05cm] at (rl.center) {\includegraphics[height=1.5cm]{imgs/world_.png}};
+            \draw<5->[->, ultra thick] (1.4, -2.5) to[bend left=40] (2.6, -2.5);
+            \draw<5->[->, ultra thick] (2.6, -3.7) to[bend left=40] (1.4, -3.7);
+
+            % MPC
+            \node<7->[draw, ultra thick, myblue, fill=black!8, minimum width=4cm, minimum height=3cm] (mpc) at (12.0, -3) {};
+            \node<7->[xshift=-1.2cm] at (mpc.center) {\resizebox{1.4cm}{!}{\input{schema/optimization.tex}}};
+            \node<7->[xshift=1.2cm] at (mpc.center) {\includegraphics[height=1.2cm]{imgs/world_bw.png}};
+            \node<7->[xshift=1.2cm, yshift=0.9cm] at (mpc.center){
+                \begin{tikzpicture}[scale=0.1]
+                    \draw[->, black!30] (-2.8,0) -- (2.8,0);
+                    \draw[->, black!30] (0,-0.3) -- (0,5);
+                    \draw[very thick, lejla, domain=-3:3, smooth] plot (\x, {0.6*\x*\x});
+                \end{tikzpicture}
+            };
+            \node<7->[xshift=1.2cm, yshift=-1cm] at (mpc.center){
+                \begin{tikzpicture}[scale=0.1]
+                    \draw[->, black!30] (-2.8,0) -- (2.8,0);
+                    \draw[->, black!30] (0,-0.3) -- (0,5);
+                    \draw[very thick, lejla, domain=-3:3, smooth] plot (\x, {0.6*\x*\x});
+                    \draw[very thick, myred] (-3,1) -- (3,2.2);
+                \end{tikzpicture}
+            };
+            \draw<7->[-{Stealth}, ultra thick] (12.6, -3) -- (11.5, -3);
+            \draw<7->[-{Stealth}, ultra thick] (12.6, -2.1) -- (11.45, -2.8);
+            \draw<7->[-{Stealth}, ultra thick] (12.6, -4) -- (11.45, -3.2);
+            \draw<8->[-{Stealth}, ultra thick] (13.2, -4.35) -- (13.2, -4.8) -| (-0.4,0);
+        \end{tikzpicture}
+    \end{textblock*}
+\end{frame}
+
+\begin{frame}[label={intro}]
+\frametitle{Context}
+    \begin{itemize}
+        \item Inria + UGA + MIAI
+            \pause
+        \item Collaborators: KIT and Enchanted Tools
+            \pause
+        \item Background\\
+            Inria: safe robot control\\
+            KIT: learning for robot control\\
+            Enchanted Tools: Mirokai robot
+            \pause
+        \item Thesis focus: \textbf{safe \& efficient robot navigation}
+        \item Another thesis for social navigation (Jordan Cosio)
+    \end{itemize}
+        \begin{textblock*}{10cm}(9.5cm,2.2cm)
+            \includegraphics[width=2cm]{imgs/logo_inria.png}\hspace{0.4cm}
+            \raisebox{-3mm}{\includegraphics[width=2cm]{imgs/Logo_UGA.png}\hspace{0.4cm}}
+            \includegraphics[width=2cm]{imgs/logo_miai.png}
+        \end{textblock*}
+    \only<2->{
+        \begin{textblock*}{10cm}(9.5cm,3.8cm)
+            \includegraphics[width=2cm]{imgs/Logo_KIT.png}\hspace{0.4cm}
+            \includegraphics[width=2cm]{imgs/alr-logo.png}\hspace{0.4cm}
+            \includegraphics[width=2cm]{imgs/Enchanted_Tools_Logo.png}
+        \end{textblock*}
+    }
+\end{frame}
+
+\begin{frame}[label={intro}]
+\frametitle{MDP}
+    \begin{itemize}
+        \item Formalization \\
+            $\rightarrow$ Markov Decision Process (MDP)\\
+            \pause
+            - $(\mathcal{S,A,P,R})$\\
+            \pause
+            - $\mathcal{S}=\{\V{s}_1, \V{s}_2, \V{s}_3\}$\\
+            \pause
+            - $\mathcal{A}=\{\textcolor{myblue}{\V{a}_1}, \textcolor{myred}{\V{a}_2}\}$\\
+            \pause
+            - $\mathcal{R}:\mathcal{S}\times\mathcal{S}\times\mathcal{A}\rightarrow\mathbb{R}$\\
+                $\;\;\equiv\{(\V{s}_1,\V{s}_2,\V{a}_2)\rightarrow 1, (\V{s}_3,\V{s}_3,\V{a}_1)\rightarrow 5 \dots\}$\\
+            \pause
+            - $\mathcal{P}:\mathcal{S}\times\mathcal{S}\times\mathcal{A}\rightarrow \left[0, 1\right] $
+    \end{itemize}
+    \begin{textblock*}{7.7cm}(8.4cm,5cm)
+        \resizebox{7.7cm}{!}{\input{schema/mdp.tex}}
+    \end{textblock*}
+\end{frame}
+
+\begin{frame}[label={app_mpc}]
 \frametitle{A1: MPC for Navigation}
 \begin{itemize}
     \item Formula and constraints
@@ -1619,7 +1625,7 @@
 \vspace{4cm}
 \end{frame}
 
-\begin{frame}[label={app1}]
+\begin{frame}[label={app_mpc}]
 \frametitle{A1: MPC for Navigation (Dynamics)}
 \begin{itemize}
     \item
