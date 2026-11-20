@@ -90,7 +90,7 @@
 \KITtitleframe
 
 \newcommand\Fontvi{\fontsize{15}{15}\selectfont}
-\newcommand\Fontvii{\fontsize{9}{7}\selectfont}
+\newcommand\Fontsmaller{\fontsize{9}{7}\selectfont}
 \newcommand\Fontviii{\fontsize{7}{4}\selectfont}
 \newcommand\Fontviiii{\fontsize{12}{12}\selectfont}
 \newcommand\Fontbig{\fontsize{30}{4}\selectfont}
@@ -140,14 +140,13 @@
         \pause
         - $(\mathcal{S,A,P,R})$\\
         \pause
-        - $\mathcal{S}=\{\V{s}_1, \V{s}_2, \V{s}_3\}$\\
+        - $\mathcal{S}$\\
         \pause
-        - $\mathcal{A}=\{\textcolor{myblue}{\V{a}_1}, \textcolor{myred}{\V{a}_2}\}$\\
+        - $\mathcal{A}$\\
         \pause
-        - $\mathcal{R}:\mathcal{S}\times\mathcal{S}\times\mathcal{A}\rightarrow\mathbb{R}$\\
-            $\;\;\equiv\{(\V{s}_1,\V{s}_2,\V{a}_2)\rightarrow 1, (\V{s}_3,\V{s}_3,\V{a}_1)\rightarrow 5 \dots\}$\\
+        - $\mathcal{R}:\mathcal{S}\times\mathcal{S}\times\mathcal{A}\rightarrow\mathbb{R}$
         \pause
-        - $\mathcal{P}:\mathcal{S}\times\mathcal{S}\times\mathcal{A}\rightarrow \left[0, 1\right] $
+        - $\mathcal{P}:\mathcal{S}\times\mathcal{A}\rightarrow \times\mathcal{S}$
     \end{itemize}
     % \begin{textblock*}{4.8cm}(6.2cm,1.6cm)
     %     \visible<1->{
@@ -178,173 +177,85 @@
     \end{textblock*}
 \end{frame}
 
-\begin{frame}[label=nav_mdp]{Navigation MDP}
+\begin{frame}[label=solving_mdp]{Solving the MDP}
     \begin{itemize}
-        \item State/Observation $\mathcal{S}/\mathcal{O}$\\
-            - positions $\V{p}, \V{p}_{c_j}$ and velocities $\dot{\V{p}}, \dot{\V{p}}_{c_j}$\\
-            \pause
-            - LiDAR rays
-        \pause
-        \pause
-        \item Action $\mathcal{A}$\\
-            - acceleration\\
-        \pause
-        \pause
-            - velocity
-        \pause
-        \pause
-        \item Reward function $\mathcal{R}$\\
-            - completion (+) \pause/ collision (-) \pause/ proxemics (-)\\
-            \pause
-            \pause
-            - towards goal (+) \pause/ idleness (-) \pause/ smoothness (-)
-        \pause
-        \pause
-        \pause
-        \item Transition function $\mathcal{P}$\\
-            - Constant\\
-        \pause
-            - ORCA, SFM
-    \end{itemize}
-    \begin{textblock*}{7cm}(7.5cm,1.5cm)
-        \visible<1-3>{
-            \resizebox{4cm}{!}{\input{schema/multi_agent.tex}}
-        }
-    \end{textblock*}
-    \begin{textblock*}{7cm}(12cm,1.1cm)
-        \visible<2-3>{
-            \resizebox{4cm}{!}{\input{schema/multi_agent_lidar.tex}}
-        }
-    \end{textblock*}
-    \begin{textblock*}{7cm}(7cm,3cm)
-        \visible<4-7>{
-            \resizebox{3cm}{!}{\input{schema/acc_control.tex}}
-        }
-    \end{textblock*}
-    \begin{textblock*}{7cm}(11cm,3cm)
-        \visible<6-7>{
-            \resizebox{3cm}{!}{\input{schema/vel_control.tex}}
-        }
-    \end{textblock*}
-    \begin{textblock*}{5cm}(8.7cm,2cm)
-        \visible<8-16>{
-            \resizebox{9cm}{!}{\input{schema/reward_comp.tex}}
-        }
-    \end{textblock*}
-    \begin{textblock*}{5cm}(10cm,1.5cm)
-        \visible<17->{
-            \resizebox{4cm}{!}{\input{schema/const_crowd.tex}}
-        }
-    \end{textblock*}
-    \begin{textblock*}{5cm}(10cm,5cm)
-        \visible<18->{
-            \resizebox{4cm}{!}{\input{schema/const_orca.tex}}
-        }
-    \end{textblock*}
-\end{frame}
-
-\begin{frame}{Model Predictive Control (MPC)}
-    \begin{itemize}
-        \item Problem $(\mathcal{S,A,P,R,\textcolor{mygreen}{C}})$\\
-        \vspace{34mm}
+        \item Model predictive control $(\mathcal{S,A,P,R,\textcolor{mygreen}{C}})$\\
+        \vspace{16mm}
         \visible<1->{
-            \begin{textblock*}{3cm}(1.4cm,2cm)
+            \begin{textblock*}{3cm}(1.4cm,1.75cm)
+                \Fontsmaller
                 \begin{align*}
-                    \textcolor{lightblue}{\max_{\V{a}}} \quad &\textcolor{lejla}{\mathbb{E}\left[\sum\limits^{N}_{k=0}\mathcal{R}(\V{s}_{k}, \V{a}_{k})\right]} \\
-                    \text{s.t.} \quad & \V{s}_{k+1} = \textcolor{orange}{\V{f}}(\V{s}_{k}, \V{a}_{k}) \quad \forall k,\\
-                    & -\V{b}<\V{a}_{k}<\V{b} \quad \forall k,\\
-                    & \M{M}_{s_k}\V{s}_{k} \leq B_{s_k} \quad \forall k.
+                    \textcolor{lightblue}{\max_{\V{a}}} \quad &\textcolor{lejla}{\mathbb{E}\left[\sum^{N}_{k=0}\mathcal{R}(\V{s}_{k}, \V{a}_{k})\right]} \\
+                    \text{s.t.} \quad & \V{s}_{k+1} = \textcolor{orange}{\V{f}}(\V{s}_{k}, \V{a}_{k}), \quad -\V{b}<\V{a}_{k}<\V{b} \quad \forall k.
+                    % & \M{M}_{s_k}\V{s}_{k} \leq B_{s_k} \quad \forall k.
                 \end{align*}
             \end{textblock*}
-            \begin{textblock*}{3cm}(2.45cm,4.8cm)
+            \begin{textblock*}{3cm}(5cm,3.62cm)
                 \begin{tikzpicture}
-                    \draw[ultra thick, mygreen] (1.5, 0.8) -- (4.6, 0.8);
-                    \draw[ultra thick, mygreen] (1.5, 1.45) -- (4.6, 1.45);
+                    \draw[ultra thick, mygreen] (0, 0) -- (2.8, 0);
+                    % \draw[ultra thick, mygreen] (1.5, 1.45) -- (4.6, 1.45);
                 \end{tikzpicture}
             \end{textblock*}
         }
         \pause
-        \item Pros \& Cons\\
-            \pause
-            \textcolor{myred}{$\boldsymbol{+}$} safety (constraints)\\
-            \pause
-            \pause
-            \textcolor{myblue}{$\boldsymbol{-}$} limited horizon $N$\\
-            \pause
-            \pause
-            \textcolor{myblue}{$\boldsymbol{-}$} sub-optimal (quadratic problem)\\
-            $\quad\; \rightarrow$ $\V{f}\sim\mathcal{P}$\pause, $N\ll\infty$\pause, $deg(\mathcal{C}(\cdot))=1$, $deg(\mathcal{R}(\cdot))=2$
+        \item Reinforcement Learning $(\mathcal{S,A,P,R}, \gamma)$\\
+        \vspace{16mm}
+            \begin{textblock*}{3cm}(1.4cm,3.9cm)
+            \visible<2->{
+                \Fontsmaller
+                \begin{align*}
+                    G(\pi)=&\mathbb{E}_{\V{\tau}\sim \rho_\pi}\left[\sum_{k=0}^\infty\gamma^k\mathcal{R}(\V{s}_k,\V{a}_k)\right]\\
+                    &\pi^\star = \argmax_\pi G(\pi)\\
+                \end{align*}
+            }
+            \end{textblock*}
+        \pause
+        \item Pros \& Cons
+        \vspace{20mm}
     \end{itemize}
-    \begin{textblock*}{8cm}(8.4cm,2cm)
+    \begin{textblock*}{8cm}(8cm,8mm)
         \visible<1->{
-            \resizebox{8cm}{!}{\input{schema/mpc_schema.tex}}
+            \resizebox{7cm}{!}{\input{schema/mpc_schema.tex}}
         }
     \end{textblock*}
-    \begin{textblock*}{5cm}(10.34cm,5.4cm)
-        \begin{tikzpicture}
-            \node<2->[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
-            \fill<4>[mygreen!20] (5.47, -4.5) -- (7.97, -1.5) -- (9.47, -1.5) -- (9.47, -4.5) -- cycle;
-            \fill<4>[myred!20] (4.47, -4) -- (6.97, -1.5) -- (7.97, -1.5) -- (5.47, -4.5) -- (4.47, -4.5) -- cycle;
-            \draw<2->[ultra thick] (4.47, -4) -- (6.97, -1.5);
-            \draw<3,4>[ultra thick, myred] (5.47, -4.5) -- (7.97, -1.5);
-            \draw<10->[ultra thick, myred] (5.47, -4.5) -- (7.97, -1.5);
-            \draw<9>[ultra thick, myred, rotate=50] ([xshift=-11mm, yshift=6mm]env.center) ellipse (0.5 and 0.3);
-            \draw<5,6>[->, ultra thick] ([xshift=6mm, yshift=-7.5mm]env.center) to[bend right=10] (7.8, -2.6);
-            \draw<5,6>[->, ultra thick] ([xshift=-8.2mm, yshift=-4.5mm]env.center) to[bend left=10] (7.2, -2.6);
-            \draw<6>[->, dashed, ultra thick] (7.8, -2.6) to[bend right=5] (7.65, -1.9);
-            \draw<6>[->, dashed, ultra thick] (7.2, -2.6) -- (8.4, -1.8);
-
-            \draw<7->[->, black!40, ultra thick] ([xshift=6mm, yshift=-7.5mm]env.center) to[bend right=10] (7.8, -2.6);
-            \draw<7->[->, black!40, ultra thick] ([xshift=-8.2mm, yshift=-4.5mm]env.center) to[bend left=10] (7.2, -2.6);
-            \draw<8->[->, dashed, black!40, ultra thick] (7.8, -2.6) to[bend right=5] (7.65, -1.9);
-            \draw<8->[->, dashed, black!40, ultra thick] (7.2, -2.6) -- (8.4, -1.8);
-
-            \draw<2->[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
-            \fill<2->[black!8] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
-            \node<2->[anchor=west] at ([yshift=-0.5cm]env.center) {\includegraphics[height=1cm]{imgs/mirokai.png}};
-            \node<2->[anchor=center] at ([xshift=-1.1cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
-        \end{tikzpicture}
-    \end{textblock*}
-\end{frame}
-
-\begin{frame}{Reinforcement Learning (RL)}
-    \begin{itemize}
-    \item Problem $(\mathcal{S,A,P,R}, \gamma)$\\
-    \vspace{35mm}
-    \visible<1->{
-        \begin{textblock*}{3cm}(1.4cm,2cm)
-            \begin{align*}
-                G=\sum_{k=0}^\infty\gamma^k\mathbb{E}_{(\V{s}_k,\V{a}_k)\sim \rho}\mathcal{R}(\V{s}_k,\V{a}_k)\\
-            \end{align*}
-        \end{textblock*}
-    }
-        \begin{textblock*}{3cm}(1.4cm,3.4cm)
+    \begin{textblock*}{7cm}(9.05cm,3.4cm)
         \visible<2->{
-            \begin{align*}
-                \pi^\star &= \argmax_\pi G(\pi), \; \text{where}\\
-                &G(\pi)=\mathbb{E}_{\V{\tau}\sim \rho_\pi}\left[\sum_{k=0}^\infty\gamma^k\mathcal{R}(\V{s}_k,\V{a}_k)\right]\\
-            \end{align*}
-        }
-        \end{textblock*}
-    \pause
-    \pause
-    \item Pros \& Cons\\
-        \pause
-        \textcolor{myred}{$\boldsymbol{+}$} learn from data\\
-        \pause
-        \textcolor{myred}{$\boldsymbol{+}$} infinite horizon\\
-        \pause
-        \textcolor{myblue}{$\boldsymbol{-}$} safety\\
-    \end{itemize}
-    \begin{textblock*}{8cm}(9.5cm,14mm)
-        \visible<1->{
-            \resizebox{5cm}{!}{\input{schema/mpc_schema_bw.tex}}
+            \resizebox{5.2cm}{!}{\input{schema/rl_schema.tex}}
         }
     \end{textblock*}
-    \begin{textblock*}{7cm}(8.8cm,3.5cm)
-        \visible<1->{
-            \resizebox{7cm}{!}{\input{schema/rl_schema.tex}}
-        }
+    \begin{textblock*}{10cm}(1.4cm,6.2cm)
+    \visible<3->{
+    \begin{table}[ht]
+        \centering
+        \begin{adjustbox}{width=0.98\textwidth}
+            \begin{tabular}{ | c | l | c | l | c | }
+            \hline
+                Aspect & \multicolumn{2}{c|}{RL} & \multicolumn{2}{c|}{MPC} \\
+            \hline
+                Modeling & \textcolor{mygreen}{\checkmark} & Data & \textcolor{myred}{$\times$} & Approximate  \\
+            \hline
+                Horizon & \textcolor{mygreen}{\checkmark} & Infinite & \textcolor{myred}{$\times$} & Limited\\
+            \hline
+                Safety & \textcolor{myred}{$\times$} & No guarantees & \textcolor{mygreen}{\checkmark} & Constraints \\
+            \hline
+            \end{tabular}
+            \hspace{-3mm}
+            \visible<4->{
+                \begin{tabular}{ | c | }
+                \hline
+                     Hybrid \\
+                \hline
+                     \textcolor{mygreen}{\checkmark} \\
+                \hline
+                     \textcolor{mygreen}{\checkmark} \\
+                \hline
+                     \textcolor{mygreen}{\checkmark} \\
+                \hline
+                \end{tabular}
+            }
+        \end{adjustbox}
+    \end{table}
+    }
     \end{textblock*}
 \end{frame}
 
@@ -482,7 +393,7 @@
     \end{itemize}
     \only<2>{
         \begin{textblock*}{12cm}(4.8cm,1cm)
-            \Fontvii
+            \Fontsmaller
             \begin{align*}
                 \min\limits_{\dot{P}} \quad &\frac{1}{2} \T{\dot{P}} \T{\M{M}_{pv}} \M{M}_{pv}\dot{P} +  \T{\left(P_0-P^{ref}+ \frac{1}{2}T\dot{P}_0\right)}\M{M}_{pv}\dot{P}\\
                 \text{s.t.} \quad & \M{S}_{v_i}\M{M}_{v_i}\dot{P} < \M{S}_{v_i}B_{v_i},\\
@@ -1612,8 +1523,182 @@
             \pause
             - $\mathcal{P}:\mathcal{S}\times\mathcal{S}\times\mathcal{A}\rightarrow \left[0, 1\right] $
     \end{itemize}
-    \begin{textblock*}{7.7cm}(8.4cm,5cm)
-        \resizebox{7.7cm}{!}{\input{schema/mdp.tex}}
+    \begin{textblock*}{7.7cm}(8.4cm, 2.5cm)
+        \resizebox{8.5cm}{!}{\input{schema/mdp.tex}}
+    \end{textblock*}
+\end{frame}
+
+
+\begin{frame}[label={intro}]
+\frametitle{Navigation MDP}
+    \begin{itemize}
+        \item State/Observation $\mathcal{S}/\mathcal{O}$\\
+            - positions $\V{p}, \V{p}_{c_j}$ and velocities $\dot{\V{p}}, \dot{\V{p}}_{c_j}$\\
+            \pause
+            - LiDAR rays
+        \pause
+        \pause
+        \item Action $\mathcal{A}$\\
+            - acceleration\\
+        \pause
+        \pause
+            - velocity
+        \pause
+        \pause
+        \item Reward function $\mathcal{R}$\\
+            - completion (+) \pause/ collision (-) \pause/ proxemics (-)\\
+            \pause
+            \pause
+            - towards goal (+) \pause/ idleness (-) \pause/ smoothness (-)
+        \pause
+        \pause
+        \pause
+        \item Transition function $\mathcal{P}$\\
+            - Constant\\
+        \pause
+            - ORCA, SFM
+    \end{itemize}
+    \begin{textblock*}{7cm}(7.5cm,1.5cm)
+        \visible<1-3>{
+            \resizebox{4cm}{!}{\input{schema/multi_agent.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(12cm,1.1cm)
+        \visible<2-3>{
+            \resizebox{4cm}{!}{\input{schema/multi_agent_lidar.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(7cm,3cm)
+        \visible<4-7>{
+            \resizebox{3cm}{!}{\input{schema/acc_control.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(11cm,3cm)
+        \visible<6-7>{
+            \resizebox{3cm}{!}{\input{schema/vel_control.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{5cm}(8.7cm,2cm)
+        \visible<8-16>{
+            \resizebox{9cm}{!}{\input{schema/reward_comp.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{5cm}(10cm,1.5cm)
+        \visible<17->{
+            \resizebox{4cm}{!}{\input{schema/const_crowd.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{5cm}(10cm,5cm)
+        \visible<18->{
+            \resizebox{4cm}{!}{\input{schema/const_orca.tex}}
+        }
+    \end{textblock*}
+\end{frame}
+
+\begin{frame}[label={intro}]
+\frametitle{Model Predictive Control (MPC)}
+    \begin{itemize}
+        \item Problem $(\mathcal{S,A,P,R,\textcolor{mygreen}{C}})$\\
+        \vspace{34mm}
+        \visible<1->{
+            \begin{textblock*}{3cm}(1.4cm,2cm)
+                \begin{align*}
+                    \textcolor{lightblue}{\max_{\V{a}}} \quad &\textcolor{lejla}{\mathbb{E}\left[\sum\limits^{N}_{k=0}\mathcal{R}(\V{s}_{k}, \V{a}_{k})\right]} \\
+                    \text{s.t.} \quad & \V{s}_{k+1} = \textcolor{orange}{\V{f}}(\V{s}_{k}, \V{a}_{k}) \quad \forall k,\\
+                    & -\V{b}<\V{a}_{k}<\V{b} \quad \forall k,\\
+                    & \M{M}_{s_k}\V{s}_{k} \leq B_{s_k} \quad \forall k.
+                \end{align*}
+            \end{textblock*}
+            \begin{textblock*}{3cm}(2.45cm,4.8cm)
+                \begin{tikzpicture}
+                    \draw[ultra thick, mygreen] (1.5, 0.8) -- (4.6, 0.8);
+                    \draw[ultra thick, mygreen] (1.5, 1.45) -- (4.6, 1.45);
+                \end{tikzpicture}
+            \end{textblock*}
+        }
+        \pause
+        \item Pros \& Cons\\
+            \pause
+            \textcolor{myred}{$\boldsymbol{+}$} safety (constraints)\\
+            \pause
+            \pause
+            \textcolor{myblue}{$\boldsymbol{-}$} limited horizon $N$\\
+            \pause
+            \pause
+            \textcolor{myblue}{$\boldsymbol{-}$} approximation\\
+            $\quad\; \rightarrow$ $\V{f}\sim\mathcal{P}$\pause, $N\ll\infty$\pause, $deg(\mathcal{C}(\cdot))=1$, $deg(\mathcal{R}(\cdot))=2$
+    \end{itemize}
+    \begin{textblock*}{8cm}(8.4cm,2cm)
+        \visible<1->{
+            \resizebox{8cm}{!}{\input{schema/mpc_schema.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{5cm}(10.34cm,5.4cm)
+        \begin{tikzpicture}
+            \node<2->[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
+            \fill<4>[mygreen!20] (5.47, -4.5) -- (7.97, -1.5) -- (9.47, -1.5) -- (9.47, -4.5) -- cycle;
+            \fill<4>[myred!20] (4.47, -4) -- (6.97, -1.5) -- (7.97, -1.5) -- (5.47, -4.5) -- (4.47, -4.5) -- cycle;
+            \draw<2->[ultra thick] (4.47, -4) -- (6.97, -1.5);
+            \draw<3,4>[ultra thick, myred] (5.47, -4.5) -- (7.97, -1.5);
+            \draw<10->[ultra thick, myred] (5.47, -4.5) -- (7.97, -1.5);
+            \draw<9>[ultra thick, myred, rotate=50] ([xshift=-11mm, yshift=6mm]env.center) ellipse (0.5 and 0.3);
+            \draw<5,6>[->, ultra thick] ([xshift=6mm, yshift=-7.5mm]env.center) to[bend right=10] (7.8, -2.6);
+            \draw<5,6>[->, ultra thick] ([xshift=-8.2mm, yshift=-4.5mm]env.center) to[bend left=10] (7.2, -2.6);
+            \draw<6>[->, dashed, ultra thick] (7.8, -2.6) to[bend right=5] (7.65, -1.9);
+            \draw<6>[->, dashed, ultra thick] (7.2, -2.6) -- (8.4, -1.8);
+
+            \draw<7->[->, black!40, ultra thick] ([xshift=6mm, yshift=-7.5mm]env.center) to[bend right=10] (7.8, -2.6);
+            \draw<7->[->, black!40, ultra thick] ([xshift=-8.2mm, yshift=-4.5mm]env.center) to[bend left=10] (7.2, -2.6);
+            \draw<8->[->, dashed, black!40, ultra thick] (7.8, -2.6) to[bend right=5] (7.65, -1.9);
+            \draw<8->[->, dashed, black!40, ultra thick] (7.2, -2.6) -- (8.4, -1.8);
+
+            \draw<2->[ultra thick, mygreen] (4.47, -4.5) -- (9.47, -4.5) -- (9.47, -1.5) -- (4.47, -1.5) -- cycle;
+            \fill<2->[black!8] (4.5, -3.94) -- (6.91, -1.53) -- (4.5, -1.53) -- cycle;
+            \node<2->[anchor=west] at ([yshift=-0.5cm]env.center) {\includegraphics[height=1cm]{imgs/mirokai.png}};
+            \node<2->[anchor=center] at ([xshift=-1.1cm]env.center) {\includegraphics[height=1.2cm]{imgs/walking.png}};
+        \end{tikzpicture}
+    \end{textblock*}
+\end{frame}
+
+\begin{frame}[label={intro}]
+\frametitle{Reinforcement Learning (RL)}
+    \begin{itemize}
+    \item Problem $(\mathcal{S,A,P,R}, \gamma)$\\
+    \vspace{35mm}
+    \visible<1->{
+        \begin{textblock*}{3cm}(1.4cm,2cm)
+            \begin{align*}
+                G=\sum_{k=0}^\infty\gamma^k\mathbb{E}_{(\V{s}_k,\V{a}_k)\sim \rho}\mathcal{R}(\V{s}_k,\V{a}_k)\\
+            \end{align*}
+        \end{textblock*}
+    }
+        \begin{textblock*}{3cm}(1.4cm,3.4cm)
+        \visible<2->{
+            \begin{align*}
+                \pi^\star &= \argmax_\pi G(\pi), \; \text{where}\\
+                &G(\pi)=\mathbb{E}_{\V{\tau}\sim \rho_\pi}\left[\sum_{k=0}^\infty\gamma^k\mathcal{R}(\V{s}_k,\V{a}_k)\right]\\
+            \end{align*}
+        }
+        \end{textblock*}
+    \pause
+    \pause
+    \item Pros \& Cons\\
+        \pause
+        \textcolor{myred}{$\boldsymbol{+}$} learn from data\\
+        \pause
+        \textcolor{myred}{$\boldsymbol{+}$} infinite horizon\\
+        \pause
+        \textcolor{myblue}{$\boldsymbol{-}$} safety\\
+    \end{itemize}
+    \begin{textblock*}{8cm}(9.5cm,14mm)
+        \visible<1->{
+            \resizebox{5cm}{!}{\input{schema/mpc_schema_bw.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(8.8cm,3.5cm)
+        \visible<1->{
+            \resizebox{7cm}{!}{\input{schema/rl_schema.tex}}
+        }
     \end{textblock*}
 \end{frame}
 
@@ -1652,7 +1737,7 @@
 \end{frame}
 
 \begin{frame}[label={app4}]
-\frametitle{A4: Policy Gradient \& PPO \Fontvii}
+\frametitle{A4: Policy Gradient \& PPO \Fontsmaller}
 \begin{itemize}
     \item In practice PG is implemented with: \\
 \end{itemize}
