@@ -177,7 +177,7 @@
     \textbf{\Fontbig{Introduction}}
 \end{frame}
 
-\begin{frame}{Robot Crowd Navigation}
+\begin{frame}[label=problem]{Robot Crowd Navigation}
     \begin{itemize}
         \item Objective\\
             \pause
@@ -190,19 +190,18 @@
             - non-verbal cooperation\\
             % without communicating, perception, self-localizing, planning, map building
         \pause
-    \vspace{4mm}
     \item Formalization \\
-        $\rightarrow$ Markov Decision Process (MDP)\\
+        $\rightarrow$ Markov Decision Process (MDP) $(\mathcal{S,A,P,R})$\\
         \pause
-        - $(\mathcal{S,A,P,R})$\\
+            - $\mathcal{S}$ | position \& velocity, LiDAR\\
         \pause
-        - $\mathcal{S}$\\
+        - $\mathcal{A}$ | velocity, acceleration\\
         \pause
-        - $\mathcal{A}$\\
+        - $\mathcal{R}:\mathcal{S}\times\mathcal{A}\rightarrow\mathbb{R}$\\
+        \hspace{4mm} e.g. reaching the goal\\
         \pause
-        - $\mathcal{R}:\mathcal{S}\times\mathcal{S}\times\mathcal{A}\rightarrow\mathbb{R}$
-        \pause
-        - $\mathcal{P}:\mathcal{S}\times\mathcal{A}\rightarrow \times\mathcal{S}$
+        - $\mathcal{P}:\mathcal{S}\times\mathcal{A}\rightarrow \times\mathcal{S}$\\
+        \hspace{4mm} e.g. constant velocity, ORCA
     \end{itemize}
     % \begin{textblock*}{4.8cm}(6.2cm,1.6cm)
     %     \visible<1->{
@@ -211,7 +210,7 @@
     %         \center \Fontviii Mirokai robots from Enchanted Tools
     %     }
     % \end{textblock*}
-    \begin{textblock*}{4.8cm}(8.5cm,1.6cm)
+    \begin{textblock*}{4.8cm}(8.5cm,1.4cm)
         \begin{tikzpicture}
             \node[fill=black!14, minimum width=5cm, minimum height=3cm] (env) at (6.97, -3) {};
             \draw[ultra thick] (4.47, -4) -- (6.97, -1.5);
@@ -230,6 +229,41 @@
             \draw<4->[ultra thick, myred] ([xshift=6mm, yshift=-7.5mm]env.center) -- ([xshift=14mm, yshift=-4mm]env.center);
             \draw<4->[ultra thick, myred] ([xshift=1mm, yshift=-7mm]env.center) -- ([yshift=1mm]env.center);
         \end{tikzpicture}
+    \end{textblock*}
+    \begin{textblock*}{7cm}(8cm,5.2cm)
+        \visible<7>{
+            \resizebox{4cm}{!}{\input{schema/multi_agent.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(12.8cm,5cm)
+        \visible<7>{
+            \resizebox{4cm}{!}{\input{schema/multi_agent_lidar.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(9cm,5.4cm)
+        \visible<8>{
+            \resizebox{3cm}{!}{\input{schema/acc_control.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(12.6cm,5.4cm)
+        \visible<8>{
+            \resizebox{3cm}{!}{\input{schema/vel_control.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{5cm}(11cm,5.2cm)
+        \visible<9>{
+            \resizebox{2.6cm}{!}{\input{schema/reward_comp_onlyreach.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(9cm,5.4cm)
+        \visible<10->{
+            \resizebox{3cm}{!}{\input{schema/const_crowd.tex}}
+        }
+    \end{textblock*}
+    \begin{textblock*}{7cm}(12.6cm,5.4cm)
+        \visible<10->{
+            \resizebox{3cm}{!}{\input{schema/const_orca.tex}}
+        }
     \end{textblock*}
 \end{frame}
 
