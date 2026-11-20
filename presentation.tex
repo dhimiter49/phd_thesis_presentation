@@ -73,7 +73,7 @@
 % \usepgfplotslibrary{groupplots,dateplot,external}
 % \tikzexternalize
 
-\usepackage[backend=biber, style=numeric, sortcites, hyperref]{biblatex}
+\usepackage[backend=biber, style=authoryear, sortcites, maxcitenames=1, mincitenames=1, uniquename=false, uniquelist=false, hyperref]{biblatex}
 \usepackage{color,colortbl}
 \usepackage{xcolor}
 \usepackage{multirow}
@@ -83,6 +83,62 @@
 
 \addbibresource{presentation.bib}
 % \bibhang1em
+
+% Short venue names shown in citations: "First Author et al., Year, Venue".
+% The venue is injected into the (otherwise unused) shortjournal field via a
+% biber sourcemap, so the .bib file stays untouched. Add a \map below whenever
+% a new \cite key needs a venue label.
+\DeclareSourcemap{
+  \maps[datatype=bibtex]{
+    \map{ \step[fieldsource=entrykey, match={wieber_trajectory_2006}, final] \step[fieldset=shortjournal, fieldvalue={Humanoids}] }
+    \map{ \step[fieldsource=entrykey, match={bohorquez_safe_2016}, final] \step[fieldset=shortjournal, fieldvalue={Humanoids}] }
+    \map{ \step[fieldsource=entrykey, match={romero_actor-critic_2023}, final] \step[fieldset=shortjournal, fieldvalue={arXiv}] }
+    \map{ \step[fieldsource=entrykey, match={tearle_predictive_2021}, final] \step[fieldset=shortjournal, fieldvalue={RA-L}] }
+    \map{ \step[fieldsource=entrykey, match={xiao_learning_2023}, final] \step[fieldset=shortjournal, fieldvalue={CoRL}] }
+    \map{ \step[fieldsource=entrykey, match={everett_collision_2021}, final] \step[fieldset=shortjournal, fieldvalue={IEEE Access}] }
+    \map{ \step[fieldsource=entrykey, match={trautman_unfreezing_2010}, final] \step[fieldset=shortjournal, fieldvalue={IROS}] }
+    \map{ \step[fieldsource=entrykey, match={fraichard_short_2007}, final] \step[fieldset=shortjournal, fieldvalue={ICRA}] }
+    \map{ \step[fieldsource=entrykey, match={otto_deep_2023}, final] \step[fieldset=shortjournal, fieldvalue={CoRL}] }
+    \map{ \step[fieldsource=entrykey, match={mayne_receding_1990}, final] \step[fieldset=shortjournal, fieldvalue={IEEE TAC}] }
+    \map{ \step[fieldsource=entrykey, match={mayne_constrained_2000}, final] \step[fieldset=shortjournal, fieldvalue={Automatica}] }
+    \map{ \step[fieldsource=entrykey, match={schouwenaars_receding_2004}, final] \step[fieldset=shortjournal, fieldvalue={ACC}] }
+    \map{ \step[fieldsource=entrykey, match={kajita_biped_2003}, final] \step[fieldset=shortjournal, fieldvalue={ICRA}] }
+    \map{ \step[fieldsource=entrykey, match={wieber_viability_2008}, final] \step[fieldset=shortjournal, fieldvalue={IROS}] }
+    \map{ \step[fieldsource=entrykey, match={herdt_online_2010}, final] \step[fieldset=shortjournal, fieldvalue={Advanced Robotics}] }
+    \map{ \step[fieldsource=entrykey, match={sherikov_balance_2016}, final] \step[fieldset=shortjournal, fieldvalue={PhD Thesis}] }
+    \map{ \step[fieldsource=entrykey, match={villa_model_2017}, final] \step[fieldset=shortjournal, fieldvalue={Humanoids}] }
+    \map{ \step[fieldsource=entrykey, match={dorante_design_2018}, final] \step[fieldset=shortjournal, fieldvalue={PhD Thesis}] }
+    \map{ \step[fieldsource=entrykey, match={zheng_online_2020}, final] \step[fieldset=shortjournal, fieldvalue={ICRA}] }
+    \map{ \step[fieldsource=entrykey, match={ciocca_balance_2020}, final] \step[fieldset=shortjournal, fieldvalue={PhD Thesis}] }
+    \map{ \step[fieldsource=entrykey, match={fraichard_inevitable_2003}, final] \step[fieldset=shortjournal, fieldvalue={IROS}] }
+    \map{ \step[fieldsource=entrykey, match={martinez-gomez_efficient_2008}, final] \step[fieldset=shortjournal, fieldvalue={IROS}] }
+    \map{ \step[fieldsource=entrykey, match={macek_towards_2009}, final] \step[fieldset=shortjournal, fieldvalue={Automatika}] }
+    \map{ \step[fieldsource=entrykey, match={bouraine_provably_2012}, final] \step[fieldset=shortjournal, fieldvalue={Autonomous Robots}] }
+    \map{ \step[fieldsource=entrykey, match={fraichard_will_2014}, final] \step[fieldset=shortjournal, fieldvalue={INRIA Report}] }
+    \map{ \step[fieldsource=entrykey, match={blumentals_safe_2017}, final] \step[fieldset=shortjournal, fieldvalue={Tech Report}] }
+    \map{ \step[fieldsource=entrykey, match={ciocca_time_2023}, final] \step[fieldset=shortjournal, fieldvalue={IROS}] }
+    % keys currently commented out in the slides, kept for when they come back
+    \map{ \step[fieldsource=entrykey, match={Dijkstra1959}, final] \step[fieldset=shortjournal, fieldvalue={Numerische Mathematik}] }
+    \map{ \step[fieldsource=entrykey, match={Shahabi2018}, final] \step[fieldset=shortjournal, fieldvalue={Encyclopedia of Database Systems}] }
+    \map{ \step[fieldsource=entrykey, match={fox_dynamic_1997}, final] \step[fieldset=shortjournal, fieldvalue={IEEE RAM}] }
+    \map{ \step[fieldsource=entrykey, match={pellegrini_you_2009}, final] \step[fieldset=shortjournal, fieldvalue={ICCV}] }
+    \map{ \step[fieldsource=entrykey, match={vasquez_inverse_2014}, final] \step[fieldset=shortjournal, fieldvalue={IROS}] }
+    \map{ \step[fieldsource=entrykey, match={alahi_2016_CVPR}, final] \step[fieldset=shortjournal, fieldvalue={CVPR}] }
+  }
+}
+
+% Citation format: "First Author et al., Year, Venue" (venue only if mapped above)
+\renewbibmacro*{cite}{%
+  \iffieldundef{shorthand}
+    {\ifboolexpr{test {\ifnameundef{labelname}} or test {\iffieldundef{labelyear}}}
+       {\usebibmacro{cite:label}}
+       {\printnames{labelname}%
+        \setunit{\addcomma\space}%
+        \usebibmacro{cite:labeldate+extradate}}%
+     \iffieldundef{shortjournal}
+       {}
+       {\setunit{\addcomma\space}\printfield{shortjournal}}}
+    {\usebibmacro{cite:shorthand}}}
 
 \begin{document}
 
