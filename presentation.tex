@@ -96,6 +96,8 @@
     \map{ \step[fieldsource=entrykey, match={tearle_predictive_2021}, final] \step[fieldset=shortjournal, fieldvalue={RA-L}] }
     \map{ \step[fieldsource=entrykey, match={xiao_learning_2023}, final] \step[fieldset=shortjournal, fieldvalue={CoRL}] }
     \map{ \step[fieldsource=entrykey, match={everett_collision_2021}, final] \step[fieldset=shortjournal, fieldvalue={IEEE Access}] }
+    \map{ \step[fieldsource=entrykey, match={chen_socially_2017}, final] \step[fieldset=shortjournal, fieldvalue={IROS}] }
+    \map{ \step[fieldsource=entrykey, match={Chen2016DecentralizedNM}, final] \step[fieldset=shortjournal, fieldvalue={ICRA}] }
     \map{ \step[fieldsource=entrykey, match={trautman_unfreezing_2010}, final] \step[fieldset=shortjournal, fieldvalue={IROS}] }
     \map{ \step[fieldsource=entrykey, match={fraichard_short_2007}, final] \step[fieldset=shortjournal, fieldvalue={ICRA}] }
     \map{ \step[fieldsource=entrykey, match={otto_deep_2023}, final] \step[fieldset=shortjournal, fieldvalue={CoRL}] }
@@ -356,6 +358,8 @@
             - {\Fontsmaller\cite{bohorquez_safe_2016}}
             \pause
         \item RL\\
+            - {\Fontsmaller\cite{Chen2016DecentralizedNM}}\\
+            - {\Fontsmaller\cite{chen_socially_2017}}\\
             - {\Fontsmaller\cite{everett_collision_2021}}
             \pause
         \item Hybrid (RL + MPC)\\
@@ -462,12 +466,14 @@
 
 \begin{frame}{Outline}
     \begin{itemize}
-        \item RL
+        \item RL\\
+            - Algorithm\\
+            - MDP choices
             \pause
         \item MPC\\
-            - Passive safety\\
+            - Passive motion safety\\
             - Freezing problem\\
-        \pause
+            \pause
             - Optimal global control
         \pause
         \item Hybrid method\\
@@ -475,19 +481,29 @@
             - ProDMP and MPC
     \end{itemize}
     \only<2>{
-        \begin{textblock*}{12cm}(4.8cm,1cm)
+        \begin{textblock*}{12cm}(4.8cm,3cm)
             \Fontsmaller
             \begin{align*}
-                \min\limits_{\dot{P}} \quad &\frac{1}{2} \T{\dot{P}} \T{\M{M}_{pv}} \M{M}_{pv}\dot{P} +  \T{\left(P_0-P^{ref}+ \frac{1}{2}T\dot{P}_0\right)}\M{M}_{pv}\dot{P}\\
-                \text{s.t.} \quad & \M{S}_{v_i}\M{M}_{v_i}\dot{P} < \M{S}_{v_i}B_{v_i},\\
-                &\M{S}_{a_i}\M{M}_{a_i} \begin{bmatrix} \M{D} & \M{0} \\ \M{0} & \M{D}\end{bmatrix} \dot{P} < \M{S}_{a_i} \left(B_{a_i} + \dfrac{\M{M}_{a_i}}{T}\T{\begin{bmatrix} \dot{x}_0, 0, \dots \dot{y}_0, 0, \dots\end{bmatrix}}\right),\\
-                &-\hat{\M{U}}_{c_j}\M{M}_{pv}\dot{P}\leq - d + \hat{\M{U}}_{c_j}\left(-(P_{c_j}-P_0)+\frac{1}{2}T\dot{P}_0\right).\\
+                \min\limits_{\dot{P}} \quad & go\_to\_goal(\dot{P})\\
+                \text{s.t.} \quad & brake\_at\_trajectory\_end(\dot{P}),\\
+                & maintain\_threshold\_vel(\dot{P}),\\
+                & maintain\_threshold\_acc(\dot{P}),\\
+                & maintain\_distance\_to\_crowd(\dot{P}).\\
             \end{align*}
         \end{textblock*}
-        \begin{textblock*}{12cm}(5cm,4.6cm)
-            \centering
-            \resizebox{9cm}{!}{\input{schema/mpc.tex}}
-        \end{textblock*}
+        % \begin{textblock*}{12cm}(4.8cm,1cm)
+        %     \Fontsmaller
+        %     \begin{align*}
+        %         \min\limits_{\dot{P}} \quad &\frac{1}{2} \T{\dot{P}} \T{\M{M}_{pv}} \M{M}_{pv}\dot{P} +  \T{\left(P_0-P^{ref}+ \frac{1}{2}T\dot{P}_0\right)}\M{M}_{pv}\dot{P}\\
+        %         \text{s.t.} \quad & \M{S}_{v_i}\M{M}_{v_i}\dot{P} < \M{S}_{v_i}B_{v_i},\\
+        %         &\M{S}_{a_i}\M{M}_{a_i} \begin{bmatrix} \M{D} & \M{0} \\ \M{0} & \M{D}\end{bmatrix} \dot{P} < \M{S}_{a_i} \left(B_{a_i} + \dfrac{\M{M}_{a_i}}{T}\T{\begin{bmatrix} \dot{x}_0, 0, \dots \dot{y}_0, 0, \dots\end{bmatrix}}\right),\\
+        %         &-\hat{\M{U}}_{c_j}\M{M}_{pv}\dot{P}\leq - d + \hat{\M{U}}_{c_j}\left(-(P_{c_j}-P_0)+\frac{1}{2}T\dot{P}_0\right).\\
+        %     \end{align*}
+        % \end{textblock*}
+        % \begin{textblock*}{12cm}(5cm,4.6cm)
+        %     \centering
+        %     \resizebox{9cm}{!}{\input{schema/mpc.tex}}
+        % \end{textblock*}
     }
     \only<3>{
         \begin{textblock*}{6cm}(7cm, 2.5cm)
@@ -1794,10 +1810,16 @@
 \end{frame}
 
 \begin{frame}[label={app_mpc}]
-\frametitle{A1: MPC for Navigation (Dynamics)}
-\begin{itemize}
-    \item
-\end{itemize}
+\frametitle{A1: MPC for Navigation}
+    \begin{textblock*}{12cm}(2cm,2cm)
+        \Fontsmaller
+        \begin{align*}
+            \min\limits_{\dot{P}} \quad &\frac{1}{2} \T{\dot{P}} \T{\M{M}_{pv}} \M{M}_{pv}\dot{P} +  \T{\left(P_0-P^{ref}+ \frac{1}{2}T\dot{P}_0\right)}\M{M}_{pv}\dot{P}\\
+            \text{s.t.} \quad & \M{S}_{v_i}\M{M}_{v_i}\dot{P} < \M{S}_{v_i}B_{v_i},\\
+            &\M{S}_{a_i}\M{M}_{a_i} \begin{bmatrix} \M{D} & \M{0} \\ \M{0} & \M{D}\end{bmatrix} \dot{P} < \M{S}_{a_i} \left(B_{a_i} + \dfrac{\M{M}_{a_i}}{T}\T{\begin{bmatrix} \dot{x}_0, 0, \dots \dot{y}_0, 0, \dots\end{bmatrix}}\right),\\
+            &-\hat{\M{U}}_{c_j}\M{M}_{pv}\dot{P}\leq - d + \hat{\M{U}}_{c_j}\left(-(P_{c_j}-P_0)+\frac{1}{2}T\dot{P}_0\right).\\
+        \end{align*}
+    \end{textblock*}
 \end{frame}
 
 \begin{frame}[label={app2}]
