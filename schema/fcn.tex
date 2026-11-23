@@ -27,11 +27,11 @@
 
     % Neurons
     \foreach \i in {1,...,3}
-        \node[input] at (I-\i) {$x_\i$};
+        \node[input] at (I-\i) {$s_\i$};
     \foreach \i in {1,...,4}
         \node[hidden] at (H-\i) {$h_\i$};
     \foreach \i in {1,...,2}
-        \node[output] at (O-\i) {$\hat y_\i$};
+        \node[output] at (O-\i) {$a_\i$};
 
     % Layer labels
     % \node (input_str) at (0, 2.8) {Input layer};
@@ -39,14 +39,14 @@
     % \node (output_str) at (\dox, 2.8) {Output layer};
 
     % Network input / output
-    \node (net_in) at (-2.4, 0) {$\V{s} \in \mathbb{R}^{3}$};
+    \node (net_in) at (-2, 0) {$\V{s}$};
     \draw[->, -{Stealth[width=2mm]}, line width=1] (net_in.east) -- ([xshift=-8mm]I-2);
     % bracket grouping the input layer
     \draw[line width=1] (-0.5, 1.6) -- (-0.7, 1.6) -- (-0.7, -1.6) -- (-0.5, -1.6);
     % bracket grouping the output layer
     \draw[line width=1] (6.5, 1.0) -- (6.7, 1.0) -- (6.7, -1.0) -- (6.5, -1.0);
-    \node (net_out) at (8.4, 0) {$\V{a} \in \mathbb{R}^{2}$};
-    \draw[->, -{Stealth[width=2mm]}, line width=1] ([xshift=-9mm]net_out.west) -- (net_out.west);
+    \node (net_out) at (8, 0) {$\V{a}$};
+    \draw[->, -{Stealth[width=2mm]}, line width=1] ([xshift=-13mm]net_out.west) -- (net_out.west);
 
     % Weight rectangles: first and final layer transitions
     \draw[dashed, line width=1] (0.5, -1.8) rectangle (2.5, 1.8);

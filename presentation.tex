@@ -149,7 +149,7 @@
 
 \newcommand\Fontvi{\fontsize{15}{15}\selectfont}
 \newcommand\Fontsmaller{\fontsize{9}{7}\selectfont}
-\newcommand\Fontviii{\fontsize{7}{4}\selectfont}
+\newcommand\Fontssmaller{\fontsize{7}{4}\selectfont}
 \newcommand\Fontviiii{\fontsize{12}{12}\selectfont}
 \newcommand\Fontbig{\fontsize{30}{4}\selectfont}
 \newcommand\Fontsmall{\fontsize{5}{4}\selectfont}
@@ -209,7 +209,7 @@
     %     \visible<1->{
     %         \includegraphics[width=4.8cm]{imgs/miroki.jpg}
     %         \vspace{-0.7cm}
-    %         \center \Fontviii Mirokai robots from Enchanted Tools
+    %         \center \Fontssmaller Mirokai robots from Enchanted Tools
     %     }
     % \end{textblock*}
     \begin{textblock*}{4.8cm}(8.5cm,1.4cm)
@@ -472,7 +472,7 @@
             \pause
         \item MPC\\
             - Passive motion safety\\
-            - Freezing problem\\
+            - Freezing robot problem\\
             \pause
             - Optimal global control
         \pause
@@ -485,10 +485,10 @@
             \Fontsmaller
             \begin{align*}
                 \min\limits_{\dot{P}} \quad & go\_to\_goal(\dot{P})\\
-                \text{s.t.} \quad & brake\_at\_trajectory\_end(\dot{P}),\\
-                & maintain\_threshold\_vel(\dot{P}),\\
+                \text{s.t.} \quad & maintain\_threshold\_vel(\dot{P}),\\
                 & maintain\_threshold\_acc(\dot{P}),\\
-                & maintain\_distance\_to\_crowd(\dot{P}).\\
+                & maintain\_distance\_to\_crowd(\dot{P}),\\
+                & brake\_at\_trajectory\_end(\dot{P}).\\
             \end{align*}
         \end{textblock*}
         % \begin{textblock*}{12cm}(4.8cm,1cm)
@@ -815,7 +815,7 @@
     }
     \only<13>{
         \begin{textblock*}{5cm}(6.3cm,6.3cm)
-            $\hat{\V{u}}_{c_j,k}=\dfrac{\bar{\V{p}}_k - \V{p}_{c_j,k}}{\vert\vert \bar{\V{p}}_k - \V{p}_{c_j,k}\vert\vert}$
+            \textcolor{orange}{$\hat{\V{u}}_{c_j,k}=\dfrac{\bar{\V{p}}_k - \V{p}_{c_j,k}}{\vert\vert \bar{\V{p}}_k - \V{p}_{c_j,k}\vert\vert}$}
         \end{textblock*}
     }
     \only<14-15>{
@@ -986,7 +986,7 @@
             \hspace{3mm}$\rightarrow d = d_0 + 0.5Tv_{max}\T{\begin{bmatrix} 1,\; 2, \dots\end{bmatrix}}$
             \pause
             \pause
-        \item Results
+        \item Results ORCA crowd
     \end{itemize}
     \only<1-7>{
         \begin{textblock*}{10cm}(7.5cm,1.2cm)
@@ -1007,7 +1007,7 @@
     \begin{itemize}
         \item Example
         \pause
-        \item Conditions \cite{fraichard_short_2007}\\
+    \item Conditions [\cite{fraichard_short_2007}]\\
             \begin{enumerate}
                 \item consider the robot dynamics
                 \pause
@@ -1039,7 +1039,7 @@
     }
     \only<2-4>{
         \begin{textblock*}{6cm}(9.5cm, 5.5cm)
-            $\V{p}_{1}=\V{p}_{0}+T\dot{\V{p}}_{0} + \dfrac{1}{2}T^2\ddot{\V{p}}_{0}$
+            $\V{P}_{1}=\V{P}_{0}+T\dot{\V{P}}_{0} + \dfrac{1}{2}T^2\ddot{\V{P}}_{0}$
         \end{textblock*}
     }
     \only<3-4>{
@@ -1157,7 +1157,7 @@
 
 \begin{frame}[label=casc]{Cascading Control}
     \begin{itemize}
-        \item Cascade of braking trajectories\\
+        \item Cascade of braking trajectories $M,N$\\
             \pause
             - same objective $\min\limits_{\dot{P}}\frac{1}{2}\vert\vert P - P^{ref}\vert\vert^2$\\
             \hspace{3mm}$P \rightarrow \V{p}_i=\V{b}_{i,1},\;\; \forall i\in\{1,\dots,M\}$\\
@@ -1197,10 +1197,10 @@
             - reality:\\
             \hspace{4mm}ensure no collisions for $(N-1)$-steps and stop at $N$\\
             \pause
-            \hspace{4mm} $\rightarrow$ stopping at $\frac{N}{2}$ is not possible
+            \hspace{4mm} $\rightarrow$ stopping at $<\frac{N}-1$ is not possible
             \pause
         \item Set a long $N$\\
-            - braking reduces distance
+            - increase braking distance 
     \end{itemize}
     \only<2-5>{
         \begin{textblock*}{6cm}(10.8cm,1.2cm)
@@ -1256,7 +1256,7 @@
 \begin{frame}[label=prodmp]{Probabilistic Dynamic Movement Primitives (ProDMP)}
     \begin{itemize}
         \item Motion Primitives (MP)\\
-            - encode entire movements
+            - encode trajectories
             \pause
         \item Dynamic MP\\
             - damped spring model
@@ -1336,7 +1336,7 @@
 \subsection{Subsection 4.2}
 \begin{frame}[label=learn_hybrid]{Learning ProDMP MPC}
     \begin{itemize}
-        \item TRPL + ProDMP \cite{otto_deep_2023}\\
+        \item TRPL + ProDMP [\cite{otto_deep_2023}]\\
             \pause
             - RL parameters\\
             \pause
@@ -1464,9 +1464,11 @@
 
 \begin{frame}{Conclusion}
     \begin{itemize}
+        \item RL\\
+            - MDP choices
         \item MPC limitations\\
-            - FRP\\
-            - optimal global control
+            - Freezing robot problem\\
+            - Optimal global control
             \pause
         \item Hybrid advantages\\
             \pause
@@ -1872,7 +1874,7 @@
 \begin{frame}[label={app7}]
 \frametitle{A7: Literature}
 \begin{itemize}
-        \Fontviii
+        \Fontssmaller
         \item Classic
             \pause
         \item MPC and MPC for biped walking: \cite{mpcbook,mayne_receding_1990,mayne_constrained_2000,schouwenaars_receding_2004,kajita_biped_2003,wieber_trajectory_2006,wieber_viability_2008,herdt_online_2010,sherikov_balance_2016,bohorquez_safe_2016,villa_model_2017,dorante_design_2018,zheng_online_2020, ciocca_balance_2020}
