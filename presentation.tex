@@ -687,16 +687,22 @@
         \end{textblock*}
     }
     \only<4->{
-        \begin{textblock*}{8cm}(8cm,3.5cm)
+        \begin{textblock*}{5cm}(9cm,3.2cm)
             \begin{align*}
-                \begin{bmatrix}x_1 \\ \dot{x}_1\end{bmatrix}&=\begin{bmatrix}1 & T \\ 0 & 1\end{bmatrix} \begin{bmatrix}x_0 \\ \dot{x}_0\end{bmatrix} + \begin{bmatrix}\frac{1}{2}T^2 \\ T\end{bmatrix}\frac{\dot{x}_1-\dot{x}_0}{T}\\
+                \begin{bmatrix}x_1 \\ \dot{x}_1\end{bmatrix}
+                % &=\begin{bmatrix}1 & T \\ 0 & 1\end{bmatrix} \begin{bmatrix}x_0 \\ \dot{x}_0\end{bmatrix} + \begin{bmatrix}\frac{1}{2}T^2 \\ T\end{bmatrix}\frac{\dot{x}_1-\dot{x}_0}{T}\\
                 &=\begin{bmatrix}1 & \frac{1}{2}T \\ 0 & 0\end{bmatrix} \begin{bmatrix}x_0 \\ \dot{x}_0\end{bmatrix} + \begin{bmatrix}\frac{1}{2}T \\ 1\end{bmatrix}\dot{x}_1
             \end{align*}
         \end{textblock*}
     }
-    \only<5->{
-        \begin{textblock*}{12cm}(6cm,6.2cm)
+    \only<5>{
+        \begin{textblock*}{14cm}(6cm,5.4cm)
                 $X=X_0+\dfrac{1}{2}T\dot{X}_0+\M{M}_{xv}\dot{X}, \quad \M{M}_{xv} = \begin{bmatrix}1/2 & 0 & \dots & 0 \\ 1 & 1/2 & \ddots & \vdots \\ \vdots & \ddots & \ddots & 0 \\ 1 & \dots & 1 & 1/2 \end{bmatrix}T$
+        \end{textblock*}
+    }
+    \only<6>{
+        \begin{textblock*}{14cm}(6cm,6.05cm)
+            $P=P_0+\dfrac{1}{2}T\dot{P}_0+\M{M}_{pv}\dot{P}, \quad \M{M}_{pv} = \begin{bmatrix} \M{M}_{xv} & \M{0} \\ \M{0} & \M{M}_{yv}\end{bmatrix}T$
         \end{textblock*}
     }
 \end{frame}
@@ -710,10 +716,10 @@
             - $P - P^{ref}$
            \pause
         \item Quadratic objective\\
-            - $\dfrac{1}{2}\vert\vert P - P^{ref}\vert \vert^2$
+            - $\dfrac{1}{2}\left\vert\left\vert P - P^{ref}\right\vert\right\vert^2$
            \pause
         \item Regularisation term\\
-            - $\vert\vert \dot{P}\vert\vert^2$
+            - $\left\vert\left\vert \dot{P}\right\vert\right\vert^2$
            \pause
         \item Optimizer\\
             - $\min\limits_{\dot{P}}\dfrac{1}{2}\T{\dot{P}}Q\dot{P}+l\dot{P}$
@@ -753,8 +759,9 @@
             \pause
             \pause
             \pause
-        \item Collision Avoidance \cite{bohorquez_safe_2016}\\
-            - $\vert\vert \V{p} - \V{p}_{c_j}\vert\vert\geq d$
+        \item Collision Avoidance\\
+            - {\Fontsmaller\cite{bohorquez_safe_2016}}\\
+            \hspace{4mm}$\rightarrow \vert\vert \V{p} - \V{p}_{c_j}\vert\vert\geq d$
             \pause
             \pause
             \pause
@@ -839,9 +846,8 @@
 \subsection{Subsection 3.2}
 \begin{frame}[label=frp]{Freezing Robot Problem (FRP)}
     \begin{itemize}
-        \item MPC problem \cite{trautman_unfreezing_2010}\\
-            - $\vert\vert \V{\bar{p}}_k - \V{p}_{k,c_j}\vert\vert\geq d$\\
-            \hspace{5mm}$\quad \forall k \in \{1,\dots N\}$\\
+        \item MPC problem [\cite{trautman_unfreezing_2010}]\\
+            - $\vert\vert \V{\bar{p}}_k - \V{p}_{k,c_j}\vert\vert\geq d, \quad \forall k \in \{1,\dots N\}$\\
             \pause
             \pause
             \pause
@@ -860,20 +866,20 @@
             - $N:=\lceil N/2\rceil$
     \end{itemize}
     \only<1-8>{
-        \begin{textblock*}{10cm}(6cm,2.4cm)
+        \begin{textblock*}{10cm}(10cm,2.4cm)
             \resizebox{4cm}{!}{\input{schema/frp.tex}}
         \end{textblock*}
     }
     \only<9-11>{
-        \begin{textblock*}{10cm}(6cm,2cm)
-            \includegraphics[height=3cm, trim=0.3\wd\fstimg{} 0.25\ht\fstimg{} 0.2\wd\fstimg{} 0.25\ht\fstimg{}, clip]{imgs/FRP2.png}
+        \begin{textblock*}{10cm}(8.5cm,2cm)
+            \includegraphics[height=3cm, trim=0.4\wd\fstimg{} 0.25\ht\fstimg{} 0.2\wd\fstimg{} 0.25\ht\fstimg{}, clip]{imgs/FRP2.png}
         \end{textblock*}
-        \begin{textblock*}{10cm}(6cm,5.1cm)
-            \includegraphics[height=3cm, trim=0.3\wd\sndimg{} 0.25\ht\sndimg{} 0.2\wd\sndimg{} 0.25\ht\sndimg{}, clip]{imgs/FRP3.png}
+        \begin{textblock*}{10cm}(8.5cm,5.1cm)
+            \includegraphics[height=3cm, trim=0.4\wd\sndimg{} 0.25\ht\sndimg{} 0.2\wd\sndimg{} 0.25\ht\sndimg{}, clip]{imgs/FRP3.png}
         \end{textblock*}
     }
     \only<10-11>{
-        \begin{textblock*}{3cm}(12.4cm,4cm)
+        \begin{textblock*}{3cm}(13cm,4cm)
             $N$\\
             $T$\\
             $d_{\V{p}\V{p}_c}$\\
@@ -882,13 +888,13 @@
 
     }
     \only<11>{
-        \begin{textblock*}{5cm}(12.8cm,3.8cm)
+        \begin{textblock*}{5cm}(13.4cm,3.8cm)
             \begin{tikzpicture}
-                \draw[thick] (0,2) -- (0.4, 2) -- (0.4, -0.1) -- (0, -0.1);
-                \draw[->, thick] (0.4, 0.95) -- (0.7, 0.95);
+                \draw[ultra thick] (0,2) -- (0.4, 2) -- (0.4, -0.1) -- (0, -0.1);
+                \draw[->, ultra thick] (0.4, 0.95) -- (0.7, 0.95);
             \end{tikzpicture}
         \end{textblock*}
-        \begin{textblock*}{5cm}(13.6cm,4.52cm)
+        \begin{textblock*}{5cm}(14.2cm,4.52cm)
             $N<\dfrac{d_{\V{p}\V{p}_c}}{\vert\vert\dot{\V{p}}_c\vert\vert}+1$
         \end{textblock*}
 
@@ -953,10 +959,10 @@
             \end{tikzpicture}
         \end{textblock*}
         \only<16>{
-            \begin{textblock*}{8cm}(9cm,1.5cm)
+            \begin{textblock*}{8cm}(9cm,4cm)
                 \centering
-                $a_{max}=1m/s^2$\\
-                \resizebox{7.8cm}{!}{\input{graphs/bar_plot_mpc_vel_hs.pgf}}\\
+                % $a_{max}=1m/s^2$\\
+                % \resizebox{7.8cm}{!}{\input{graphs/bar_plot_mpc_vel_hs.pgf}}\\
                 $a_{max}=10m/s^2$\\
                 \resizebox{7.8cm}{!}{\input{graphs/bar_plot_mpc_vel_hs_acc10.pgf}}
             \end{textblock*}
@@ -1011,7 +1017,7 @@
             \end{enumerate}
         \pause
         \item Long $N$ problem\\
-            - slow, not real-time
+            - slow, not real-time\\
             - initial guess $\bar{\V{p}}=0$\\
             \pause
             \hspace{3mm}$\rightarrow$ Rapidly-exploring random tree (RRT)
@@ -1867,11 +1873,35 @@
 \frametitle{A7: Literature}
 \begin{itemize}
         \Fontviii
+        \item Classic
+            \pause
         \item MPC and MPC for biped walking: \cite{mpcbook,mayne_receding_1990,mayne_constrained_2000,schouwenaars_receding_2004,kajita_biped_2003,wieber_trajectory_2006,wieber_viability_2008,herdt_online_2010,sherikov_balance_2016,bohorquez_safe_2016,villa_model_2017,dorante_design_2018,zheng_online_2020, ciocca_balance_2020}
         \item Safety \cite{fraichard_inevitable_2003,fraichard_short_2007,martinez-gomez_efficient_2008,macek_towards_2009,bouraine_provably_2012,fraichard_will_2014,blumentals_safe_2017,ciocca_time_2023}
         \item RL for Navigation
         \item Hybrid methods
 \end{itemize}
+    \begin{textblock*}{13cm}(3.4cm,1.6cm)
+       \visible<1>{
+            \begin{minipage}[t]{4.1cm}
+                \centering
+                \resizebox{4cm}{!}{\input{schema/classicalgo_dijkstra.tex}}
+                \par\vspace{1mm}
+                {\small Dijkstra's algorithm \cite{Dijkstra1959}}
+            \end{minipage}\hfill
+            \begin{minipage}[t]{4.1cm}
+                \centering
+                \resizebox{4cm}{!}{\input{schema/classicalgo_voronoi.tex}}
+                \par\vspace{1mm}
+                {\small Voronoi diagram \cite{Shahabi2018}}
+            \end{minipage}\hfill
+            \begin{minipage}[t]{4.6cm}
+                \centering
+                \resizebox{4cm}{!}{\input{schema/classicalgo_dwa.tex}}
+                \par\vspace{1mm}
+                {\small Dynamic window approach \cite{fox_dynamic_1997}}
+            \end{minipage}
+       }
+    \end{textblock*}
 \end{frame}
 
 
