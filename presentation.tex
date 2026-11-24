@@ -477,7 +477,7 @@
             - Optimal global control
         \pause
         \item Combining\\
-            - Episode-base RL\\
+            - Episode-based RL\\
             - Hybrid
     \end{itemize}
     \only<2>{
@@ -525,59 +525,59 @@
     \textbf{\Fontbig{Reinforcement Learning}}
 \end{frame}
 
-\begin{frame}{Policy Gradient}
+\begin{frame}[label=trpl]{Trust Region Projection Layers (TRPL)}
     \begin{itemize}
-        \item Policy\\
-        \hspace{5mm}$\pi_{\V{\theta}}(\V{a}\vert\V{s})=\mathcal{N}(\V{a}\vert\mu_{\V{\theta}}(\V{s}), \Sigma_{\V{\theta}}(\V{s}))$
+        \item Policy Gradient\\
+        \hspace{2mm}$\pi_{\V{\theta}}(\V{a}\vert\V{s})=\mathcal{N}(\V{a}\vert\mu_{\V{\theta}}(\V{s}), \Sigma_{\V{\theta}}(\V{s}))$\\
         \pause
-        \item Objective\\
-        \hspace{5mm}$G(\V{\theta})=\mathbb{E}_{\V{\tau}\sim p_{\V{\theta}}(\V{\tau})}\left[ \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})\right]$\\
-        \hspace{1cm}$p_{\V{\theta}}(\V{\tau})=\mathcal{P}(\V{s}_0)\prod_t \pi_{\V{\theta}}(\V{a}_t\vert\V{s}_t)\mathcal{P}(\V{s}_{t+1}\vert\V{s}_t, \V{a}_t)$
+        \hspace{2mm}$\rightarrow\nabla_{\V{\theta}}G(\V{\theta})$\\
+        \pause
+        \hspace{2mm}$\rightarrow\V{\theta} \leftarrow \V{\theta} + \alpha \nabla_{\V{\theta}}G(\V{\theta})$\\
         \pause
         \item Gradient\\
-            \hspace{5mm}$\nabla_{\V{\theta}}G(\V{\theta})=\textcolor<4->{myred}{\nabla_{\V{\theta}}} \textcolor<4->{myblue}{\int} \textcolor<4->{myred}{p_{\V{\theta}}(\tau)} \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})\textcolor<4->{myblue}{d\V{\tau}}$
+            \hspace{2mm}$\nabla_{\V{\theta}}G(\V{\theta})=\textcolor<6->{myred}{\nabla_{\V{\theta}}} \textcolor<6->{myblue}{\int} \textcolor<6->{myred}{p_{\V{\theta}}(\tau)} \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})\textcolor<6->{myblue}{d\V{\tau}}$
             \pause
             \pause
-            \vspace{1.2cm}
-        \item Update $\V{\theta} \leftarrow \V{\theta} + \alpha \nabla_{\V{\theta}}G(\V{\theta})$
-    \end{itemize}
-    \only<1->{
-        \begin{textblock*}{12cm}(6.5cm,1.5cm)
-            \centering
-            \resizebox{8cm}{!}{\input{schema/fcn.tex}}
-        \end{textblock*}
-    }
-    \only<4->{
-        \begin{textblock*}{12cm}(3.28cm,6.48cm)
-            $\approx \textcolor<4->{myblue}{\dfrac{1}{K} \sum\limits_i^K} \left(\textcolor<4->{myred}{\sum\limits_t\nabla_{\V{\theta}}\log(\pi_{\V{\theta}}(\V{a}_{i,t}\vert \V{s}_{i,t}))}\right)  \left(\sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{i,t},\V{a}_{i,t})\right)$
-        \end{textblock*}
-    }
-\end{frame}
-
-\begin{frame}{Trust Region Projection Layers (TRPL)}
-    \begin{itemize}
+            \pause
+            \vspace{8mm}
         \item Trust regions\\
-            - stabilize learning\\
-            \hspace{5mm}$\M{\theta}^\star= \argmax_{\M{\theta}}G(\pi_{\M{\theta}},\pi_{\M{\theta}_{old}})$\\
-            \hspace{10mm}$\text{s.t.}\quad D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta,\quad \forall \V{s}\in\mathcal{S}$
-        \pause
-        \item Distance metric\\
-            - Kullback-Leibler\\
-            \hspace{5mm}$D(\pi_{\M{\theta}}\vert\vert \pi_{\M{\theta}_{old}}) = \sum\limits_{\V{s},\V{a}}\pi_{\M{\theta}}(\V{a}\vert \V{s})\log\dfrac{\pi_{\M{\theta}}(\V{a}\vert\V{s})}{\pi_{\M{\theta}_{old}}(\V{a}\vert\V{s})}<\delta$
-        \pause
-        \item Derive mean and variance projection\\
-            \hspace{5mm}$\argmin\limits_{\tilde{\mu}} \T{(\mu-\tilde{\mu})}\Sigma_{old}^{-1}(\mu-\tilde{\mu}),\quad \text{s.t.}\quad \T{(\mu_{old}-\tilde{\mu})}\Sigma_{old}^{-1}(\mu_{old}-\tilde{\mu})\leq\delta_\mu$\\
+            \hspace{2mm}$\M{\theta}^\star= \argmax_{\M{\theta}}G(\pi_{\M{\theta}},\pi_{\M{\theta}_{old}}), \quad\text{s.t.}\quad D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta,\quad \forall \V{s}\in\mathcal{S}$
+            \pause
+        \item Projection layer\\
+            \hspace{2mm}$\argmin\limits_{\tilde{\mu}} \T{(\mu-\tilde{\mu})}\Sigma_{old}^{-1}(\mu-\tilde{\mu}),\; \text{s.t.}\;\T{(\mu_{old}-\tilde{\mu})}\Sigma_{old}^{-1}(\mu_{old}-\tilde{\mu})\leq\delta_\mu$
             \vspace{2mm}
             \hspace{40mm}$\rightarrow \tilde\mu=\dots, \quad\tilde\Sigma=\dots $
     \end{itemize}
     \only<1->{
-        \begin{textblock*}{12cm}(6.4cm,1.6cm)
+        \begin{textblock*}{12cm}(7cm,1.2cm)
             \centering
-            \resizebox{7cm}{!}{\input{schema/trust_region.tex}}
+            \resizebox{7cm}{!}{\input{schema/fcn.tex}}
+        \end{textblock*}
+    }
+    \only<5->{
+        \begin{textblock*}{12cm}(5.35cm,3.2cm)
+            {\Fontssmaller$\mathcal{P}(\V{s}_0)\prod_t \pi_{\V{\theta}}(\V{a}_t\vert\V{s}_t)\mathcal{P}(\V{s}_{t+1}\vert\V{s}_t, \V{a}_t)$}
+        \end{textblock*}
+    }
+    \only<5->{
+        \begin{textblock*}{12cm}(4.82cm,3.4cm)
+            \begin{tikzpicture}
+                \draw[->, thick] (0, 0) -- (0.5, 0.4);
+            \end{tikzpicture}
+        \end{textblock*}
+    }
+    \only<6->{
+        \begin{textblock*}{12cm}(3cm,4.6cm)
+            {\Fontsmaller$\approx \textcolor<4->{myblue}{\dfrac{1}{K} \sum\limits_i^K} \left(\textcolor<4->{myred}{\sum\limits_t\nabla_{\V{\theta}}\log\pi_{\V{\theta}}(\V{a}_{i,t}\vert \V{s}_{i,t})}\right)  \left(\sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{i,t},\V{a}_{i,t})\right)$}
+        \end{textblock*}
+    }
+    \only<7->{
+        \begin{textblock*}{12cm}(8.2cm,5.4cm)
+            \centering
+            \resizebox{5.5cm}{!}{\input{schema/trust_region.tex}}
         \end{textblock*}
     }
 \end{frame}
-
 
 \begin{frame}{Reinforcement Learning for Navigation}
     \begin{itemize}
@@ -608,7 +608,7 @@
         \end{textblock*}
     }
     \only<3>{
-        \begin{textblock*}{12cm}(5cm,2.2cm)
+        \begin{textblock*}{12cm}(5.2cm,2.2cm)
             \centering
             \resizebox{7cm}{!}{\input{graphs/static_rew.tex}}
         \end{textblock*}
@@ -963,7 +963,7 @@
                 \centering
                 % $a_{max}=1m/s^2$\\
                 % \resizebox{7.8cm}{!}{\input{graphs/bar_plot_mpc_vel_hs.pgf}}\\
-                $a_{max}=10m/s^2$\\
+                % $a_{max}=10m/s^2$\\
                 \resizebox{7.8cm}{!}{\input{graphs/bar_plot_mpc_vel_hs_acc10.pgf}}
             \end{textblock*}
         }
@@ -1208,7 +1208,7 @@
             - reality:\\
             \hspace{4mm}ensure no collisions for $(N-1)$-steps and stop at $N$\\
             \pause
-            \hspace{4mm} $\rightarrow$ stopping at $N-1$ is not possible
+            \hspace{4mm} $\rightarrow$ stopping at $<N-1$ is not possible
             \pause
         \item Set a long $N$\\
             - increase braking distance 
@@ -1800,6 +1800,61 @@
             \resizebox{7cm}{!}{\input{schema/rl_schema.tex}}
         }
     \end{textblock*}
+\end{frame}
+
+\begin{frame}[label={rl}]
+\frametitle{Policy Gradient}
+    \begin{itemize}
+        \item Policy\\
+        \hspace{5mm}$\pi_{\V{\theta}}(\V{a}\vert\V{s})=\mathcal{N}(\V{a}\vert\mu_{\V{\theta}}(\V{s}), \Sigma_{\V{\theta}}(\V{s}))$
+        \pause
+        \item Objective\\
+        \hspace{5mm}$G(\V{\theta})=\mathbb{E}_{\V{\tau}\sim p_{\V{\theta}}(\V{\tau})}\left[ \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})\right]$\\
+        \hspace{1cm}$p_{\V{\theta}}(\V{\tau})=\mathcal{P}(\V{s}_0)\prod_t \pi_{\V{\theta}}(\V{a}_t\vert\V{s}_t)\mathcal{P}(\V{s}_{t+1}\vert\V{s}_t, \V{a}_t)$
+        \pause
+        \item Gradient\\
+            \hspace{5mm}$\nabla_{\V{\theta}}G(\V{\theta})=\textcolor<4->{myred}{\nabla_{\V{\theta}}} \textcolor<4->{myblue}{\int} \textcolor<4->{myred}{p_{\V{\theta}}(\tau)} \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})\textcolor<4->{myblue}{d\V{\tau}}$
+            \pause
+            \pause
+            \vspace{1.2cm}
+        \item Update $\V{\theta} \leftarrow \V{\theta} + \alpha \nabla_{\V{\theta}}G(\V{\theta})$
+    \end{itemize}
+    \only<1->{
+        \begin{textblock*}{12cm}(6.5cm,1.5cm)
+            \centering
+            \resizebox{8cm}{!}{\input{schema/fcn.tex}}
+        \end{textblock*}
+    }
+    \only<4->{
+        \begin{textblock*}{12cm}(3.28cm,6.48cm)
+            $\approx \textcolor<4->{myblue}{\dfrac{1}{K} \sum\limits_i^K} \left(\textcolor<4->{myred}{\sum\limits_t\nabla_{\V{\theta}}\log(\pi_{\V{\theta}}(\V{a}_{i,t}\vert \V{s}_{i,t}))}\right)  \left(\sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{i,t},\V{a}_{i,t})\right)$
+        \end{textblock*}
+    }
+\end{frame}
+
+\begin{frame}[label={rl}]
+\frametitle{Trust Region Projection Layers (TRPL)}
+    \begin{itemize}
+        \item Trust regions\\
+            - stabilize learning\\
+            \hspace{5mm}$\M{\theta}^\star= \argmax_{\M{\theta}}G(\pi_{\M{\theta}},\pi_{\M{\theta}_{old}})$\\
+            \hspace{10mm}$\text{s.t.}\quad D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta,\quad \forall \V{s}\in\mathcal{S}$
+        \pause
+        \item Distance metric\\
+            - Kullback-Leibler\\
+            \hspace{5mm}$D(\pi_{\M{\theta}}\vert\vert \pi_{\M{\theta}_{old}}) = \sum\limits_{\V{s},\V{a}}\pi_{\M{\theta}}(\V{a}\vert \V{s})\log\dfrac{\pi_{\M{\theta}}(\V{a}\vert\V{s})}{\pi_{\M{\theta}_{old}}(\V{a}\vert\V{s})}<\delta$
+        \pause
+        \item Derive mean and variance projection\\
+            \hspace{5mm}$\argmin\limits_{\tilde{\mu}} \T{(\mu-\tilde{\mu})}\Sigma_{old}^{-1}(\mu-\tilde{\mu}),\quad \text{s.t.}\quad \T{(\mu_{old}-\tilde{\mu})}\Sigma_{old}^{-1}(\mu_{old}-\tilde{\mu})\leq\delta_\mu$\\
+            \vspace{2mm}
+            \hspace{40mm}$\rightarrow \tilde\mu=\dots, \quad\tilde\Sigma=\dots $
+    \end{itemize}
+    \only<1->{
+        \begin{textblock*}{12cm}(6.4cm,1.6cm)
+            \centering
+            \resizebox{7cm}{!}{\input{schema/trust_region.tex}}
+        \end{textblock*}
+    }
 \end{frame}
 
 \begin{frame}[label={app_mpc}]

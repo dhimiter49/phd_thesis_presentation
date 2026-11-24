@@ -39,14 +39,14 @@
     % \node (output_str) at (\dox, 2.8) {Output layer};
 
     % Network input / output
-    \node (net_in) at (-2, 0) {$\V{s}$};
+    \node (net_in) at (-1.8, 0) {$\V{s}$};
     \draw[->, -{Stealth[width=2mm]}, line width=1] (net_in.east) -- ([xshift=-8mm]I-2);
     % bracket grouping the input layer
     \draw[line width=1] (-0.5, 1.6) -- (-0.7, 1.6) -- (-0.7, -1.6) -- (-0.5, -1.6);
     % bracket grouping the output layer
     \draw[line width=1] (6.5, 1.0) -- (6.7, 1.0) -- (6.7, -1.0) -- (6.5, -1.0);
-    \node (net_out) at (8, 0) {$\V{a}$};
-    \draw[->, -{Stealth[width=2mm]}, line width=1] ([xshift=-8.8mm]net_out.west) -- (net_out.west);
+    \node (net_out) at (7.8, 0) {$\V{a}$};
+    \draw[->, -{Stealth[width=2mm]}, line width=1] ([xshift=-8.4mm]net_out.west) -- (net_out.west);
 
     % Weight rectangles: first and final layer transitions
     \draw[dashed, line width=1] (0.5, -1.8) rectangle (2.5, 1.8);

@@ -3,8 +3,8 @@
     R/.style = {draw, black, line width=2, -{stealth[scale=2]}, to path={|- (\tikztotarget)}},
     G/.style = {draw, black, line width=1}]
     \node[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (mpc) at (0, 0) {MPC Controller\\ \\ \\};
-    \node<1-12>[rectangle, rounded corners=4pt, minimum width=2cm, draw=black] (model) at (0, 0.2) {Model};
-    \node<13>[rectangle, fill=orange, fill opacity=0.2, text opacity=1, rounded corners=4pt, minimum width=2cm, draw=black] (model) at (0, 0.2) {Model};
+    \node<1-11>[rectangle, rounded corners=4pt, minimum width=2cm, draw=black] (model) at (0, 0.2) {Model};
+    \node<12>[rectangle, fill=orange, fill opacity=0.2, text opacity=1, rounded corners=4pt, minimum width=2cm, draw=black] (model) at (0, 0.2) {Model};
     \node<14->[rectangle, rounded corners=4pt, minimum width=2cm, draw=black] (model) at (0, 0.2) {Model};
     \node[rectangle, rounded corners=4pt, minimum width=2cm, draw=black] (opt) at (0, -0.5)  {Optimizer};
     \node[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (sys) at (0, -2.5) {System};
