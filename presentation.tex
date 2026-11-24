@@ -271,7 +271,7 @@
 
 \begin{frame}[label=solving_mdp]{Solving the MDP}
     \begin{itemize}
-        \item Model predictive control $(\mathcal{S,A,P,R,\textcolor{mygreen}{C}})$\\
+        \item Model predictive control (MPC) $(\mathcal{S,A,P,R,\textcolor{mygreen}{C}})$\\
         \vspace{16mm}
         \visible<1->{
             \begin{textblock*}{3cm}(1.4cm,1.75cm)
@@ -290,7 +290,7 @@
             \end{textblock*}
         }
         \pause
-        \item Reinforcement Learning $(\mathcal{S,A,P,R}, \gamma)$\\
+        \item Reinforcement learning (RL) $(\mathcal{S,A,P,R}, \gamma)$\\
         \vspace{16mm}
             \begin{textblock*}{3cm}(1.4cm,3.9cm)
             \visible<2->{
@@ -363,7 +363,7 @@
             - {\Fontsmaller\cite{everett_collision_2021}}
             \pause
         \item Hybrid (RL + MPC)\\
-            - {\Fontsmaller\cite{romero_actor-critic_2023}} \\
+            % - {\Fontsmaller\cite{romero_actor-critic_2023}} \\
             - {\Fontsmaller\cite{tearle_predictive_2021}} \\
             - {\Fontsmaller\cite{xiao_learning_2023}}
     \end{itemize}
@@ -444,22 +444,22 @@
            \includegraphics[height=6cm]{imgs/rl_localnav.png}\\
         }
     \end{textblock*}
-    \begin{textblock*}{5cm}(6.8cm,2.5cm)
+    % \begin{textblock*}{5cm}(6.8cm,2.5cm)
+    %     \visible<3>{
+    %     \centering
+    %        \includegraphics[height=3cm]{imgs/actor_critic_mpc.png}\\
+    %     }
+    % \end{textblock*}
+    \begin{textblock*}{7cm}(8.5cm,2.5cm)
         \visible<3>{
         \centering
-           \includegraphics[height=3cm]{imgs/actor_critic_mpc.png}\\
+           \includegraphics[width=7cm]{imgs/hybrid_filter_.png}\\
         }
     \end{textblock*}
-    \begin{textblock*}{6cm}(11.2cm,2.5cm)
+    \begin{textblock*}{9cm}(7.5cm,6cm)
         \visible<3>{
         \centering
-           \includegraphics[height=3cm]{imgs/hybrid_filter.png}\\
-        }
-    \end{textblock*}
-    \begin{textblock*}{7cm}(7.5cm,6cm)
-        \visible<3>{
-        \centering
-           \includegraphics[height=1.6cm]{imgs/hybrid_nav.png}\\
+           \includegraphics[width=9cm]{imgs/hybrid_nav.png}\\
         }
     \end{textblock*}
 \end{frame}
@@ -476,9 +476,9 @@
             \pause
             - Optimal global control
         \pause
-        \item Hybrid method\\
-            - ProDMP for Navigation\\
-            - ProDMP and MPC
+        \item Combining\\
+            - Episode-base RL\\
+            - Hybrid
     \end{itemize}
     \only<2>{
         \begin{textblock*}{12cm}(4.8cm,3cm)
@@ -608,7 +608,7 @@
         \end{textblock*}
     }
     \only<3>{
-        \begin{textblock*}{12cm}(4.5cm,2.2cm)
+        \begin{textblock*}{12cm}(5cm,2.2cm)
             \centering
             \resizebox{7cm}{!}{\input{graphs/static_rew.tex}}
         \end{textblock*}
@@ -718,9 +718,9 @@
         \item Quadratic objective\\
             - $\dfrac{1}{2}\left\vert\left\vert P - P^{ref}\right\vert\right\vert^2$
            \pause
-        \item Regularisation term\\
-            - $\left\vert\left\vert \dot{P}\right\vert\right\vert^2$
-           \pause
+        % \item Regularisation term\\
+        %     - $\left\vert\left\vert \dot{P}\right\vert\right\vert^2$
+           % \pause
         \item Optimizer\\
             - $\min\limits_{\dot{P}}\dfrac{1}{2}\T{\dot{P}}Q\dot{P}+l\dot{P}$
     \end{itemize}
@@ -758,7 +758,6 @@
             \pause
             \pause
             \pause
-            \pause
         \item Collision Avoidance\\
             - {\Fontsmaller\cite{bohorquez_safe_2016}}\\
             \hspace{4mm}$\rightarrow \vert\vert \V{p} - \V{p}_{c_j}\vert\vert\geq d$
@@ -775,12 +774,12 @@
             \resizebox{3.6cm}{!}{\input{schema/mpc_schema_constraint.tex}}
         \end{textblock*}
     }
-    \only<2-9>{
+    \only<2-8>{
         \begin{textblock*}{5cm}(6.8cm,1.5cm)
             \resizebox{4.5cm}{!}{\input{schema/lin_control_const.tex}}
         \end{textblock*}
     }
-    \only<7-9>{
+    \only<6-8>{
         \begin{textblock*}{8cm}(10.62cm,2.65cm)
             \begin{tikzpicture}
                 \draw[->, black, thick] (0, 0) to[bend left=20] (1,0);
@@ -788,37 +787,37 @@
             $y<m_ix+b_i\Leftrightarrow y - m_ix < b_i$
         \end{textblock*}
     }
-    \only<8-9>{
+    \only<7-8>{
         \begin{textblock*}{5cm}(12.6cm,3.2cm)
             $\M{M}_{i}\dot{P} < B_{i}$\\
             $\M{M}_{i}=\begin{bmatrix}-\M{I}_Nm_i \: \vert \: \M{I}_N\end{bmatrix}$\\
             $B_{i}=\T{\begin{bmatrix}b_{i}, \dots b_{i}\end{bmatrix}}$
         \end{textblock*}
     }
-    \only<9>{
+    \only<8>{
         \begin{textblock*}{5cm}(12.6cm,5.2cm)
             $\M{M}_{i}\ddot{P} < B_{i}$\\
             $\M{M}_{i}\M{M}_{\ddot{P}\dot{P}}\dot{P} < B_{i}$\\
         \end{textblock*}
     }
-    \only<11-13>{
+    \only<10-12>{
         \begin{textblock*}{5cm}(6.5cm,4.5cm)
             $\hat{\V{u}}_{c_j}(\V{p} - \V{p}_{c_j})\geq d $\\
             \vspace{2mm}
             $\hat{\V{u}}_{c_j}=\dfrac{\V{p} - \V{p}_{c_j}}{\vert\vert \V{p} - \V{p}_{c_j}\vert\vert}$\\
         \end{textblock*}
     }
-    \only<12-13>{
+    \only<11-12>{
         \begin{textblock*}{9cm}(10cm,2.7cm)
             \resizebox{6cm}{!}{\input{schema/collision_avoidance.tex}}
         \end{textblock*}
     }
-    \only<13>{
+    \only<12>{
         \begin{textblock*}{5cm}(6.3cm,6.3cm)
             \textcolor{orange}{$\hat{\V{u}}_{c_j,k}=\dfrac{\bar{\V{p}}_k - \V{p}_{c_j,k}}{\vert\vert \bar{\V{p}}_k - \V{p}_{c_j,k}\vert\vert}$}
         \end{textblock*}
     }
-    \only<14-15>{
+    \only<13-14>{
         \begin{textblock*}{9cm}(7cm,3.5cm)
             \begin{tikzpicture}
                 \node at (0.54,1.8) {Collision};
@@ -836,7 +835,7 @@
             \end{tikzpicture}
         \end{textblock*}
     }
-    \only<15>{
+    \only<14>{
         \begin{textblock*}{9cm}(12.5cm,3.5cm)
             $\dot{P}=\begin{bmatrix}\dot{x}_1 \\\vdots \\\dot{x}_{N-1} \\\dot{y}_1 \\\vdots \\\dot{y}_{N-1}\end{bmatrix}\in\mathbb{R}^{2(N-1)}$\\
         \end{textblock*}
@@ -856,13 +855,14 @@
             \pause
             \pause
             \pause
-            - limited horizon $N$
+            - limit the horizon $N$
             \pause
         \item In practice
             \pause
             \pause
             \pause
         \item Heuristic\\
+            - Horizon shortening (HS)\\
             - $N:=\lceil N/2\rceil$
     \end{itemize}
     \only<1-8>{
@@ -900,7 +900,7 @@
 
     }
     \only<12-16>{
-        \begin{textblock*}{5cm}(5cm,4.5cm)
+        \begin{textblock*}{5cm}(5.2cm,5.5cm)
             \begin{tikzpicture}
                 \useasboundingbox (-0.5,-0.5) rectangle (2.8, 1.2);
                 \coordinate (agent) at (0, 0);
@@ -970,7 +970,7 @@
     }
 \end{frame}
 
-\begin{frame}[label=uncert]{Uncertainty}
+\begin{frame}[label=uncert]{Uncertainty (ORCA)}
     \begin{itemize}
         \item Future position\\
             - $\dot{\V{p}}_k=[0, v_{max}] \;\; \forall k$\\
@@ -981,14 +981,25 @@
             - $\vert\vert \bar{\V{p}}_k-\V{p}_{k,c_j}\vert\vert \geq d_k$\\
             \hspace{3mm}$\rightarrow d = d_0 + Tv_{max}\T{\begin{bmatrix} 1,\; 2, \dots\end{bmatrix}}$
             \pause
+            \pause
         \item Relaxation $r_u$\\
             - e.g. $r_u=0.5$\\
             \hspace{3mm}$\rightarrow d = d_0 + 0.5Tv_{max}\T{\begin{bmatrix} 1,\; 2, \dots\end{bmatrix}}$
             \pause
             \pause
-        \item Results ORCA crowd
     \end{itemize}
-    \only<1-7>{
+    \only<1-5>{
+        \begin{textblock*}{10cm}(7.5cm,1.2cm)
+            \resizebox{6cm}{!}{\input{schema/uncert.tex}}
+        \end{textblock*}
+    }
+    \only<6>{
+        \begin{textblock*}{8cm}(8cm,1.5cm)
+            \centering
+            \resizebox{8.5cm}{!}{\input{graphs/bar_plot_mpc_orca_acc10.pgf}}
+        \end{textblock*}
+    }
+    \only<7>{
         \begin{textblock*}{10cm}(7.5cm,1.2cm)
             \resizebox{6cm}{!}{\input{schema/uncert.tex}}
         \end{textblock*}
@@ -1197,7 +1208,7 @@
             - reality:\\
             \hspace{4mm}ensure no collisions for $(N-1)$-steps and stop at $N$\\
             \pause
-            \hspace{4mm} $\rightarrow$ stopping at $<\frac{N}-1$ is not possible
+            \hspace{4mm} $\rightarrow$ stopping at $N-1$ is not possible
             \pause
         \item Set a long $N$\\
             - increase braking distance 
@@ -1403,46 +1414,38 @@
             \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/prodmp_mpc_171.mp4}
         \end{textblock*}
     }
-    \only<3>{
-        \begin{textblock*}{6cm}(0.5cm, 1.8cm)
-            \centering
-            MPC\\
-            \vspace{4mm}
-            \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/mpc_941.mp4}
-            \vspace{2mm}
-            \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/mpc_952.mp4}
-        \end{textblock*}
-        \begin{textblock*}{6cm}(5.6cm, 1.8cm)
-            \centering
-            ProDMP\\
-            \vspace{4mm}
-            \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/prodmp_941.mp4}
-            \vspace{2mm}
-            \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/prodmp_952.mp4}
-        \end{textblock*}
-        \begin{textblock*}{6cm}(10.7cm, 1.8cm)
-            \centering
-            ProDMP-MPC\\
-            \vspace{4mm}
-            \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/prodmp_mpc_941.mp4}
-            \vspace{2mm}
-            \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/prodmp_mpc_952.mp4}
-        \end{textblock*}
-    }
+    % \only<3>{
+    %     \begin{textblock*}{6cm}(0.5cm, 1.8cm)
+    %         \centering
+    %         MPC\\
+    %         \vspace{4mm}
+    %         \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/mpc_941.mp4}
+    %         \vspace{2mm}
+    %         \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/mpc_952.mp4}
+    %     \end{textblock*}
+    %     \begin{textblock*}{6cm}(5.6cm, 1.8cm)
+    %         \centering
+    %         ProDMP\\
+    %         \vspace{4mm}
+    %         \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/prodmp_941.mp4}
+    %         \vspace{2mm}
+    %         \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/prodmp_952.mp4}
+    %     \end{textblock*}
+    %     \begin{textblock*}{6cm}(10.7cm, 1.8cm)
+    %         \centering
+    %         ProDMP-MPC\\
+    %         \vspace{4mm}
+    %         \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/prodmp_mpc_941.mp4}
+    %         \vspace{2mm}
+    %         \movie[poster, showcontrols, height=2.5cm, width=5cm]{}{imgs/prodmp_mpc_952.mp4}
+    %     \end{textblock*}
+    % }
 \end{frame}
 
 \begin{frame}{Results - ORCA Crowd}
     \only<1>{
     \begin{textblock*}{10cm}(1.5cm,2cm)
         \resizebox{14cm}{!}{\input{graphs/plot_prodmp_orca.pgf}}
-    \end{textblock*}
-    }
-\end{frame}
-
-\begin{frame}{Results - Homogeneous Crowd}
-    \only<1>{
-    \begin{textblock*}{10cm}(1.5cm,2cm)
-        \resizebox{14cm}{!}{\input{graphs/plot_prodmp_hom.pgf}}
     \end{textblock*}
     }
 \end{frame}
@@ -1462,36 +1465,26 @@
     \textbf{\Fontbig{Conclusion \& Perspective}}
 \end{frame}
 
-\begin{frame}{Conclusion}
+\begin{frame}{Conclusion \& Future Work}
     \begin{itemize}
         \item RL\\
             - MDP choices
         \item MPC limitations\\
             - Freezing robot problem\\
-            - Optimal global control
+            - Optimal global control\\
+            \hspace{4mm}$rightarrow$ passive safety\\
+            \hspace{4mm}$rightarrow$ non-linear constraints sequential QP
             \pause
         \item Hybrid advantages\\
             \pause
         \item Hybrid limitations\\
-            - OOD data (crowd)
+            - OOD data (crowd)\\
+            \hspace{4mm}$rightarrow$ crowd modeling\\
+            \hspace{4mm}$rightarrow$ crowd prediction\\
+            - Policy\\
+            \hspace{4mm}$rightarrow$ multimodal policy
     \end{itemize}
 \end{frame}
-
-\begin{frame}{Future Work}
-    \begin{itemize}
-        \item Optimal global control\\
-            - Non-linear constraints sequential-QP\\
-            - Passive safety
-            \pause
-        \item Crowd\\
-            - modeling\\
-            - prediction
-            \pause
-        \item Policy\\
-            - multimodal policy
-    \end{itemize}
-\end{frame}
-
 
 \begin{frame}{}
 \centering
@@ -1909,6 +1902,14 @@
 
 \begin{frame}[label={app8}]
 \frametitle{A8: MPC Biped Walking}
+\end{frame}
+
+
+\begin{frame}[label={results}]
+\frametitle{Results - Homogeneous Crowd}
+    \begin{textblock*}{10cm}(1.5cm,2cm)
+        \resizebox{14cm}{!}{\input{graphs/plot_prodmp_hom.pgf}}
+    \end{textblock*}
 \end{frame}
 
 \end{document}
