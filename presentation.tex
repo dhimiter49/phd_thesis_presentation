@@ -65,7 +65,7 @@
 % the presentation starts here
 
 \title[Safe RL for Robot Navigation with MPC]{Safe Reinforcement Learning for Robot Navigation \\ with Model Predictive Control}
-\subtitle{PhD Defense, Jury: Alain Dutech, Nicolas Mansard, Laetitia Matignon, Olivier Aycard, Pierre-Brice Wieber, Thierry Fraichard}
+\subtitle{PhD Defense - Jury: Alain Dutech, Nicolas Mansard, Laetitia Matignon, Olivier Aycard, Pierre-Brice Wieber, Thierry Fraichard}
 \author{Dhimiter Pikuli}
 
 % Bibliography
@@ -190,15 +190,14 @@
             \pause
             - avoid the crowd \\
             \pause
-            - non-verbal cooperation\\
-            % without communicating, perception, self-localizing, planning, map building
+            - efficient and safe
         \pause
     \item Formalization \\
         $\rightarrow$ Markov Decision Process (MDP) $(\mathcal{S,A,P,R})$\\
         \pause
             - $\mathcal{S}$ | position \& velocity, LiDAR\\
         \pause
-        - $\mathcal{A}$ | velocity, acceleration\\
+        - $\mathcal{A}$ | acceleration, velocity\\
         \pause
         - $\mathcal{R}:\mathcal{S}\times\mathcal{A}\rightarrow\mathbb{R}$\\
         \hspace{4mm} e.g. reaching the goal\\
@@ -311,7 +310,7 @@
             \resizebox{7cm}{!}{\input{schema/mpc_schema.tex}}
         }
     \end{textblock*}
-    \begin{textblock*}{7cm}(9.05cm,3.6cm)
+    \begin{textblock*}{7cm}(9.15cm,3.6cm)
         \visible<2->{
             \resizebox{5cm}{!}{\input{schema/rl_schema.tex}}
         }
@@ -349,12 +348,6 @@
         \end{adjustbox}
     \end{table}
     }
-    \end{textblock*}
-\end{frame}
-
-\begin{frame}[label=temp]{temp}
-    \begin{textblock*}{8.6cm}(0.4cm,3cm)
-        \resizebox{16cm}{!}{\input{schema/nav_env.tex}}
     \end{textblock*}
 \end{frame}
 
@@ -537,16 +530,14 @@
         \item Policy Gradient\\
         \hspace{2mm}$\pi_{\V{\theta}}(\V{a}\vert\V{s})=\mathcal{N}(\V{a}\vert\mu_{\V{\theta}}(\V{s}), \Sigma_{\V{\theta}}(\V{s}))$\\
         \pause
-        \hspace{2mm}$\rightarrow\nabla_{\V{\theta}}G(\V{\theta})$\\
-        \pause
-        \hspace{2mm}$\rightarrow\V{\theta} \leftarrow \V{\theta} + \alpha \nabla_{\V{\theta}}G(\V{\theta})$\\
+        \hspace{2mm}$\rightarrow\nabla_{\V{\theta}}G(\V{\theta}), \;\; \V{\theta} \leftarrow \V{\theta} + \alpha \nabla_{\V{\theta}}G(\V{\theta})$\\
         \pause
         \item Gradient\\
             \hspace{2mm}$\nabla_{\V{\theta}}G(\V{\theta})=\textcolor<6->{myred}{\nabla_{\V{\theta}}} \textcolor<6->{myblue}{\int} \textcolor<6->{myred}{p_{\V{\theta}}(\tau)} \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})\textcolor<6->{myblue}{d\V{\tau}}$
             \pause
             \pause
             \pause
-            \vspace{8mm}
+            \vspace{9mm}
         \item Trust regions\\
             \hspace{2mm}$\M{\theta}^\star= \argmax_{\M{\theta}}G(\pi_{\M{\theta}},\pi_{\M{\theta}_{old}}), \quad\text{s.t.}\quad D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta,\quad \forall \V{s}\in\mathcal{S}$
             \pause
@@ -556,32 +547,32 @@
             \hspace{40mm}$\rightarrow \tilde\mu=\dots, \quad\tilde\Sigma=\dots $
     \end{itemize}
     \only<1->{
-        \begin{textblock*}{12cm}(7cm,1.2cm)
+        \begin{textblock*}{12cm}(7.5cm,1.2cm)
             \centering
-            \resizebox{7cm}{!}{\input{schema/fcn.tex}}
+            \resizebox{6.2cm}{!}{\input{schema/fcn.tex}}
         \end{textblock*}
     }
     \only<5->{
-        \begin{textblock*}{12cm}(5.35cm,3.2cm)
+        \begin{textblock*}{12cm}(5.35cm,2.96cm)
             {\Fontssmaller$\mathcal{P}(\V{s}_0)\prod_t \pi_{\V{\theta}}(\V{a}_t\vert\V{s}_t)\mathcal{P}(\V{s}_{t+1}\vert\V{s}_t, \V{a}_t)$}
         \end{textblock*}
     }
     \only<5->{
-        \begin{textblock*}{12cm}(4.82cm,3.4cm)
+        \begin{textblock*}{12cm}(4.82cm,3.12cm)
             \begin{tikzpicture}
-                \draw[->, thick] (0, 0) -- (0.5, 0.4);
+                \draw[->, thick] (0, 0) -- (0.5, 0.35);
             \end{tikzpicture}
         \end{textblock*}
     }
     \only<6->{
-        \begin{textblock*}{12cm}(3cm,4.6cm)
+        \begin{textblock*}{12cm}(3cm,4.35cm)
             {\Fontsmaller$\approx \textcolor<4->{myblue}{\dfrac{1}{K} \sum\limits_i^K} \left(\textcolor<4->{myred}{\sum\limits_t\nabla_{\V{\theta}}\log\pi_{\V{\theta}}(\V{a}_{i,t}\vert \V{s}_{i,t})}\right)  \left(\sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{i,t},\V{a}_{i,t})\right)$}
         \end{textblock*}
     }
     \only<7->{
-        \begin{textblock*}{12cm}(8.2cm,5.4cm)
+        \begin{textblock*}{12cm}(8.3cm,5.2cm)
             \centering
-            \resizebox{5.5cm}{!}{\input{schema/trust_region.tex}}
+            \resizebox{5.2cm}{!}{\input{schema/trust_region.tex}}
         \end{textblock*}
     }
 \end{frame}
@@ -719,16 +710,19 @@
            \pause
         \item Reference $P^{ref}$
            \pause
-        \item Minimize\\
-            - $P - P^{ref}$
            \pause
+           \pause
+        % \item Minimize\\
+        %     - $P - P^{ref}$
+        %    \pause
         \item Quadratic objective\\
             - $\dfrac{1}{2}\left\vert\left\vert P - P^{ref}\right\vert\right\vert^2$
+           \pause
            \pause
         % \item Regularisation term\\
         %     - $\left\vert\left\vert \dot{P}\right\vert\right\vert^2$
            % \pause
-        \item Optimizer\\
+        \item QP Solver\\
             - $\min\limits_{\dot{P}}\dfrac{1}{2}\T{\dot{P}}Q\dot{P}+l\dot{P}$
     \end{itemize}
     \only<1->{
@@ -737,11 +731,11 @@
         \end{textblock*}
     }
     \only<2->{
-        \begin{textblock*}{10cm}(6cm,0.7cm)
-            \resizebox{9cm}{!}{\input{schema/mpc.tex}}
+        \begin{textblock*}{10cm}(7cm,0.7cm)
+            \resizebox{6cm}{!}{\input{schema/mpc.tex}}
         \end{textblock*}
     }
-    \only<4->{
+    \only<6->{
         \begin{textblock*}{12cm}(5.4cm,4.6cm)
             \begin{align*}
                 & \min\limits_{\dot{P}}\dfrac{1}{2}\left\vert\left\vert P - P^{ref}\right\vert\right\vert^2 \\
@@ -757,8 +751,8 @@
             \pause
         \item Control\\
             - velocity and acceleration\\
-            - linearization
             \pause
+            - linearization
             \pause
             \pause
             \pause
@@ -769,6 +763,7 @@
             - {\Fontsmaller\cite{bohorquez_safe_2016}}\\
             \hspace{4mm}$\rightarrow \vert\vert \V{p} - \V{p}_{c_j}\vert\vert\geq d$
             \pause
+            - linearization
             \pause
             \pause
             \pause
@@ -855,11 +850,7 @@
         \item MPC problem [\cite{trautman_unfreezing_2010}]\\
             - $\vert\vert \V{\bar{p}}_k - \V{p}_{k,c_j}\vert\vert\geq d, \quad \forall k \in \{1,\dots N\}$\\
             \pause
-            \pause
-            \pause
             - initial guess $\V{\bar{p}}_k=\V{p}_0$\\
-            \pause
-            \pause
             \pause
             \pause
             - limit the horizon $N$
@@ -872,12 +863,12 @@
             - Horizon shortening (HS)\\
             - $N:=\lceil N/2\rceil$
     \end{itemize}
-    \only<1-8>{
+    \only<1-4>{
         \begin{textblock*}{10cm}(10cm,2.4cm)
             \resizebox{4cm}{!}{\input{schema/frp.tex}}
         \end{textblock*}
     }
-    \only<9-11>{
+    \only<5-7>{
         \begin{textblock*}{10cm}(8.5cm,2cm)
             \includegraphics[height=3cm, trim=0.4\wd\fstimg{} 0.25\ht\fstimg{} 0.2\wd\fstimg{} 0.25\ht\fstimg{}, clip]{imgs/FRP2.png}
         \end{textblock*}
@@ -885,7 +876,7 @@
             \includegraphics[height=3cm, trim=0.4\wd\sndimg{} 0.25\ht\sndimg{} 0.2\wd\sndimg{} 0.25\ht\sndimg{}, clip]{imgs/FRP3.png}
         \end{textblock*}
     }
-    \only<10-11>{
+    \only<6-7>{
         \begin{textblock*}{3cm}(13cm,4cm)
             $N$\\
             $T$\\
@@ -894,7 +885,7 @@
         \end{textblock*}
 
     }
-    \only<11>{
+    \only<7>{
         \begin{textblock*}{5cm}(13.4cm,3.8cm)
             \begin{tikzpicture}
                 \draw[ultra thick] (0,2) -- (0.4, 2) -- (0.4, -0.1) -- (0, -0.1);
@@ -902,11 +893,11 @@
             \end{tikzpicture}
         \end{textblock*}
         \begin{textblock*}{5cm}(14.2cm,4.52cm)
-            $N<\dfrac{d_{\V{p}\V{p}_c}}{\vert\vert\dot{\V{p}}_c\vert\vert}+1$
+            $N<\dfrac{d_{\V{p}\V{p}_c}}{\vert\vert\dot{T\V{p}}_c\vert\vert}+1$
         \end{textblock*}
 
     }
-    \only<12-16>{
+    \only<8-12>{
         \begin{textblock*}{5cm}(5.2cm,5.5cm)
             \begin{tikzpicture}
                 \useasboundingbox (-0.5,-0.5) rectangle (2.8, 1.2);
@@ -915,15 +906,15 @@
                 \coordinate (c1) at (2.8, 0.8);
                 \coordinate (c2) at (2.8, -0.6);
 
-                \fill<12>[mygreen] (agent0) circle (0.3);
-                \draw<12>[thick] (agent0) -- (agent) -- ([xshift=4mm, yshift=-1mm]agent) -- ([xshift=5mm, yshift=-2mm]agent);
-                \fill<13->[mygreen] (agent) circle (0.3);
+                \fill<8>[mygreen] (agent0) circle (0.3);
+                \draw<8>[thick] (agent0) -- (agent) -- ([xshift=4mm, yshift=-1mm]agent) -- ([xshift=5mm, yshift=-2mm]agent);
+                \fill<9->[mygreen] (agent) circle (0.3);
 
 
                 \draw[mygreen, thick] (2.9, -0.1) -- (3.1, 0.1);
                 \draw[mygreen, thick] (3.1, -0.1) -- (2.9, 0.1);
 
-                \visible<12>{
+                \visible<8>{
                 \fill[myred] (c1) circle (0.3);
                 \fill[myred] (c2) circle (0.3);
                 \draw[->, myred, ultra thick] (c1) -- ([xshift=-6mm, yshift=-1.5mm]c1);
@@ -935,7 +926,7 @@
                 \fill[myred, fill opacity=0.3] ([xshift=-18mm, yshift=-4.5mm]c1) circle (0.3);
                 \fill[myred, fill opacity=0.3] ([xshift=-18mm]c2) circle (0.3);
                 }
-                \visible<13>{
+                \visible<9>{
                 \coordinate (c1) at (2.2, 0.6);
                 \coordinate (c2) at (2.2, -0.6);
                 \fill[myred] (c1) circle (0.3);
@@ -949,8 +940,8 @@
                 \fill[myred, fill opacity=0.3] ([xshift=-18mm, yshift=-4.5mm]c1) circle (0.3);
                 \fill[myred, fill opacity=0.3] ([xshift=-18mm]c2) circle (0.3);
                 }
-                \draw<13>[thick] (agent) -- ([xshift=4mm, yshift=-1mm]agent) -- ([xshift=5mm, yshift=-2mm]agent);
-                \visible<14->{
+                \draw<9>[thick] (agent) -- ([xshift=4mm, yshift=-1mm]agent) -- ([xshift=5mm, yshift=-2mm]agent);
+                \visible<10->{
                 \coordinate (c1) at (2.2, 0.6);
                 \coordinate (c2) at (2.2, -0.6);
                 \fill[myred] (c1) circle (0.3);
@@ -962,10 +953,10 @@
                 \fill[myred, fill opacity=0.7] ([xshift=-6mm]c2) circle (0.3);
                 \fill[myred, fill opacity=0.5] ([xshift=-12mm]c2) circle (0.3);
                 }
-                \draw<15->[thick] (agent) -- ([xshift=2mm, yshift=4mm]agent) -- ([xshift=4mm, yshift=7mm]agent);
+                \draw<11->[thick] (agent) -- ([xshift=2mm, yshift=4mm]agent) -- ([xshift=4mm, yshift=7mm]agent);
             \end{tikzpicture}
         \end{textblock*}
-        \only<16>{
+        \only<12>{
             \begin{textblock*}{8cm}(9cm,4cm)
                 \centering
                 % $a_{max}=1m/s^2$\\
@@ -990,9 +981,7 @@
             \pause
             \pause
         \item Relaxation $r_u$\\
-            - e.g. $r_u=0.5$\\
-            \hspace{3mm}$\rightarrow d = d_0 + 0.5Tv_{max}\T{\begin{bmatrix} 1,\; 2, \dots\end{bmatrix}}$
-            \pause
+            - $d = d_0 + r_uTv_{max}\T{\begin{bmatrix} 1,\; 2, \dots\end{bmatrix}}$
             \pause
     \end{itemize}
     \only<1-5>{
@@ -1036,7 +1025,7 @@
         \pause
         \item Long $N$ problem\\
             - slow, not real-time\\
-            - initial guess $\bar{\V{p}}=0$\\
+            - initial guess $\bar{\V{p}}=\V{p}_0$\\
             \pause
             \hspace{3mm}$\rightarrow$ Rapidly-exploring random tree (RRT)
     \end{itemize}
@@ -1476,20 +1465,23 @@
     \begin{itemize}
         \item RL\\
             - MDP choices
+            \pause
         \item MPC limitations\\
             - Freezing robot problem\\
+            \pause
             - Optimal global control\\
-            \hspace{4mm}$rightarrow$ passive safety\\
-            \hspace{4mm}$rightarrow$ non-linear constraints sequential QP
+            \hspace{4mm}$\rightarrow$ passive safety\\
+            \hspace{4mm}$\rightarrow$ non-linear constraints sequential QP
             \pause
         \item Hybrid advantages\\
             \pause
         \item Hybrid limitations\\
             - OOD data (crowd)\\
-            \hspace{4mm}$rightarrow$ crowd modeling\\
-            \hspace{4mm}$rightarrow$ crowd prediction\\
+            \hspace{4mm}$\rightarrow$ crowd modeling\\
+            \hspace{4mm}$\rightarrow$ crowd prediction\\
+            \pause
             - Policy\\
-            \hspace{4mm}$rightarrow$ multimodal policy
+            \hspace{4mm}$\rightarrow$ multimodal policy
     \end{itemize}
 \end{frame}
 
