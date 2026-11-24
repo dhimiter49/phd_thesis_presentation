@@ -202,7 +202,7 @@
         - $\mathcal{R}:\mathcal{S}\times\mathcal{A}\rightarrow\mathbb{R}$\\
         \hspace{4mm} e.g. reaching the goal\\
         \pause
-        - $\mathcal{P}:\mathcal{S}\times\mathcal{A}\rightarrow \times\mathcal{S}$\\
+        - $\mathcal{P}:\mathcal{S}\times\mathcal{A}\rightarrow \mathcal{S}$\\
         \hspace{4mm} e.g. constant velocity, ORCA
     \end{itemize}
     % \begin{textblock*}{4.8cm}(6.2cm,1.6cm)
@@ -305,12 +305,12 @@
         \item Pros \& Cons
         \vspace{20mm}
     \end{itemize}
-    \begin{textblock*}{8cm}(8cm,8mm)
+    \begin{textblock*}{8cm}(9cm,8mm)
         \visible<1->{
             \resizebox{7cm}{!}{\input{schema/mpc_schema.tex}}
         }
     \end{textblock*}
-    \begin{textblock*}{7cm}(9.15cm,3.6cm)
+    \begin{textblock*}{7cm}(10.2cm,3.6cm)
         \visible<2->{
             \resizebox{5cm}{!}{\input{schema/rl_schema.tex}}
         }
@@ -472,6 +472,7 @@
             \pause
         \item MPC\\
             - Passive motion safety\\
+            \pause
             - Freezing robot problem\\
             \pause
             - Optimal global control
@@ -480,7 +481,7 @@
             - Episode-based RL\\
             - Hybrid
     \end{itemize}
-    \only<2>{
+    \only<2-3>{
         \begin{textblock*}{12cm}(4.8cm,3cm)
             \Fontsmaller
             \begin{align*}
@@ -505,13 +506,13 @@
         %     \resizebox{9cm}{!}{\input{schema/mpc.tex}}
         % \end{textblock*}
     }
-    \only<3>{
+    \only<4>{
         \begin{textblock*}{6cm}(7cm, 2.5cm)
             \centering
             \movie[poster, showcontrols, height=5.65cm, width=8cm]{}{imgs/global_opt.mp4}
         \end{textblock*}
     }
-    \only<4>{
+    \only<5>{
         \begin{textblock*}{6cm}(6.8cm,3cm)
             \includegraphics[height=4cm]{imgs/prodmp_ineff_40.pdf}
         \end{textblock*}
@@ -533,7 +534,7 @@
         \hspace{2mm}$\rightarrow\nabla_{\V{\theta}}G(\V{\theta}), \;\; \V{\theta} \leftarrow \V{\theta} + \alpha \nabla_{\V{\theta}}G(\V{\theta})$\\
         \pause
         \item Gradient\\
-            \hspace{2mm}$\nabla_{\V{\theta}}G(\V{\theta})=\textcolor<6->{myred}{\nabla_{\V{\theta}}} \textcolor<6->{myblue}{\int} \textcolor<6->{myred}{p_{\V{\theta}}(\tau)} \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})\textcolor<6->{myblue}{d\V{\tau}}$
+            \hspace{2mm}$\nabla_{\V{\theta}}G(\V{\theta})=\textcolor<5->{myred}{\nabla_{\V{\theta}}} \textcolor<5->{myblue}{\int} \textcolor<5->{myred}{p_{\V{\theta}}(\tau)} \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})\textcolor<5->{myblue}{d\V{\tau}}$
             \pause
             \pause
             \pause
@@ -552,24 +553,24 @@
             \resizebox{6.2cm}{!}{\input{schema/fcn.tex}}
         \end{textblock*}
     }
-    \only<5->{
+    \only<4->{
         \begin{textblock*}{12cm}(5.35cm,2.96cm)
             {\Fontssmaller$\mathcal{P}(\V{s}_0)\prod_t \pi_{\V{\theta}}(\V{a}_t\vert\V{s}_t)\mathcal{P}(\V{s}_{t+1}\vert\V{s}_t, \V{a}_t)$}
         \end{textblock*}
     }
-    \only<5->{
+    \only<4->{
         \begin{textblock*}{12cm}(4.82cm,3.12cm)
             \begin{tikzpicture}
                 \draw[->, thick] (0, 0) -- (0.5, 0.35);
             \end{tikzpicture}
         \end{textblock*}
     }
-    \only<6->{
+    \only<5->{
         \begin{textblock*}{12cm}(3cm,4.35cm)
             {\Fontsmaller$\approx \textcolor<4->{myblue}{\dfrac{1}{K} \sum\limits_i^K} \left(\textcolor<4->{myred}{\sum\limits_t\nabla_{\V{\theta}}\log\pi_{\V{\theta}}(\V{a}_{i,t}\vert \V{s}_{i,t})}\right)  \left(\sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{i,t},\V{a}_{i,t})\right)$}
         \end{textblock*}
     }
-    \only<7->{
+    \only<6->{
         \begin{textblock*}{12cm}(8.3cm,5.2cm)
             \centering
             \resizebox{5.2cm}{!}{\input{schema/trust_region.tex}}
@@ -761,7 +762,7 @@
             \pause
         \item Collision Avoidance\\
             - {\Fontsmaller\cite{bohorquez_safe_2016}}\\
-            \hspace{4mm}$\rightarrow \vert\vert \V{p} - \V{p}_{c_j}\vert\vert\geq d$
+            \hspace{4mm}$\rightarrow \vert\vert \V{p} - \V{p}_{c_j}\vert\vert\geq d$\\
             \pause
             - linearization
             \pause
@@ -893,7 +894,7 @@
             \end{tikzpicture}
         \end{textblock*}
         \begin{textblock*}{5cm}(14.2cm,4.52cm)
-            $N<\dfrac{d_{\V{p}\V{p}_c}}{\vert\vert\dot{T\V{p}}_c\vert\vert}+1$
+            $N<\dfrac{d_{\V{p}\V{p}_c}}{T\vert\vert\dot{\V{p}}_c\vert\vert}+1$
         \end{textblock*}
 
     }
@@ -981,7 +982,7 @@
             \pause
             \pause
         \item Relaxation $r_u$\\
-            - $d = d_0 + r_uTv_{max}\T{\begin{bmatrix} 1,\; 2, \dots\end{bmatrix}}$
+            - $d = d_0 + (1-r_u)Tv_{max}\T{\begin{bmatrix} 1,\; 2, \dots\end{bmatrix}}$
             \pause
     \end{itemize}
     \only<1-5>{
@@ -990,7 +991,7 @@
         \end{textblock*}
     }
     \only<6>{
-        \begin{textblock*}{8cm}(7.2cm,1.5cm)
+        \begin{textblock*}{8cm}(7.4cm,1.5cm)
             \centering
             \resizebox{9.4cm}{!}{\input{graphs/bar_plot_mpc_orca_acc10.pgf}}
         \end{textblock*}
@@ -1001,7 +1002,7 @@
         \end{textblock*}
     }
     \only<8>{
-        \begin{textblock*}{8cm}(7.2cm,1.5cm)
+        \begin{textblock*}{8cm}(7.4cm,1.5cm)
             \centering
             \resizebox{9.4cm}{!}{\input{graphs/bar_plot_mpc_orca_acc10.pgf}}\\
             \resizebox{9.4cm}{!}{\input{graphs/bar_plot_mpc_orca_relax_acc10_ht3.pgf}}
@@ -1166,7 +1167,7 @@
     \begin{itemize}
         \item Cascade of braking trajectories $M,N$\\
             \pause
-            - same objective $\min\limits_{\dot{P}}\frac{1}{2}\vert\vert P - P^{ref}\vert\vert^2$\\
+            - same objective $\vert\vert P - P^{ref}\vert\vert^2$\\
             \hspace{3mm}$P \rightarrow \V{p}_i=\V{b}_{i,1},\;\; \forall i\in\{1,\dots,M\}$\\
             \pause
             - plan $\dot{P} \rightarrow \dot{\V{p}}_i=\dot{\V{b}}_{i,1},\;\; \forall i\in\{1,\dots,M\}$\\
@@ -1312,10 +1313,8 @@
             - trajectory $\V{y}\in\mathbb{R}^2$
             \pause
         \item Control\\
-            - PD-controller $K_p\Delta p_t + K_d\Delta \dot{p}_t$\\
-            \pause
+            - PD-controller\\
             - velocity $\dot{\V{p}}_t$\\
-            \pause
             - MPC $\min\limits_{\dot{P}}\dfrac{1}{2}\left\vert\left\vert P - P^{ref}\right\vert\right\vert^2$
             \pause
         \item Process\\
@@ -1329,11 +1328,11 @@
             $$\V{y} \equiv c_1\V{y}_1 + c_2\V{y}_2 + \T{\M{\Phi}}\begin{bmatrix}\V{w}\\ g\end{bmatrix}$$
             $$\textcolor{cyan}{\V{\lambda}=[\V{y}_k]_{k=1:M}}, \quad M>N$$
         \end{textblock*}
-        \begin{textblock*}{10cm}(10cm,1.2cm)
-            \resizebox{6cm}{!}{\input{schema/mpc_hybrid_.tex}}
+        \begin{textblock*}{10cm}(11cm,1.2cm)
+            \resizebox{4cm}{!}{\input{schema/mpc_hybrid_.tex}}
         \end{textblock*}
     }
-    \only<5->{
+    \only<3->{
         \begin{textblock*}{10cm}(7.8cm,4.8cm)
             \resizebox{6.8cm}{!}{\input{schema/hybrid.tex}}
         \end{textblock*}
@@ -1454,7 +1453,7 @@
     }
 \end{frame}
 
-\subsection{Section 5}
+\section{Section 5}
 \subsection{Subsection 5.1}
 \begin{frame}{}
     \centering
@@ -1471,7 +1470,7 @@
             \pause
             - Optimal global control\\
             \hspace{4mm}$\rightarrow$ passive safety\\
-            \hspace{4mm}$\rightarrow$ non-linear constraints sequential QP
+            \hspace{4mm}$\rightarrow$ non-linear constraints $\rightarrow$ sequential QP
             \pause
         \item Hybrid advantages\\
             \pause

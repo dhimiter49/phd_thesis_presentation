@@ -21,21 +21,4 @@
 
     \draw[ultra thick, ->, myred] (C1) -- ++(-145:1.5);
     \draw[ultra thick, ->, myred] (C2) -- ++(-160:1.5);
-
-    \draw (8.8, 5.5) -- (8.8, -0.5);
-
-    \node [fill=mygreen, circle, minimum size=0.8cm] at (10, 5) {};
-    \node (agent_str) at (11.8, 5) {Agent};
-
-    \node [cross out, ultra thick, draw=mygreen, minimum size=0.4cm] at (10, 3.75) {};
-    \node (goal_str) at (11.8, 3.75) {Goal};
-
-    \node [fill=myred, circle, minimum size=0.8cm] at (10, 2.5) {};
-    \node (crowd_str) at (11.8, 2.5) {Crowd};
-
-    \draw[ultra thick, -{Stealth[scale=1.0]}] (9.75, 1.25) -- (10.25, 1.25);
-    \node (traj_str) at (11.8, 1.25) {$P$ (from $\dot{P}$ or $\ddot{P}$)};
-
-    \draw[ultra thick, cyan] (9.75, 0) -- (10.25, 0);
-    \node (traj_str) at (11.8, 0) {$P^{ref}$ (learned)};
 \end{tikzpicture}

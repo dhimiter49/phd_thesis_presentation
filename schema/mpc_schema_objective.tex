@@ -4,8 +4,8 @@
     G/.style = {draw, black, line width=1}]
     \node[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (mpc) at (0, 0) {MPC Controller\\ \\ \\};
     \node[rectangle, rounded corners=4pt, minimum width=2cm, draw=black] (model) at (0, 0.2) {Model};
-    \node<1-5>[rectangle, rounded corners=4pt, minimum width=2cm, draw=black] (opt) at (0, -0.5)  {Optimizer};
-    \node<6->[rectangle, fill=cyan, fill opacity=0.2, text opacity=1, rounded corners=4pt, minimum width=2cm, draw=black] (opt) at (0, -0.5) {Optimizer};
+    \node<1-6>[rectangle, rounded corners=4pt, minimum width=2cm, draw=black] (opt) at (0, -0.5)  {Optimizer};
+    \node<7>[rectangle, fill=cyan, fill opacity=0.2, text opacity=1, rounded corners=4pt, minimum width=2cm, draw=black] (opt) at (0, -0.5) {Optimizer};
     \node[rectangle, minimum height=0.8cm, rounded corners=4pt, minimum width=1.3cm, draw=black] (sys) at (0, -2.5) {System};
     \coordinate[right = 4 of sys.west] (context_mid) {};
     \coordinate[left = 4 of sys.east] (context_mid_) {};
