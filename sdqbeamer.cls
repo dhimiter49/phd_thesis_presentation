@@ -370,8 +370,8 @@
   \usebackgroundtemplate{
     \begin{pgfpicture}{0mm}{0mm}{\paperwidth}{\paperheight}
       % title image
-      \pgftext[at=\pgfpoint{1mm}{7.5mm},left,bottom]{%
-        \includegraphics[height=40mm]{logos/\@titleimage}
+      \pgftext[at=\pgfpoint{\paperwidth/2}{8mm},center,bottom]{%
+        \resizebox{!}{40mm}{\input{schema/nav_env.tex}}
       }
       % dark grey frame for institute name
 	    \color{black!50}
@@ -403,6 +403,10 @@
   %KIT logo
   \begin{textblock*}{24mm}(5.5mm,5mm)
   \includegraphics[width=23mm]{imgs/logo_inria.png}
+  \end{textblock*}
+
+  \begin{textblock*}{24mm}(34mm,3.5mm)
+  \includegraphics[width=20mm]{imgs/Logo_UGA.png}
   \end{textblock*}
 
   %group logo

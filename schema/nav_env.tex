@@ -1,0 +1,13 @@
+\begin{tikzpicture}
+    \node[fill=black!5, minimum width=10cm, minimum height=2.25cm] (env) at (0, 0) {};
+    \draw[ultra thick, mygreen] (4.2, 0.2) -- (4.4, 0.4); % goal
+    \draw[ultra thick, mygreen] (4.2, 0.4) -- (4.4, 0.2); % goal
+    
+    \draw[ultra thick, mygreen, dashed] (-3.7, -0.28) to[out=-10, in=180] (-2, -0.7) to[out=0, in=180] (-0.45, 0.8) to[out=0, in=180] (0.8, -0.9) to[out=0, in=180] (3, 0.9) to[out=0, in=160] (4.3, 0.3);
+
+    \node[anchor=west] at (-4.3, -0.1) {\includegraphics[height=0.8cm]{imgs/mirokai.png}};
+    \node[anchor=center] at (-2, 0.4) {\includegraphics[height=1cm]{imgs/walking.png}};
+    \node[anchor=east] at (-0.2, -0.4) {\reflectbox{\includegraphics[height=1cm]{imgs/walking.png}}};
+    \node[anchor=east] at (1.2, 0.3) {\reflectbox{\includegraphics[height=1cm]{imgs/walking.png}}};
+    \node[anchor=east] at (3.4, -0.2) {\includegraphics[height=1cm]{imgs/walking.png}};
+\end{tikzpicture}
