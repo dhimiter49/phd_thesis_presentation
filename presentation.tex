@@ -528,7 +528,7 @@
 
 \begin{frame}[label=trpl]{Trust Region Projection Layers (TRPL)}
     \begin{itemize}
-        \item Policy Gradient\\
+        \item Policy gradient\\
         \hspace{2mm}$\pi_{\V{\theta}}(\V{a}\vert\V{s})=\mathcal{N}(\V{a}\vert\mu_{\V{\theta}}(\V{s}), \Sigma_{\V{\theta}}(\V{s}))$\\
         \pause
         \hspace{2mm}$\rightarrow\nabla_{\V{\theta}}G(\V{\theta}), \;\; \V{\theta} \leftarrow \V{\theta} + \alpha \nabla_{\V{\theta}}G(\V{\theta})$\\
@@ -723,7 +723,7 @@
         % \item Regularisation term\\
         %     - $\left\vert\left\vert \dot{P}\right\vert\right\vert^2$
            % \pause
-        \item QP Solver\\
+        \item QP solver\\
             - $\min\limits_{\dot{P}}\dfrac{1}{2}\T{\dot{P}}Q\dot{P}+l\dot{P}$
     \end{itemize}
     \only<1->{
@@ -760,7 +760,7 @@
             \pause
             \pause
             \pause
-        \item Collision Avoidance\\
+        \item Collision avoidance\\
             - {\Fontsmaller\cite{bohorquez_safe_2016}}\\
             \hspace{4mm}$\rightarrow \vert\vert \V{p} - \V{p}_{c_j}\vert\vert\geq d$\\
             \pause
@@ -768,7 +768,7 @@
             \pause
             \pause
             \pause
-        \item Passive safety\\
+        \item Passive motion safety\\
             \pause
             - $\dot{\V{p}}_N=0$
     \end{itemize}
@@ -1131,7 +1131,7 @@
 
 \begin{frame}[label=limit]{Limitations}
     \begin{itemize}
-        \item Passive safety\\
+        \item Passive motion safety\\
             \pause
             - Braking trajectories $\dot{\V{p}}:=0$
             \pause
@@ -1469,7 +1469,7 @@
             - Freezing robot problem\\
             \pause
             - Optimal global control\\
-            \hspace{4mm}$\rightarrow$ passive safety\\
+            \hspace{4mm}$\rightarrow$ passive motion safety\\
             \hspace{4mm}$\rightarrow$ non-linear constraints $\rightarrow$ sequential QP
             \pause
         \item Hybrid advantages\\
