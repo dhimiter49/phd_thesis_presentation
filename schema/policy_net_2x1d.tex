@@ -124,9 +124,7 @@
         \fi
     }
     \draw [->, -{Stealth[width=2mm]}] ([xshift=0.85cm]flat_lidar.east) -- ([xshift=-0.2cm]mlp_cat_0.west) node[midway, above, xshift=-0.34cm, yshift=4pt] () {\textit{cat},\\ 2$\times$FCN};
-    }
 
-    \only<18->{
     % Mean
     \node[draw, minimum width=\squareSize, minimum height=5*\squareSize] (mlp_mean) at ([yshift=-1.6cm, xshift=2cm]mlp_cat_0.east) {};
     \node (mlp_mean_str) at ([xshift=0.4cm]mlp_mean.east) {$\sigma$};
@@ -151,7 +149,7 @@
     \draw [->, -{Stealth[width=2mm]}] ([xshift=0.2cm]mlp_cat_0.east) -- ([xshift=-0.2cm]mlp_std.west)  node[midway, above, yshift=1pt, sloped] () {FCN};
     }
 
-    \only<19->{
+    \only<18->{
     % Weight sampling
     \draw (mlp_std_str) -| ([xshift=0.5cm]mlp_mean_str.east);
     \draw (mlp_mean_str) -- ([xshift=0.5cm]mlp_mean_str.east);
@@ -159,12 +157,12 @@
     \draw [->, -{Stealth[width=2mm]}] ([xshift=0.5cm]mlp_mean_str.east) -- ([yshift=0.2cm]weights.north);
     }
 
-    \only<20->{
+    \only<19->{
     \node[rectangle, draw=black, rounded corners=2pt] (traj) at ([xshift=-4.4cm]weights.west) {\Large$\boldsymbol{\lambda}_t=$\\[1ex] \Large$\{\boldsymbol{p}_{t+1},\dots,\boldsymbol{p}_{t+M}\}$};
     \draw [->, -{Stealth[width=2mm]}] ([xshift=-0.2cm]weights.west) -- ([xshift=0.2cm]traj.east) node[midway, above, yshift=3pt] () {\Large ProDMP \\ \Large $\rho(\boldsymbol{w}, \boldsymbol{p}_t)$};
     }
 
-    \only<21->{
+    \only<20->{
     \node[rectangle, draw=black, rounded corners=2pt] (action) at ([xshift=-3.8cm]traj.west) {\Large$\boldsymbol{a}_{t}=$\\[1ex] \Large$\{\dot{p}^x,\dot{p}^y\}$};
     \draw [->, -{Stealth[width=2mm]}] ([xshift=-0.2cm]traj.west) -- ([xshift=0.2cm]action.east) node[midway, above, yshift=3pt] () {\Large MPC \\ \Large $\nu(\boldsymbol{\lambda}_t,\boldsymbol{o}_t,\boldsymbol{c}_t)$};
     }
