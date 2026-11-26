@@ -916,7 +916,7 @@
 \begin{frame}[label=uncert]{Uncertainty}
     \begin{itemize}
         \item Future position\\
-            - $\dot{\V{p}}_{k,c_j}=[0, v_{max}] \;\; \forall k$\\
+            - $\vert\vert\dot{\V{p}}_{k,c_j}\vert\vert=[0, v_{max}] \;\; \forall k$\\
             \pause
             \pause
             \pause
@@ -935,8 +935,9 @@
         \end{textblock*}
     }
     \only<6>{
-        \begin{textblock*}{8cm}(7.4cm,1.5cm)
+        \begin{textblock*}{9.4cm}(7.4cm,1.5cm)
             \centering
+            ORCA
             \resizebox{9.4cm}{!}{\input{graphs/bar_plot_mpc_orca_acc10.pgf}}
         \end{textblock*}
     }
@@ -946,8 +947,9 @@
         \end{textblock*}
     }
     \only<8>{
-        \begin{textblock*}{8cm}(7.4cm,1.5cm)
+        \begin{textblock*}{9.4cm}(7.4cm,1.5cm)
             \centering
+            ORCA
             \resizebox{9.4cm}{!}{\input{graphs/bar_plot_mpc_orca_acc10.pgf}}\\
             \resizebox{9.4cm}{!}{\input{graphs/bar_plot_mpc_orca_relax_acc10_ht3.pgf}}
         \end{textblock*}
@@ -1292,18 +1294,13 @@
         \hspace{2mm}$\rightarrow\nabla_{\V{\theta}}G(\V{\theta}), \;\; \V{\theta} \leftarrow \V{\theta} + \alpha \nabla_{\V{\theta}}G(\V{\theta})$\\
         \pause
         \item Gradient\\
-            \hspace{2mm}$\nabla_{\V{\theta}}G(\V{\theta})=\textcolor<5->{myred}{\nabla_{\V{\theta}}} \textcolor<5->{myblue}{\int} \textcolor<5->{myred}{p_{\V{\theta}}(\tau)} \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})\textcolor<5->{myblue}{d\V{\tau}}$
+            \hspace{2mm}$\nabla_{\V{\theta}}G(\V{\theta})=\nabla_{\V{\theta}} \int p_{\V{\theta}}(\tau) \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})d\V{\tau}$
             \pause
-            \pause
-            \pause
-            \vspace{9mm}
         \item Trust regions\\
-            \hspace{2mm}$\M{\theta}^\star= \argmax_{\M{\theta}}G(\pi_{\M{\theta}},\pi_{\M{\theta}_{old}}), \quad\text{s.t.}\quad D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta,\quad \forall \V{s}\in\mathcal{S}$
+            \hspace{2mm}$\M{\theta}^\star= \argmax_{\M{\theta}}G(\M{\theta},\M{\theta}_{old}), \quad\text{s.t.}\quad D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta,\quad \forall \V{s}\in\mathcal{S}$
             \pause
-        \item Projection layer\\
-            \hspace{2mm}$\argmin\limits_{\tilde{\mu}} \T{(\mu-\tilde{\mu})}\Sigma_{old}^{-1}(\mu-\tilde{\mu}),\; \text{s.t.}\;\T{(\mu_{old}-\tilde{\mu})}\Sigma_{old}^{-1}(\mu_{old}-\tilde{\mu})\leq\delta_\mu$
-            \vspace{2mm}
-            \hspace{40mm}$\rightarrow \tilde\mu=\dots, \quad\tilde\Sigma=\dots $
+        \item Projection layer [\cite{otto_differentiable_2020}]\\
+            \hspace{20mm}$\mu \xrightarrow{D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta_{\mu}} \tilde{\mu} \quad \Sigma \xrightarrow{D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta__{\Sigma}} \tilde{\Sigma}$
     \end{itemize}
     \only<1->{
         \begin{textblock*}{12cm}(7.5cm,1.2cm)
@@ -1311,24 +1308,7 @@
             \resizebox{6.2cm}{!}{\input{schema/fcn.tex}}
         \end{textblock*}
     }
-    \only<4->{
-        \begin{textblock*}{12cm}(5.35cm,2.96cm)
-            {\Fontssmaller$\mathcal{P}(\V{s}_0)\prod_t \pi_{\V{\theta}}(\V{a}_t\vert\V{s}_t)\mathcal{P}(\V{s}_{t+1}\vert\V{s}_t, \V{a}_t)$}
-        \end{textblock*}
-    }
-    \only<4->{
-        \begin{textblock*}{12cm}(4.82cm,3.12cm)
-            \begin{tikzpicture}
-                \draw[->, thick] (0, 0) -- (0.5, 0.35);
-            \end{tikzpicture}
-        \end{textblock*}
-    }
-    \only<5->{
-        \begin{textblock*}{12cm}(3cm,4.35cm)
-            {\Fontsmaller$\approx \textcolor<4->{myblue}{\dfrac{1}{K} \sum\limits_i^K} \left(\textcolor<4->{myred}{\sum\limits_t\nabla_{\V{\theta}}\log\pi_{\V{\theta}}(\V{a}_{i,t}\vert \V{s}_{i,t})}\right)  \left(\sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{i,t},\V{a}_{i,t})\right)$}
-        \end{textblock*}
-    }
-    \only<6->{
+    \only<3->{
         \begin{textblock*}{12cm}(8.3cm,5.2cm)
             \centering
             \resizebox{5.2cm}{!}{\input{schema/trust_region.tex}}
