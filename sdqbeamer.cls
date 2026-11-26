@@ -212,7 +212,11 @@
   \setlength{\kitbottomdepth}{\dimexpr.5\kitbottom-.5em\relax}%
   \begin{beamercolorbox}[wd=13mm, ht=\kitbottomheight, dp=\kitbottomdepth, leftskip=5.5mm]{}
       \usebeamerfont{page number in head/foot}%
-      \strut\insertframenumber{}/\inserttotalframenumber%
+      % total = frame count before the backup/appendix slides
+      % (\insertmainframenumber is set by beamer at \appendix; because
+      %  \backupend resets the frame counter, references and appendix
+      %  frames are not counted in the total)
+      \strut\insertframenumber{}/\insertmainframenumber%
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=20mm, ht=\kitbottomheight, dp=\kitbottomdepth]{}
       \usebeamerfont{date in head/foot}%
