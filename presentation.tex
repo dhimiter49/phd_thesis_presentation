@@ -126,6 +126,9 @@
     \map{ \step[fieldsource=entrykey, match={pellegrini_you_2009}, final] \step[fieldset=shortjournal, fieldvalue={ICCV}] }
     \map{ \step[fieldsource=entrykey, match={vasquez_inverse_2014}, final] \step[fieldset=shortjournal, fieldvalue={IROS}] }
     \map{ \step[fieldsource=entrykey, match={alahi_2016_CVPR}, final] \step[fieldset=shortjournal, fieldvalue={CVPR}] }
+    \map{ \step[fieldsource=entrykey, match={otto_differentiable_2020}, final] \step[fieldset=shortjournal, fieldvalue={ICLR}] }
+    \map{ \step[fieldsource=entrykey, match={schulman2017ppo}, final] \step[fieldset=shortjournal, fieldvalue={CoRR}] }
+    \map{ \step[fieldsource=entrykey, match={haarnojaZAL18}, final] \step[fieldset=shortjournal, fieldvalue={PMLR}] }
   }
 }
 
@@ -184,11 +187,11 @@
     \begin{itemize}
         \item Objective\\
             \pause
-            - reach an assigned goal\\
+            - scope: move to an assigned goal\\
             \pause
-            - our scope is moving\\
+            - naturally avoid the crowd \\
             \pause
-            - avoid the crowd \\
+            - non-verbal cooperation \\
             \pause
             - efficient and safe
         \pause
@@ -466,32 +469,26 @@
 
 \begin{frame}{Outline}
     \begin{itemize}
-        \item RL\\
-            - Algorithm\\
-            - MDP choices
-            \pause
+        \item RL \& MDP choices
         \item MPC\\
             - Passive motion safety\\
-            \pause
             - Freezing robot problem\\
-            \pause
             - Optimal global control
-        \pause
         \item Combining\\
             - Episode-based RL\\
             - Hybrid
     \end{itemize}
-    \only<2-3>{
-        \begin{textblock*}{12cm}(4.8cm,3cm)
-            \Fontsmaller
-            \begin{align*}
-                \min\limits_{\dot{P}} \quad & go\_to\_goal(\dot{P})\\
-                \text{s.t.} \quad & maintain\_threshold\_vel(\dot{P}),\\
-                & maintain\_threshold\_acc(\dot{P}),\\
-                & maintain\_distance\_to\_crowd(\dot{P}),\\
-                & brake\_at\_trajectory\_end(\dot{P}).\\
-            \end{align*}
-        \end{textblock*}
+    % \only<2-3>{
+    %     \begin{textblock*}{12cm}(4.8cm,3cm)
+    %         \Fontsmaller
+    %         \begin{align*}
+    %             \min\limits_{\dot{P}} \quad & go\_to\_goal(\dot{P})\\
+    %             \text{s.t.} \quad & maintain\_threshold\_vel(\dot{P}),\\
+    %             & maintain\_threshold\_acc(\dot{P}),\\
+    %             & maintain\_distance\_to\_crowd(\dot{P}),\\
+    %             & brake\_at\_trajectory\_end(\dot{P}).\\
+    %         \end{align*}
+    %     \end{textblock*}
         % \begin{textblock*}{12cm}(4.8cm,1cm)
         %     \Fontsmaller
         %     \begin{align*}
@@ -505,128 +502,75 @@
         %     \centering
         %     \resizebox{9cm}{!}{\input{schema/mpc.tex}}
         % \end{textblock*}
-    }
-    \only<4>{
-        \begin{textblock*}{6cm}(7cm, 2.5cm)
-            \centering
-            \movie[poster, showcontrols, height=5.65cm, width=8cm]{}{imgs/global_opt.mp4}
-        \end{textblock*}
-    }
-    \only<5>{
-        \begin{textblock*}{6cm}(6.8cm,3cm)
-            \includegraphics[height=4cm]{imgs/prodmp_ineff_40.pdf}
-        \end{textblock*}
-    }
+    % }
+    % \only<4>{
+    %     \begin{textblock*}{6cm}(7cm, 2.5cm)
+    %         \centering
+    %         \movie[poster, showcontrols, height=5.65cm, width=8cm]{}{imgs/global_opt.mp4}
+    %     \end{textblock*}
+    % }
+    % \only<5>{
+    %     \begin{textblock*}{6cm}(6.8cm,3cm)
+    %         \includegraphics[height=4cm]{imgs/prodmp_ineff_40.pdf}
+    %     \end{textblock*}
+    % }
 \end{frame}
 
 \section{Section 2}
 \subsection{Subsection 2.1}
 \begin{frame}{}
     \centering
-    \textbf{\Fontbig{Reinforcement Learning}}
+    \textbf{\Fontbig{Reinforcement Learning \& MDP}}
 \end{frame}
 
-\begin{frame}[label=trpl]{Trust Region Projection Layers (TRPL)}
+\begin{frame}{Analysis of MDP}
     \begin{itemize}
-        \item Policy gradient\\
-        \hspace{2mm}$\pi_{\V{\theta}}(\V{a}\vert\V{s})=\mathcal{N}(\V{a}\vert\mu_{\V{\theta}}(\V{s}), \Sigma_{\V{\theta}}(\V{s}))$\\
-        \pause
-        \hspace{2mm}$\rightarrow\nabla_{\V{\theta}}G(\V{\theta}), \;\; \V{\theta} \leftarrow \V{\theta} + \alpha \nabla_{\V{\theta}}G(\V{\theta})$\\
-        \pause
-        \item Gradient\\
-            \hspace{2mm}$\nabla_{\V{\theta}}G(\V{\theta})=\textcolor<5->{myred}{\nabla_{\V{\theta}}} \textcolor<5->{myblue}{\int} \textcolor<5->{myred}{p_{\V{\theta}}(\tau)} \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})\textcolor<5->{myblue}{d\V{\tau}}$
+        \item RL baselines\\
+            - TRPL [\cite{otto_differentiable_2020}]\\
+            - PPO  [\cite{schulman2017ppo}]\\
+            - SAC [\cite{haarnojaZAL18}]\\
             \pause
-            \pause
-            \pause
-            \vspace{9mm}
-        \item Trust regions\\
-            \hspace{2mm}$\M{\theta}^\star= \argmax_{\M{\theta}}G(\pi_{\M{\theta}},\pi_{\M{\theta}_{old}}), \quad\text{s.t.}\quad D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta,\quad \forall \V{s}\in\mathcal{S}$
-            \pause
-        \item Projection layer\\
-            \hspace{2mm}$\argmin\limits_{\tilde{\mu}} \T{(\mu-\tilde{\mu})}\Sigma_{old}^{-1}(\mu-\tilde{\mu}),\; \text{s.t.}\;\T{(\mu_{old}-\tilde{\mu})}\Sigma_{old}^{-1}(\mu_{old}-\tilde{\mu})\leq\delta_\mu$
-            \vspace{2mm}
-            \hspace{40mm}$\rightarrow \tilde\mu=\dots, \quad\tilde\Sigma=\dots $
-    \end{itemize}
-    \only<1->{
-        \begin{textblock*}{12cm}(7.5cm,1.2cm)
-            \centering
-            \resizebox{6.2cm}{!}{\input{schema/fcn.tex}}
-        \end{textblock*}
-    }
-    \only<4->{
-        \begin{textblock*}{12cm}(5.35cm,2.96cm)
-            {\Fontssmaller$\mathcal{P}(\V{s}_0)\prod_t \pi_{\V{\theta}}(\V{a}_t\vert\V{s}_t)\mathcal{P}(\V{s}_{t+1}\vert\V{s}_t, \V{a}_t)$}
-        \end{textblock*}
-    }
-    \only<4->{
-        \begin{textblock*}{12cm}(4.82cm,3.12cm)
-            \begin{tikzpicture}
-                \draw[->, thick] (0, 0) -- (0.5, 0.35);
-            \end{tikzpicture}
-        \end{textblock*}
-    }
-    \only<5->{
-        \begin{textblock*}{12cm}(3cm,4.35cm)
-            {\Fontsmaller$\approx \textcolor<4->{myblue}{\dfrac{1}{K} \sum\limits_i^K} \left(\textcolor<4->{myred}{\sum\limits_t\nabla_{\V{\theta}}\log\pi_{\V{\theta}}(\V{a}_{i,t}\vert \V{s}_{i,t})}\right)  \left(\sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{i,t},\V{a}_{i,t})\right)$}
-        \end{textblock*}
-    }
-    \only<6->{
-        \begin{textblock*}{12cm}(8.3cm,5.2cm)
-            \centering
-            \resizebox{5.2cm}{!}{\input{schema/trust_region.tex}}
-        \end{textblock*}
-    }
-\end{frame}
-
-\begin{frame}{Reinforcement Learning for Navigation}
-    \begin{itemize}
-        \item Analysis\\
+        \item MDP components\\
             - action\\
             \pause
             - observation\\
             \pause
-            - reward function
+            - reward function\\
             \pause
-        \item Environment\\
-            - constant\\
-            \pause
-            - ORCA\\
-            \pause
-            - One way
+            - dynamics\\
+            \hspace{2mm}constant \& ORCA
     \end{itemize}
-    \only<1>{
+    \only<2>{
         \begin{textblock*}{12cm}(5cm,2.5cm)
             \centering
             \resizebox{6cm}{!}{\input{graphs/navigation.tex}}
         \end{textblock*}
     }
-    \only<2>{
+    \only<3>{
         \begin{textblock*}{12cm}(5cm,2.5cm)
             \centering
             \resizebox{6cm}{!}{\input{graphs/static_obs.tex}}
         \end{textblock*}
     }
-    \only<3>{
+    \only<4>{
         \begin{textblock*}{12cm}(5.2cm,2.2cm)
             \centering
             \resizebox{7cm}{!}{\input{graphs/static_rew.tex}}
         \end{textblock*}
     }
-    \only<4>{
-        \begin{textblock*}{12cm}(7cm,3.5cm)
-            \includegraphics[height=4cm]{imgs/env.png}
-        \end{textblock*}
-    }
     \only<5>{
-        \begin{textblock*}{12cm}(8cm,2.5cm)
-            \includegraphics[height=6cm]{imgs/env_orca.png}
+        \begin{textblock*}{6cm}(8cm,1cm)
+            \includegraphics[width=6cm]{imgs/env.png}
+        \end{textblock*}
+        \begin{textblock*}{4.6cm}(8.7cm,3.8cm)
+            \includegraphics[width=4.6cm]{imgs/env_orca.png}
         \end{textblock*}
     }
-    \only<6>{
-        \begin{textblock*}{12cm}(7cm,2.5cm)
-            \includegraphics[height=5.6cm]{imgs/env_oneway.png}
-        \end{textblock*}
-    }
+    % \only<6>{
+    %     \begin{textblock*}{12cm}(7cm,2.5cm)
+    %         \includegraphics[height=5.6cm]{imgs/env_oneway.png}
+    %     \end{textblock*}
+    % }
 \end{frame}
 
 
@@ -969,10 +913,10 @@
     }
 \end{frame}
 
-\begin{frame}[label=uncert]{Uncertainty (ORCA)}
+\begin{frame}[label=uncert]{Uncertainty}
     \begin{itemize}
         \item Future position\\
-            - $\dot{\V{p}}_k=[0, v_{max}] \;\; \forall k$\\
+            - $\dot{\V{p}}_{k,c_j}=[0, v_{max}] \;\; \forall k$\\
             \pause
             \pause
             \pause
@@ -1208,7 +1152,7 @@
             \hspace{4mm} $\rightarrow$ stopping at $<N-1$ is not possible
             \pause
         \item Set a long $N$\\
-            - increase braking distance 
+            - increase braking distance
     \end{itemize}
     \only<2-5>{
         \begin{textblock*}{6cm}(10.8cm,1.2cm)
@@ -1340,6 +1284,58 @@
 \end{frame}
 
 \subsection{Subsection 4.2}
+\begin{frame}[label=trpl]{Trust Region Projection Layers (TRPL)}
+    \begin{itemize}
+        \item Policy gradient\\
+        \hspace{2mm}$\pi_{\V{\theta}}(\V{a}\vert\V{s})=\mathcal{N}(\V{a}\vert\mu_{\V{\theta}}(\V{s}), \Sigma_{\V{\theta}}(\V{s}))$\\
+        \pause
+        \hspace{2mm}$\rightarrow\nabla_{\V{\theta}}G(\V{\theta}), \;\; \V{\theta} \leftarrow \V{\theta} + \alpha \nabla_{\V{\theta}}G(\V{\theta})$\\
+        \pause
+        \item Gradient\\
+            \hspace{2mm}$\nabla_{\V{\theta}}G(\V{\theta})=\textcolor<5->{myred}{\nabla_{\V{\theta}}} \textcolor<5->{myblue}{\int} \textcolor<5->{myred}{p_{\V{\theta}}(\tau)} \sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{t},\V{a}_{t})\textcolor<5->{myblue}{d\V{\tau}}$
+            \pause
+            \pause
+            \pause
+            \vspace{9mm}
+        \item Trust regions\\
+            \hspace{2mm}$\M{\theta}^\star= \argmax_{\M{\theta}}G(\pi_{\M{\theta}},\pi_{\M{\theta}_{old}}), \quad\text{s.t.}\quad D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta,\quad \forall \V{s}\in\mathcal{S}$
+            \pause
+        \item Projection layer\\
+            \hspace{2mm}$\argmin\limits_{\tilde{\mu}} \T{(\mu-\tilde{\mu})}\Sigma_{old}^{-1}(\mu-\tilde{\mu}),\; \text{s.t.}\;\T{(\mu_{old}-\tilde{\mu})}\Sigma_{old}^{-1}(\mu_{old}-\tilde{\mu})\leq\delta_\mu$
+            \vspace{2mm}
+            \hspace{40mm}$\rightarrow \tilde\mu=\dots, \quad\tilde\Sigma=\dots $
+    \end{itemize}
+    \only<1->{
+        \begin{textblock*}{12cm}(7.5cm,1.2cm)
+            \centering
+            \resizebox{6.2cm}{!}{\input{schema/fcn.tex}}
+        \end{textblock*}
+    }
+    \only<4->{
+        \begin{textblock*}{12cm}(5.35cm,2.96cm)
+            {\Fontssmaller$\mathcal{P}(\V{s}_0)\prod_t \pi_{\V{\theta}}(\V{a}_t\vert\V{s}_t)\mathcal{P}(\V{s}_{t+1}\vert\V{s}_t, \V{a}_t)$}
+        \end{textblock*}
+    }
+    \only<4->{
+        \begin{textblock*}{12cm}(4.82cm,3.12cm)
+            \begin{tikzpicture}
+                \draw[->, thick] (0, 0) -- (0.5, 0.35);
+            \end{tikzpicture}
+        \end{textblock*}
+    }
+    \only<5->{
+        \begin{textblock*}{12cm}(3cm,4.35cm)
+            {\Fontsmaller$\approx \textcolor<4->{myblue}{\dfrac{1}{K} \sum\limits_i^K} \left(\textcolor<4->{myred}{\sum\limits_t\nabla_{\V{\theta}}\log\pi_{\V{\theta}}(\V{a}_{i,t}\vert \V{s}_{i,t})}\right)  \left(\sum\limits_{t} \gamma^t  \mathcal{R}(\V{s}_{i,t},\V{a}_{i,t})\right)$}
+        \end{textblock*}
+    }
+    \only<6->{
+        \begin{textblock*}{12cm}(8.3cm,5.2cm)
+            \centering
+            \resizebox{5.2cm}{!}{\input{schema/trust_region.tex}}
+        \end{textblock*}
+    }
+\end{frame}
+
 \begin{frame}[label=learn_hybrid]{Learning ProDMP MPC}
     \begin{itemize}
         \item TRPL + ProDMP [\cite{otto_deep_2023}]\\
