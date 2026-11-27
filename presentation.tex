@@ -1300,7 +1300,7 @@
             \hspace{2mm}$\M{\theta}^\star= \argmax_{\M{\theta}}G(\M{\theta},\M{\theta}_{old}), \quad\text{s.t.}\quad D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta,\quad \forall \V{s}\in\mathcal{S}$
             \pause
         \item Projection layer [\cite{otto_differentiable_2020}]\\
-            \hspace{20mm}$\mu \xrightarrow{D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta_{\mu}} \tilde{\mu} \quad \Sigma \xrightarrow{D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta__{\Sigma}} \tilde{\Sigma}$
+            \vspace{5mm}\hspace{20mm}$\mu \xrightarrow{D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta_{\mu}} \tilde{\mu} \quad\;\; \Sigma \xrightarrow{D(\pi_{\M{\theta}_{old}}, \pi_{\M{\theta}}) < \delta_{\Sigma}} \tilde{\Sigma}$
     \end{itemize}
     \only<1->{
         \begin{textblock*}{12cm}(7.5cm,1.2cm)
@@ -1326,7 +1326,7 @@
             \pause
             - ProDMP parameters
             \pause
-        \item Intrinsic Reward\\
+        \item Intrinsic reward\\
             - $r_i=-C_i\sum\limits_{k=1}^{r}\left\vert\left\vert P_k - P_k^{ref}\right\vert\right\vert$
             \pause
             \pause
